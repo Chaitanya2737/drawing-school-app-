@@ -1,0 +1,7 @@
+model Package {
+  id       String  @id @default(uuid())
+  name     String
+  price    Decimal
+  duration Int
+  isActive Boolean @default(true)
+}

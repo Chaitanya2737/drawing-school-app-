@@ -1,0 +1,9 @@
+model SetupChecklist {
+    id String @id @default(uuid())
+    schoolSetup      Boolean @default(false)
+    instructorSetup  Boolean @default(false)
+    carSetup         Boolean @default(false)
+    packageSetup     Boolean @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

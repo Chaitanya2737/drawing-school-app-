@@ -1,0 +1,10 @@
+model SchoolSetUp {
+  id             String   @id @default(uuid())
+  systemId       String?
+  school_name    String
+  support_Email  String
+  address        String
+  contact_Number String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

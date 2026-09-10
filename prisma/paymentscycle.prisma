@@ -1,0 +1,30 @@
+model PaymentCycle {
+  id String @id @default(uuid())
+
+  instructorId String
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+
+  month         DateTime
+  amountTaken   Int            @default(0)
+  // Payment
+  baseAmount    Int
+  deductions    Int
+  bonus         Int
+  netAmount     Int
+  paidAt        DateTime
+  note          String
+  status        PaymentStatus  @default(PENDING)
+  paymentsTaken PaymentTaken[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([instructorId, month])
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIALLY_PAID
+  PAID
+  CANCELLED
+}

@@ -1,0 +1,7 @@
+model Schedule {
+  id            String @id @default(uuid())
+  student_id    String
+  Batch_time    String
+  Duration_time String
+  Car_id        String
+}

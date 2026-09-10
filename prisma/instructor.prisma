@@ -1,0 +1,20 @@
+model Instructor {
+  id     String @id @default(uuid())
+  name   String
+  mobile String
+
+  licenseNumber String?
+  jobType       JobType   @default(INSTRUCTOR)
+  joiningDate   DateTime?
+  isActive      Boolean   @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  paymentCycles PaymentCycle[]
+}
+
+enum JobType {
+  INSTRUCTOR
+  RECEPTION
+}

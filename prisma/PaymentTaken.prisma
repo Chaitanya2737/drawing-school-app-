@@ -1,0 +1,10 @@
+model PaymentTaken {
+  id String @id @default(uuid())
+
+  paymentCycleId String
+  paymentCycle   PaymentCycle @relation(fields: [paymentCycleId], references: [id])
+
+  amount  Int
+  takenAt DateTime @default(now())
+  note    String
+}

@@ -1,0 +1,37 @@
+model Student {
+    id        String  @id @default(uuid())
+    name      String
+    mobile    String
+    email     String
+
+    packageId String?
+    package_name String?
+    Enrollment_status Enrollment_status @default(CHOSEN)
+    Course_Start_date DateTime?
+    Course_End_Date DateTime?
+
+    Assigned_Instructor String?
+
+    Total_amount Int
+    Amount_paid  Int
+    Remaining_percentage  Int
+    remaining_amount Int
+
+    //Whatsapp automation 
+
+    Thank_you_msg String
+    Welcome_msg String
+    Remainder_msg String
+    Balance_remaining_date DateTime?
+
+    Assigned_car_id String
+
+    // Timestamp
+     createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+}
+
+enum Enrollment_status {
+   ENQUIRY
+   CHOSEN
+}

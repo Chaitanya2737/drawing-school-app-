@@ -10,7 +10,8 @@ async function getGoogleHolidays() {
   if (cachedHolidays.length > 0 && (Date.now() - lastFetchTime) < CACHE_DURATION) {
     return cachedHolidays;
   }
-
+  
+ 
   try {
     // Official Google Calendar Public feed for Indian Holidays
     const url = "https://calendar.google.com/calendar/ical/en.indian%23holiday%40group.v.calendar.google.com/public/basic.ics";

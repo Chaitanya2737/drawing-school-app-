@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -23,24 +24,274 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../component/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../../components/ui/alert-dialog";
+import { Button } from "../../components/ui/button";
+import { Calendar } from "../../components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { fetchApi } from "@/lib/api";
+import { toast } from "sonner";
+import { StudentProfile } from "./StudentProfile";
 
 export function StudentsTab() {
-  const students = [
-    { name: "John Doe", email: "john@example.com", phone: "+1 (555) 019-2834", package: "10-Hour Beginner", lesson: "Oct 24, 10:00 AM", progress: 60, status: "Active", initial: "JD", color: "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300" },
-    { name: "Sarah Smith", email: "sarah@example.com", phone: "+1 (555) 034-5982", package: "Road Test Prep", lesson: "Completed", progress: 100, status: "Completed", initial: "SS", color: "bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-300" },
-    { name: "Mike Johnson", email: "mike@example.com", phone: "+1 (555) 081-2244", package: "Refresher Course", lesson: "Oct 25, 2:30 PM", progress: 20, status: "Active", initial: "MJ", color: "bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300" },
-    { name: "Emma Davis", email: "emma@example.com", phone: "+1 (555) 099-1122", package: "10-Hour Beginner", lesson: "Not scheduled", progress: 0, status: "Pending", initial: "ED", color: "bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300" },
-    { name: "Alex Chen", email: "alex.c@example.com", phone: "+1 (555) 774-9988", package: "Defensive Driving", lesson: "Oct 26, 9:00 AM", progress: 40, status: "Active", initial: "AC", color: "bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-300" },
+  // Step State
+  const [step, setStep] = useState(1);
+  const totalSteps = 3;
+
+  // Dialog Open/Close State
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [alertInfo, setAlertInfo] = useState({
+    open: false,
+    title: "",
+    message: "",
+  });
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    package_name: "", // removed default value to force selection
+    packageId: "",
+    Assigned_Instructor: "",
+    instructorId: "",
+    Assigned_car_name: "",
+    Assigned_car_id: "",
+    Total_amount: "",
+    Amount_paid: "",
+    Enrollment_status: "Pending",
+    startDate: "",
+    batch_time: "",
+  });
+
+  // Updated state to handle data and pagination structure
+  const [student, setStudent] = useState({
+    data: [],
+    pagination: {
+      currentPage: 1,
+      limit: 10,
+      totalStudents: 0,
+      totalPages: 1,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
+  });
+
+  const nextStep = () => {
+    // Validation
+    if (step === 1) {
+      if (!formData.name || !formData.mobile) {
+        setAlertInfo({
+          open: true,
+          title: "Missing Details",
+          message: "Please fill all details (Name, Mobile).",
+        });
+        return;
+      }
+    } else if (step === 2) {
+      if (
+        !formData.package_name ||
+        !formData.Assigned_Instructor ||
+        !formData.Assigned_car_name
+      ) {
+        setAlertInfo({
+          open: true,
+          title: "Missing Selection",
+          message: "Please select Package, Instructor, and Car.",
+        });
+        return;
+      }
+    }
+    setStep((prev) => Math.min(prev + 1, totalSteps));
+  };
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+  // Handle Dialog open/close & reset steps on close
+  const handleOpenChange = (open) => {
+    setIsOpen(open);
+    if (!open) {
+      setTimeout(() => setStep(1), 300); // slight delay to allow closing animation
+    }
+  };
+
+  // Generic handler for standard text/number inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handler for basic Shadcn Select components (like Enrollment Status)
+  const handleSelectChange = (name, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const [supportData, setSupportData] = useState({
+    packages: [],
+    instructors: [],
+    cars: [],
+  });
+
+  // Fetch Support Data on component mount
+  useEffect(() => {
+    const loadSupportData = async () => {
+      try {
+        const res = await fetchApi("/support-data");
+        const resData = await res.json();
+
+        if (res.status === 200 || resData?.status === 200) {
+          setSupportData({
+            packages: resData?.data?.existingPackage || [],
+            instructors: resData?.data?.existingInstructor || [],
+            cars: resData?.data?.existCar || [],
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch support data:", error);
+      }
+    };
+
+    if (isOpen) {
+      loadSupportData();
+    }
+  }, [isOpen]);
+
+  // Handle final submission
+  const handleSaveStudent = async () => {
+    try {
+      const res = await fetchApi("/create-student", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        toast.error(res.message || "Failed to create student");
+        return;
+      }
+      toast.success(res.message || "Student created successfully");
+      // Close dialog and reset form
+      handleOpenChange(false);
+      setFormData({
+        name: "",
+        mobile: "",
+        package_name: "",
+        packageId: "",
+        Assigned_Instructor: "",
+        instructorId: "",
+        Assigned_car_name: "",
+        Assigned_car_id: "",
+        Total_amount: "",
+        Amount_paid: "",
+        Enrollment_status: "Pending",
+        startDate: "",
+        batch_time: "",
+      });
+      // Refresh the table after adding a new student
+      fetchStudentData();
+    } catch (error) {
+      console.error("Failed to save student:", error);
+    }
+  };
+
+  const fetchStudentData = async () => {
+    try {
+      const res = await fetchApi("/get-student-data");
+      const data = await res.json();
+      console.log("Fetched API Data:", data);
+
+      // Map API response to component state
+      if (data && data.status) {
+        setStudent({
+          data: data.data || [],
+          pagination: data.pagination || {},
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudentData();
+  }, []);
+
+  // Helpers for dynamic styling
+  const avatarColors = [
+    "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300",
+    "bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-300",
+    "bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300",
+    "bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300",
+    "bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-300",
   ];
+
+  const getStatusColor = (status) => {
+    const s = status?.toUpperCase() || "";
+    if (s === "ACTIVE" || s === "CHOSEN")
+      return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/50";
+    if (s === "COMPLETED")
+      return "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/50";
+    return "bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800/50";
+  };
+
+  const getInitials = (name) => {
+    if (!name) return "UN";
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .substring(0, 2);
+  };
+
+  // Pagination calculation
+  const {
+    currentPage = 1,
+    limit = 10,
+    totalStudents = 0,
+  } = student.pagination || {};
+  const startRecord = totalStudents === 0 ? 0 : (currentPage - 1) * limit + 1;
+  const endRecord = Math.min(currentPage * limit, totalStudents);
+
+  if (selectedStudent) {
+    return (
+      <StudentProfile 
+        student={selectedStudent} 
+        onBack={() => setSelectedStudent(null)} 
+        onUpdate={(updatedStudent) => {
+          setSelectedStudent(updatedStudent);
+          setStudent(prev => ({
+            ...prev,
+            data: prev.data.map(s => s.id === updatedStudent.id ? updatedStudent : s)
+          }));
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-[#1e222d] p-4 rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm transition-colors duration-300">
         <div className="flex items-center space-x-4 w-full sm:w-auto">
-          <input 
-            type="text" 
-            placeholder="Search students..." 
+          <input
+            type="text"
+            placeholder="Search students..."
             className="w-full sm:w-64 bg-gray-50 dark:bg-[#171a22] border border-gray-300 dark:border-[#3a3d45] rounded-lg px-4 py-2 text-gray-900 dark:text-[#f2e9de] placeholder-gray-400 dark:placeholder-[#5a5f6e] focus:outline-none focus:border-[#c1552c] focus:ring-1 focus:ring-[#c1552c] transition-colors"
           />
           <div className="w-40 hidden sm:block">
@@ -53,193 +304,520 @@ export function StudentsTab() {
                 <SelectItem value="Active">Active</SelectItem>
                 <SelectItem value="Completed">Completed</SelectItem>
                 <SelectItem value="Pending">Pending</SelectItem>
+                <SelectItem value="Chosen">Chosen</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
-        
-        <Dialog>
-          <DialogTrigger>
+
+        <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+          <DialogTrigger asChild>
             <button className="bg-[#c1552c] hover:bg-[#a64724] text-white font-medium rounded-lg px-5 py-2 transition-colors duration-200 shadow-md shadow-[#c1552c]/20 flex items-center space-x-2">
               <span>+ Add Student</span>
             </button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-w-2xl transition-all duration-300">
             <DialogHeader>
               <DialogTitle>Add New Student</DialogTitle>
               <DialogDescription>
-                Register a new student for driving lessons. Fill in the required details below.
+                Step {step} of {totalSteps}:{" "}
+                {step === 1
+                  ? "Personal Details"
+                  : step === 2
+                    ? "Assignment Details"
+                    : "Payment & Status"}
               </DialogDescription>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <label htmlFor="name" className="text-right text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
-                  Full Name
-                </label>
-                <input id="name" placeholder="E.g. Jane Doe" className="col-span-3 flex h-10 w-full rounded-md border border-gray-300 dark:border-[#3a3d45] bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-[#f2e9de] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c1552c]" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <label htmlFor="mobile" className="text-right text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
-                  Mobile
-                </label>
-                <input id="mobile" placeholder="E.g. +1 555-0000" className="col-span-3 flex h-10 w-full rounded-md border border-gray-300 dark:border-[#3a3d45] bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-[#f2e9de] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c1552c]" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4 relative z-20">
-                <label className="text-right text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
-                  Package
-                </label>
-                <div className="col-span-3">
-                  <Select defaultValue="10-Hour Beginner">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a package" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10-Hour Beginner">10-Hour Beginner</SelectItem>
-                      <SelectItem value="Road Test Prep">Road Test Prep</SelectItem>
-                      <SelectItem value="Defensive Driving">Defensive Driving</SelectItem>
-                      <SelectItem value="Refresher Course">Refresher Course</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4 relative z-10">
-                <label className="text-right text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
-                  Batch Time
-                </label>
-                <div className="col-span-3">
-                  <Select defaultValue="Morning">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select batch time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Morning">Morning (8:00 AM - 12:00 PM)</SelectItem>
-                      <SelectItem value="Afternoon">Afternoon (1:00 PM - 5:00 PM)</SelectItem>
-                      <SelectItem value="Evening">Evening (6:00 PM - 9:00 PM)</SelectItem>
-                      <SelectItem value="Weekend">Weekend Only</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+
+            {/* Stepper Progress Bar */}
+            <div className="w-full bg-gray-200 dark:bg-[#3a3d45] rounded-full h-1.5 mt-2 mb-4">
+              <div
+                className="bg-[#c1552c] h-1.5 rounded-full transition-all duration-300 ease-in-out"
+                style={{ width: `${(step / totalSteps) * 100}%` }}
+              ></div>
             </div>
-            <DialogFooter>
-              <DialogTrigger>
-                <button className="px-4 py-2 border border-gray-300 dark:border-[#3a3d45] text-gray-700 dark:text-[#cfd3da] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2c3242] transition-colors text-sm font-medium mr-2">
-                  Cancel
-                </button>
-              </DialogTrigger>
-              <button className="px-4 py-2 bg-[#c1552c] text-white rounded-lg hover:bg-[#a64724] transition-colors shadow-sm shadow-[#c1552c]/20 text-sm font-medium">
-                Register Student
-              </button>
+
+            {/* Form Steps */}
+            <div className="min-h-[220px] py-2 relative">
+              {/* STEP 1: Personal Information */}
+              {step === 1 && (
+                <div className="space-y-4 animate-in slide-in-from-right-4 fade-in duration-300">
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="name"
+                      className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      placeholder="E.g. Jane Doe"
+                      onChange={handleChange}
+                      value={formData.name}
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-[#3a3d45] bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-[#f2e9de] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c1552c]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="mobile"
+                      className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]"
+                    >
+                      Mobile Number
+                    </label>
+                    <input
+                      id="mobile"
+                      name="mobile"
+                      placeholder="+91 9876543210"
+                      onChange={handleChange}
+                      value={formData.mobile}
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-[#3a3d45] bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-[#f2e9de] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c1552c]"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 2: Package & Assignments */}
+              {step === 2 && (
+                <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-right-4 fade-in duration-300">
+                  <div className="space-y-2 col-span-2 relative z-30">
+                    <label className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                      Select Package
+                    </label>
+                    <Select
+                      value={formData.package_name}
+                      onValueChange={(val) => {
+                        const selectedPackage = supportData.packages.find(
+                          (p) => p.name === val,
+                        );
+
+                        setFormData((prev) => ({
+                          ...prev,
+                          package_name: val,
+                          packageId: selectedPackage ? selectedPackage.id : "",
+                          Total_amount: selectedPackage
+                            ? selectedPackage.price
+                            : "",
+                        }));
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choose a package..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {supportData.packages.map((pkg) => (
+                          <SelectItem key={pkg.id} value={pkg.name}>
+                            {pkg.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2 col-span-2 sm:col-span-1 relative z-20">
+                    <label className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                      Assigned Instructor
+                    </label>
+                    <Select
+                      value={formData.Assigned_Instructor}
+                      onValueChange={(val) => {
+                        const selectedInstructor = supportData.instructors.find(
+                          (i) => i.name === val,
+                        );
+                        setFormData((prev) => ({
+                          ...prev,
+                          Assigned_Instructor: val,
+                          instructorId: selectedInstructor
+                            ? selectedInstructor.id
+                            : "",
+                        }));
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Instructor" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {supportData.instructors.map((instructor) => (
+                          <SelectItem
+                            key={instructor.id}
+                            value={instructor.name}
+                          >
+                            {instructor.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2 col-span-2 sm:col-span-1 relative z-10">
+                    <label className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                      Assigned Car
+                    </label>
+                    <Select
+                      value={formData.Assigned_car_name}
+                      onValueChange={(val) => {
+                        const selectedCar = supportData.cars.find(
+                          (c) => (c.model || c.name) === val,
+                        );
+                        setFormData((prev) => ({
+                          ...prev,
+                          Assigned_car_name: val,
+                          Assigned_car_id: selectedCar ? selectedCar.id : "",
+                        }));
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Car" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {supportData.cars.map((car) => {
+                          const carName = car.model || car.name;
+                          return (
+                            <SelectItem key={car.id} value={carName}>
+                              {carName}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3: Payment & Status */}
+              {step === 3 && (
+                <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-right-4 fade-in duration-300">
+                  <div className="space-y-2 col-span-2 sm:col-span-1">
+                    <label
+                      htmlFor="Total_amount"
+                      className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]"
+                    >
+                      Total Amount (₹)
+                    </label>
+                    <input
+                      id="Total_amount"
+                      name="Total_amount"
+                      type="number"
+                      placeholder="0.00"
+                      value={formData.Total_amount}
+                      disabled
+                      readOnly
+                      className="flex h-10 w-full rounded-md border border-gray-200 dark:border-[#3a3d45] bg-gray-50 dark:bg-[#171a22] px-3 py-2 text-sm text-gray-500 dark:text-[#8a8d96] cursor-not-allowed focus:outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2 col-span-2 sm:col-span-1">
+                    <label
+                      htmlFor="Amount_paid"
+                      className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]"
+                    >
+                      Amount Paid (₹)
+                    </label>
+                    <input
+                      id="Amount_paid"
+                      name="Amount_paid"
+                      type="number"
+                      placeholder="0.00"
+                      onChange={handleChange}
+                      value={formData.Amount_paid}
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-[#3a3d45] bg-transparent px-3 py-2 text-sm text-gray-900 dark:text-[#f2e9de] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c1552c]"
+                    />
+                  </div>
+
+                  <div className="space-y-2 col-span-2 sm:col-span-1">
+                    <label
+                      htmlFor="startDate"
+                      className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]"
+                    >
+                      Course Starting Date
+                    </label>
+                    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={`w-full justify-start text-left font-normal border-gray-300 dark:border-[#3a3d45] bg-transparent text-gray-900 dark:text-[#f2e9de] hover:bg-gray-50 dark:hover:bg-[#2c3242] focus:ring-2 focus:ring-[#c1552c] ${!formData.startDate && "text-gray-400 dark:text-gray-500"}`}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {formData.startDate ? format(new Date(formData.startDate), "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={formData.startDate ? new Date(formData.startDate) : undefined}
+                          onSelect={(date) => {
+                            handleChange({ target: { name: 'startDate', value: date ? format(date, 'yyyy-MM-dd') : '' } });
+                            setIsCalendarOpen(false);
+                          }}
+                          disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="space-y-2 col-span-2 sm:col-span-1 relative z-30">
+                    <label className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                      Batch Time
+                    </label>
+                    <Select
+                      value={formData.batch_time}
+                      onValueChange={(val) =>
+                        handleSelectChange("batch_time", val)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select batch time" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          "09:00 AM - 10:00 AM",
+                          "10:00 AM - 11:00 AM",
+                          "11:00 AM - 12:00 PM",
+                          "12:00 PM - 01:00 PM",
+                          "01:00 PM - 02:00 PM",
+                          "02:00 PM - 03:00 PM",
+                          "03:00 PM - 04:00 PM",
+                          "04:00 PM - 05:00 PM",
+                          "05:00 PM - 06:00 PM",
+                          "06:00 PM - 07:00 PM",
+                          "07:00 PM - 08:00 PM",
+                          "08:00 PM - 09:00 PM",
+                        ].map((timeSlot) => (
+                          <SelectItem key={timeSlot} value={timeSlot}>
+                            {timeSlot}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <DialogFooter className="flex justify-between items-center sm:justify-between pt-4 mt-2 border-t border-gray-100 dark:border-[#2c3242]">
+              <div>
+                {step > 1 ? (
+                  <button
+                    onClick={prevStep}
+                    className="px-4 py-2 border border-gray-300 dark:border-[#3a3d45] text-gray-700 dark:text-[#cfd3da] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2c3242] transition-colors text-sm font-medium"
+                  >
+                    Back
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleOpenChange(false)}
+                    className="px-4 py-2 border border-gray-300 dark:border-[#3a3d45] text-gray-700 dark:text-[#cfd3da] rounded-lg hover:bg-gray-50 dark:hover:bg-[#2c3242] transition-colors text-sm font-medium"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+
+              <div>
+                {step < totalSteps ? (
+                  <button
+                    onClick={nextStep}
+                    className="px-6 py-2 bg-[#1e222d] dark:bg-gray-700 text-white rounded-lg hover:bg-black dark:hover:bg-gray-600 transition-colors text-sm font-medium"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSaveStudent}
+                    className="px-6 py-2 bg-[#c1552c] text-white rounded-lg hover:bg-[#a64724] transition-colors shadow-sm shadow-[#c1552c]/20 text-sm font-medium"
+                  >
+                    Save Student
+                  </button>
+                )}
+              </div>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
-      {/* Shadcn Advanced Students Table */}
+      {/* API Data Mapped Table */}
       <div className="bg-white dark:bg-[#1e222d] rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm overflow-hidden transition-colors duration-300">
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50/50 dark:bg-[#171a22]/50 hover:bg-gray-50/50 dark:hover:bg-[#171a22]/50">
-             
-              <TableHead className="cursor-pointer hover:text-gray-900 dark:hover:text-[#cfd3da]">
-                <div className="flex items-center space-x-1">
-                  <span>Student Name</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                </div>
-              </TableHead>
-              <TableHead>Contact</TableHead>
-              <TableHead>Enrolled Package</TableHead>
-              <TableHead className="cursor-pointer hover:text-gray-900 dark:hover:text-[#cfd3da]">
-                <div className="flex items-center space-x-1">
-                  <span>Upcoming Lesson</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                </div>
-              </TableHead>
-              <TableHead>Progress</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right"></TableHead>
+              <TableHead>Student Name</TableHead>
+              <TableHead>Contact (Mobile)</TableHead>
+              <TableHead>Package Info</TableHead>
+              <TableHead>Instructor & Car</TableHead>
+              <TableHead>Fees / Payments</TableHead>
+              <TableHead>Enrollment Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {students.map((student, i) => (
-              <TableRow key={i} className="group cursor-pointer">
-                <TableCell>
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-sm ${student.color}`}>
-                      {student.initial}
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900 dark:text-[#f2e9de] group-hover:text-[#c1552c] transition-colors">{student.name}</div>
-                      <div className="text-xs text-gray-500 dark:text-[#8a8d96]">{student.email}</div>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm text-gray-700 dark:text-[#cfd3da]">{student.phone}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm font-medium text-gray-700 dark:text-[#cfd3da] bg-gray-100 dark:bg-[#232734] px-2.5 py-1 rounded-md inline-block">
-                    {student.package}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className={`text-sm ${student.lesson === 'Completed' || student.lesson === 'Not scheduled' ? 'text-gray-400 dark:text-[#5a5f6e] italic' : 'text-gray-700 dark:text-[#cfd3da] font-medium'}`}>
-                    {student.lesson}
-                  </div>
-                </TableCell>
-                <TableCell className="w-56">
-                  <div className="flex items-center space-x-3 w-full">
-                    <div className="relative w-full py-2">
-                      {/* The progress track */}
-                      <div className="w-full bg-gray-200 dark:bg-[#2c3242] rounded-full h-1.5">
-                        <div 
-                          className={`h-1.5 rounded-full ${student.progress === 100 ? 'bg-green-500' : 'bg-[#c1552c]'}`} 
-                          style={{ width: `${student.progress}%` }}
-                        ></div>
-                      </div>
-                      {/* The moving car */}
-                      <div 
-                        className="absolute top-1/2 -translate-y-1/2 -ml-3 transition-all duration-1000 ease-in-out drop-shadow-md" 
-                        style={{ left: `${student.progress}%` }}
+            {student.data.length > 0 ? (
+              student.data.map((item, i) => (
+                <TableRow key={item.id || i} className="group cursor-pointer hover:bg-gray-50/50 dark:hover:bg-[#252a38]/50" onClick={() => setSelectedStudent(item)}>
+                  {/* Name & Dynamic Initial/Color */}
+                  <TableCell>
+                    <div className="flex items-center space-x-3">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-sm ${avatarColors[i % avatarColors.length]}`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="currentColor" className="text-gray-400">
-                          <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2a3 3 0 1 0 6 0h2a3 3 0 1 0 6 0zm-8-7H5.6L6.5 8h4.5v2zm4 0v-2h1.5c.3 0 .7.2.9.5l1.6 1.5H15z" />
-                          <circle cx="7" cy="17" r="2" />
-                          <circle cx="17" cy="17" r="2" />
-                        </svg>
+                        {getInitials(item.name)}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-[#f2e9de] group-hover:text-[#c1552c] transition-colors capitalize">
+                          {item.name}
+                        </div>
                       </div>
                     </div>
-                    <span className="text-xs font-medium text-gray-500 dark:text-[#8a8d96] w-8 shrink-0">{student.progress}%</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${
-                    student.status === 'Active' ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/50' : 
-                    student.status === 'Completed' ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/50' : 
-                    'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800/50'
-                  }`}>
-                    {student.status}
-                  </span>
-                </TableCell>
-                <TableCell className="text-right">
-                  <button className="p-2 text-gray-400 hover:text-[#c1552c] dark:text-[#8a8d96] dark:hover:text-[#c1552c] rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all focus:outline-none">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13a1 1 0 100-2 1 1 0 000 2zm0-5a1 1 0 100-2 1 1 0 000 2zm0 10a1 1 0 100-2 1 1 0 000 2z"></path></svg>
-                  </button>
+                  </TableCell>
+
+                  {/* Mobile */}
+                  <TableCell>
+                    <div className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                      {item.mobile || "N/A"}
+                    </div>
+                  </TableCell>
+
+                  {/* Package ID & Name */}
+                  <TableCell>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-900 dark:text-[#f2e9de]">
+                        {item.package_name || "N/A"}
+                      </span>
+                      {item.packageId && (
+                        <span
+                          className="text-xs text-gray-500 dark:text-[#8a8d96] truncate max-w-[120px]"
+                          title={item.packageId}
+                        >
+                          ID: {item.packageId.substring(0, 8)}...
+                        </span>
+                      )}
+                    </div>
+                  </TableCell>
+
+                  {/* Instructor & Car */}
+                  <TableCell>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-900 dark:text-[#f2e9de] capitalize">
+                        {item.instructor?.name || "Not Assigned"}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-[#8a8d96]">
+                        Car:{" "}
+                        {item.car?.name || item.Assigned_car_id || "Pending"}
+                      </span>
+                    </div>
+                  </TableCell>
+
+                  {/* Fees / Payments */}
+                  <TableCell>
+                    <div className="flex flex-col gap-0.5">
+                      <div className="text-xs text-gray-500 dark:text-[#8a8d96]">
+                        Total:{" "}
+                        <span className="font-medium text-gray-900 dark:text-[#f2e9de]">
+                          ₹{item.Total_amount ?? "0"}
+                        </span>
+                      </div>
+                      <div className="text-sm font-bold text-[#c1552c]">
+                        Paid: ₹
+                        {item.Amount_paid
+                          ? Number(item.Amount_paid).toFixed(2)
+                          : "0.00"}
+                      </div>
+                      {item.remaining_amount !== undefined && (
+                        <div className="text-xs text-gray-500 dark:text-[#8a8d96]">
+                          Due:{" "}
+                          <span className="font-medium text-gray-900 dark:text-[#f2e9de]">
+                            ₹{item.remaining_amount}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </TableCell>
+
+                  {/* Dynamic Enrollment Status */}
+                  <TableCell>
+                    <span
+                      className={`px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${getStatusColor(item.Enrollment_status)}`}
+                    >
+                      {item.Enrollment_status || "Pending"}
+                    </span>
+                  </TableCell>
+
+                  {/* Actions */}
+                  <TableCell className="text-right">
+                    <button className="p-2 text-gray-400 hover:text-[#c1552c] dark:text-[#8a8d96] dark:hover:text-[#c1552c] rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all focus:outline-none">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 13a1 1 0 100-2 1 1 0 000 2zm0-5a1 1 0 100-2 1 1 0 000 2zm0 10a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={7}
+                  className="text-center py-8 text-gray-500 dark:text-gray-400"
+                >
+                  No students found.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
-        
-        {/* Pagination Footer */}
+
+        {/* Dynamic Pagination Footer */}
         <div className="bg-gray-50 dark:bg-[#171a22] px-6 py-4 border-t border-gray-200 dark:border-[#2c3242] flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-500 dark:text-[#8a8d96]">Showing <span className="text-gray-900 dark:text-[#f2e9de]">1</span> to <span className="text-gray-900 dark:text-[#f2e9de]">5</span> of <span className="text-gray-900 dark:text-[#f2e9de]">142</span> students</span>
+          <span className="text-sm font-medium text-gray-500 dark:text-[#8a8d96]">
+            Showing{" "}
+            <span className="text-gray-900 dark:text-[#f2e9de]">
+              {startRecord}
+            </span>{" "}
+            to{" "}
+            <span className="text-gray-900 dark:text-[#f2e9de]">
+              {endRecord}
+            </span>{" "}
+            of{" "}
+            <span className="text-gray-900 dark:text-[#f2e9de]">
+              {totalStudents}
+            </span>{" "}
+            students
+          </span>
           <div className="flex space-x-2">
-            <button className="px-4 py-1.5 border border-gray-300 dark:border-[#3a3d45] rounded-lg text-sm font-medium text-gray-600 dark:text-[#cfd3da] hover:bg-gray-100 dark:hover:bg-[#2c3242] transition-colors disabled:opacity-50" disabled>Previous</button>
-            <button className="px-4 py-1.5 border border-gray-300 dark:border-[#3a3d45] rounded-lg text-sm font-medium text-gray-600 dark:text-[#cfd3da] hover:bg-gray-100 dark:hover:bg-[#2c3242] transition-colors shadow-sm">Next</button>
+            <button
+              className="px-4 py-1.5 border border-gray-300 dark:border-[#3a3d45] rounded-lg text-sm font-medium text-gray-600 dark:text-[#cfd3da] hover:bg-gray-100 dark:hover:bg-[#2c3242] transition-colors disabled:opacity-50"
+              disabled={!student.pagination?.hasPreviousPage}
+            >
+              Previous
+            </button>
+            <button
+              className="px-4 py-1.5 border border-gray-300 dark:border-[#3a3d45] rounded-lg text-sm font-medium text-gray-600 dark:text-[#cfd3da] hover:bg-gray-100 dark:hover:bg-[#2c3242] transition-colors shadow-sm disabled:opacity-50"
+              disabled={!student.pagination?.hasNextPage}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
+
+      <AlertDialog
+        open={alertInfo.open}
+        onOpenChange={(open) => setAlertInfo((prev) => ({ ...prev, open }))}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{alertInfo.title}</AlertDialogTitle>
+            <AlertDialogDescription>{alertInfo.message}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={() => setAlertInfo((prev) => ({ ...prev, open: false }))}
+            >
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

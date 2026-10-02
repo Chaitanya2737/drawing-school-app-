@@ -9,69 +9,161 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Label } from "radix-ui";
-
-
+import { Label } from "@/components/ui/label";
+import School from "./school";
+import Instructor from "./instructor";
+import Car from "./car";
+import Package from "./package";
+import { CarLoaderCompact } from "../../../component/loader/CarLoader";
 
 const Index = () => {
-  const [open, setOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(true);
-  const [checkList, setCheckList] = useState([]);
+  const [checkList, setCheckList] = useState({});
+  const [open, setOpen] = useState(false);
 
+  const getProgress = () => {
+    if (!checkList) return 0;
+    if (!checkList.schoolSetup) return 0;
+    if (!checkList.instructorSetup) return 33;
+    if (!checkList.carSetup) return 66;
+    if (!checkList.packageSetup) return 100;
+    return 100;
+  };
 
-    useEffect(() => {
-      async function checkStatus() {
-        try {
-          const { fetchApi } = await import("../../lib/api");
-          const response = await fetchApi("/api/setup-check");
-          const data = await response.json();
-          setCheckList(data.checklist)
-          setIsCompleted(data.setupComplete)
-        } catch (error) {
-          console.error("Failed to check status:", error);
-        }
+  useEffect(() => {
+    async function checkStatus() {
+      // 1. Check local storage first to avoid unnecessary API calls
+      const localSetupStatus = localStorage.getItem("isSetupCompleted");
+      if (localSetupStatus === "true") {
+        setIsCompleted(true);
+        setOpen(false);
+        return;
       }
-      checkStatus();
-    }, []);
 
-    console.log(isCompleted , checkList)
+      // 2. If not complete in local storage, fetch from API
+      try {
+        const { fetchApi } = await import("../../lib/api");
+        const response = await fetchApi("/setup-check");
+        const data = await response.json();
+
+        const checklist = data.checklist || {};
+
+        setCheckList(checklist);
+        setIsCompleted(data.setupComplete);
+
+        // Verify that every single property inside the checklist is explicitly true
+        const areAllStepsTrue = Object.values(checklist).every(
+          (step) => step === true,
+        );
+
+        // 3. Save to local storage ONLY if setupComplete is true AND no checklist data is false
+        if (data.setupComplete && areAllStepsTrue) {
+          localStorage.setItem("isSetupCompleted", "true");
+          setOpen(false);
+        } else {
+          // Ensure local storage is cleared if anything is false (prevents stale true states)
+          localStorage.removeItem("isSetupCompleted");
+          setOpen(true);
+        }
+      } catch (error) {
+        console.error("Failed to check status:", error);
+      }
+    }
+
+    checkStatus();
+  }, []);
+  const handleStepComplete = (stepName) => {
+    setCheckList((prev) => ({
+      ...prev,
+      [stepName]: true,
+    }));
+  };
+
+  const renderSetupStep = () => {
+    if (!checkList) return null;
+
+    // 2. Pass the callback function to the child components as a prop
+    if (!checkList.schoolSetup)
+      return <School onComplete={() => handleStepComplete("schoolSetup")} />;
+    if (!checkList.instructorSetup)
+      return (
+        <Instructor onComplete={() => handleStepComplete("instructorSetup")} />
+      );
+    if (!checkList.carSetup)
+      return <Car onComplete={() => handleStepComplete("carSetup")} />;
+    if (!checkList.packageSetup)
+      return <Package onComplete={() => handleStepComplete("packageSetup")} />;
+
+    return <div className="p-4 text-center">All setup steps complete!</div>;
+  };
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
-
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-sm">
+        <DialogOverlay className="backdrop-blur-md bg-black/40" />
+        <DialogContent className="max-w-[80vw]! w-[80vw]! max-h-[90vh] overflow-y-auto bg-white dark:bg-[#1e222d] border border-gray-200 dark:border-[#2c3242]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-gray-900 dark:text-[#f2e9de]">
+              Set up
+            </DialogTitle>
+            <DialogDescription className="text-gray-500 dark:text-[#a8967b]">
               Make changes to your profile here.
             </DialogDescription>
+            
+            {/* Progress Bar with Car */}
+            <div className="w-full py-4 pb-2">
+              <div className="relative pt-12">
+                <div 
+                  className="absolute top-2 transition-all duration-500 ease-in-out z-10" 
+                  style={{ left: `calc(${getProgress()}% - 30px)` }}
+                >
+                  <CarLoaderCompact size={60} />
+                </div>
+                <div className="w-full h-2 bg-gray-200 dark:bg-[#2c3242] rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-[#c1552c] transition-all duration-500 ease-in-out"
+                    style={{ width: `${getProgress()}%` }}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500 dark:text-[#a8967b] mt-2">
+                <span>School</span>
+                <span>Instructor</span>
+                <span>Cars</span>
+                <span>Packages</span>
+              </div>
+            </div>
           </DialogHeader>
 
-          <FieldGroup>
-            <Field>
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-            </Field>
+          {renderSetupStep()}
+          {checkList.packageSetup && (
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button
+                  variant="outline"
+                  className="border-gray-300 dark:border-[#2c3242] text-gray-700 dark:text-[#a8967b] hover:bg-gray-50 dark:hover:bg-[#232734]"
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
 
-            <Field>
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
-            </Field>
-          </FieldGroup>
-
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
+              <Button
+                onClick={() => {
+                  localStorage.setItem("isSetupCompleted", "true");
+                  setIsCompleted(true);
+                  setOpen(false);
+                }}
+                className="bg-[#c1552c] text-white hover:bg-[#a84a26]"
+              >
+                Save changes
+              </Button>
+            </DialogFooter>
+          )}
         </DialogContent>
       </Dialog>
     </>

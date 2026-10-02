@@ -1,6 +1,9 @@
+"use client"
 import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '../../component/theme/theme-provider';
+import { Toaster } from "@/components/ui/sonner"
+import { DemoBanner } from '../components/demo-banner';
 
 // Primary font for dashboard UI
 const inter = Inter({ 
@@ -21,9 +24,13 @@ export default function RootLayout({
   return (
     // suppressHydrationWarning is strictly required on the html tag for next-themes
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-background text-foreground flex flex-col min-h-screen`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+           <Toaster />
+           <DemoBanner />
+           <main className="flex-1 overflow-auto">
+             {children}
+           </main>
         </ThemeProvider>
       </body>
     </html>

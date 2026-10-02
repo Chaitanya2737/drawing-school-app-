@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "../../component/theme/ThemeToggle";
 import { CarLoader, CarLoaderCompact } from "../../component/loader/CarLoader";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -18,46 +19,69 @@ import { VehiclesTab } from "../component/tabs/VehiclesTab";
 import { ScheduleTab } from "../component/tabs/ScheduleTab";
 import { SettingsTab } from "../component/tabs/SettingsTab";
 import { MessagesTab } from "../component/tabs/MessagesTab";
+import { WhatsAppTab } from "../component/tabs/WhatsAppTab";
+import { CalendarTab } from "../component/tabs/CalendarTab";
 import Index from "../component/setup";
 
 export default function HomePage() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   const [serverData, setServerData] = useState(null);
   const [serverIp, setServerIp] = useState(null);
   const [isWorking, setIsWorking] = useState();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-
-  const toggleMode = () => setIsLogin(!isLogin);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(isLogin ? "Logging in..." : "Registering...");
-    setIsAuthenticated(true);
-  };
+  const [isChecking, setIsChecking] = useState(true);
+  const [isLockedOut, setIsLockedOut] = useState(false);
+  const [activeTab, setActiveTab] = useState("overview");
 
   useEffect(() => {
+    // Check Authentication
+    const isAuth = localStorage.getItem("isAuthenticated");
+    if (!isAuth) {
+      router.push("/login");
+      return;
+    }
+    setIsAuthenticated(true);
+    
+    // Check if demo is expired to lock screen
+    const isDemo = localStorage.getItem("isDemoMode");
+    if (isDemo) {
+      async function checkDemoStatus() {
+        try {
+          const res = await fetch("http://localhost:49215/api/demo-status");
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success && data.isExpired) {
+              setIsLockedOut(true);
+            }
+          }
+        } catch (error) {
+          console.error("Failed to check demo status", error);
+        } finally {
+          setIsChecking(false);
+        }
+      }
+      checkDemoStatus();
+    } else {
+      setIsChecking(false);
+    }
+
     // 1. Listen for the 'server-status' message from Electron
-    const unsubscribe = window.ipc.on("server-Internat-status", (data) => {
+    const unsubscribe = window.ipc?.on("server-Internat-status", (data) => {
       console.log("Received from Electron:", data);
       setServerData(data.status);
     });
 
     // Listen for the Local IP address so we can show it to the Owner
-    const unsubscribeIp = window.ipc.on("server-local-ip", (data) => {
-      const ip = `${data.ip}:${data.port}`;
-      setServerIp(ip);
-      if (typeof window !== "undefined") {
-        window.serverIpAddress = ip;
-        localStorage.setItem("serverIpAddress", ip);
-      }
+    const unsubscribeIp = window.ipc?.on("server-local-ip", (data) => {
+      setServerIp(`${data.ip}:${data.port}`);
     });
 
     // 2. Ask the Main Process for the current status now that we are listening
-    window.ipc.send("request-server-status");
-    window.ipc.send("request-local-ip");
+    window.ipc?.send("request-server-status");
+    window.ipc?.send("request-local-ip");
 
     // 3. Listen for mid-session internet drops (if router crashes while app is running)
     const handleOffline = () => {
@@ -74,19 +98,18 @@ export default function HomePage() {
 
     // 4. Clean up the listeners when the component unmounts
     return () => {
-      unsubscribe();
+      if (unsubscribe) unsubscribe();
       if (unsubscribeIp) unsubscribeIp();
       window.removeEventListener("offline", handleOffline);
       window.removeEventListener("online", handleOnline);
     };
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const getRequest = async () => {
       try {
-        // We use our fetchApi wrapper to fallback to IP if localhost fails
-        const { fetchApi } = await import("../lib/api");
-        const response = await fetchApi("/api");
+        // Now we explicitly hit our Express server running in the background!
+        const response = await fetch("http://localhost:49215/api");
         const data = await response.json();
         console.log("API Response:", data);
         setIsWorking(data.message);
@@ -99,90 +122,44 @@ export default function HomePage() {
   }, []);
   console.log("Received from Electron:", serverData);
 
-  const [activeTab, setActiveTab] = useState("overview");
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("isDemoMode");
+    localStorage.removeItem("demoStartDate");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    router.push("/login");
+  };
 
-
-
-  if (!isAuthenticated) {
+  if (isChecking || !isAuthenticated) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-[#12141a]">
-        <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-[#1e222d] rounded-xl shadow-lg border border-gray-200 dark:border-[#2c3242]">
-          <div className="text-center">
-            <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-[#f2e9de]">
-              {isLogin ? "Sign in to your account" : "Create an account"}
-            </h2>
-          </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-4 rounded-md shadow-sm">
-              <div>
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-[#2c3242] placeholder-gray-500 text-gray-900 dark:text-[#f2e9de] bg-white dark:bg-[#171a22] rounded-t-md focus:outline-none focus:ring-[#c1552c] focus:border-[#c1552c] sm:text-sm"
-                  placeholder="Email address"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-[#2c3242] placeholder-gray-500 text-gray-900 dark:text-[#f2e9de] bg-white dark:bg-[#171a22] rounded-b-md focus:outline-none focus:ring-[#c1552c] focus:border-[#c1552c] sm:text-sm"
-                  placeholder="Password"
-                />
-              </div>
-            </div>
+      <div className="flex h-screen items-center justify-center bg-background">
+        <CarLoader size={100} />
+      </div>
+    );
+  }
 
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#c1552c] hover:bg-[#a84a26] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#c1552c]"
-              >
-                {isLogin ? "Sign in" : "Sign up"}
-              </button>
-            </div>
-          </form>
-          <div className="text-center mt-4">
-            <button
-              type="button"
-              onClick={toggleMode}
-              className="text-sm text-[#c1552c] hover:text-[#a84a26]"
-            >
-              {isLogin
-                ? "Need an account? Sign up"
-                : "Already have an account? Sign in"}
+  if (isLockedOut) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-[#12141a] font-sans">
+        <div className="max-w-md w-full mx-4 p-8 bg-white dark:bg-[#1e222d] shadow-2xl rounded-2xl border border-gray-100 dark:border-[#2c3242] text-center space-y-6 animate-in fade-in zoom-in duration-500">
+          <div className="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-500 rounded-full flex items-center justify-center mb-2">
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Free Trial Concluded</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
+            Your 15-day evaluation period has ended. To regain access to Driving School Pro and continue managing your business, please activate your license.
+          </p>
+          <div className="pt-4 space-y-3">
+            <button className="w-full py-3 px-4 bg-[#c1552c] hover:bg-[#a84a26] text-white rounded-lg font-medium transition-colors shadow-lg shadow-[#c1552c]/20">
+              Proceed to Payment
             </button>
-          </div>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300 dark:border-[#2c3242]"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white dark:bg-[#1e222d] text-gray-500">
-                  Fast track (Demo)
-                </span>
-              </div>
-            </div>
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => setIsAuthenticated(true)}
-                className="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-[#2c3242] rounded-md shadow-sm bg-white dark:bg-[#171a22] text-sm font-medium text-gray-700 dark:text-[#a8967b] hover:bg-gray-50 dark:hover:bg-[#232734]"
-              >
-                Skip Login
-              </button>
-            </div>
+            <button onClick={handleLogout} className="w-full py-3 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+              Sign out
+            </button>
           </div>
         </div>
       </div>
@@ -214,7 +191,9 @@ export default function HomePage() {
             { id: "instructors", label: "Instructors", icon: "👨‍🏫" },
             { id: "vehicles", label: "Vehicles", icon: "🚗" },
             { id: "schedule", label: "Schedule", icon: "📅" },
+            { id: "calendar", label: "Calendar", icon: "📆" },
             { id: "messages", label: "Messages", icon: "💬" },
+            { id: "whatsapp", label: "WhatsApp Setup", icon: "🔗" },
             { id: "settings", label: "Settings", icon: "⚙️" },
           ].map((item) => (
             <button
@@ -276,13 +255,14 @@ export default function HomePage() {
                 "Checking..."
               )}
             </div>
+            
             <ThemeToggle />
 
             {/* User Profile Mock & Logout */}
             <div className="flex items-center space-x-3">
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#c1552c] to-[#e0574a] shadow-sm border-2 border-white dark:border-[#1e222d]"></div>
               <button
-                onClick={() => setIsAuthenticated(false)}
+                onClick={handleLogout}
                 className="text-sm font-medium text-gray-600 dark:text-[#a8967b] hover:text-[#c1552c] dark:hover:text-[#e0574a] transition-colors"
                 title="Logout"
               >
@@ -308,9 +288,13 @@ export default function HomePage() {
 
           {/* Schedule Content */}
           {activeTab === "schedule" && <ScheduleTab />}
+          {activeTab === "calendar" && <CalendarTab />}
 
           {/* Messages Content */}
           {activeTab === "messages" && <MessagesTab />}
+
+          {/* WhatsApp Content */}
+          {activeTab === "whatsapp" && <WhatsAppTab />}
 
           {/* Settings Content */}
           {activeTab === "settings" && <SettingsTab />}
@@ -321,7 +305,9 @@ export default function HomePage() {
             activeTab !== "instructors" &&
             activeTab !== "vehicles" &&
             activeTab !== "schedule" &&
+            activeTab !== "calendar" &&
             activeTab !== "messages" &&
+            activeTab !== "whatsapp" &&
             activeTab !== "settings" && (
               <div className="h-full flex flex-col items-center justify-center text-gray-400 dark:text-[#5a5f6e]">
                 <div className="text-6xl mb-4 opacity-50">🚧</div>

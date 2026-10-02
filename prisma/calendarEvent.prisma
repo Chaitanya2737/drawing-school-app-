@@ -1,0 +1,10 @@
+model CalendarEvent {
+  id          String   @id @default(uuid())
+  title       String
+  date        String   // Format: YYYY-MM-DD
+  type        String   @default("TASK") // e.g. "HOLIDAY", "TASK", "SCHEDULE"
+  description String?
+  color       String?  // Optional color for the UI
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

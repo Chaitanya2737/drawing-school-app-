@@ -24,10 +24,20 @@ export type PaymentTaken = $Result.DefaultSelection<Prisma.$PaymentTakenPayload>
  */
 export type Attendance = $Result.DefaultSelection<Prisma.$AttendancePayload>
 /**
+ * Model CalendarEvent
+ * 
+ */
+export type CalendarEvent = $Result.DefaultSelection<Prisma.$CalendarEventPayload>
+/**
  * Model Car
  * 
  */
 export type Car = $Result.DefaultSelection<Prisma.$CarPayload>
+/**
+ * Model DemoStatus
+ * 
+ */
+export type DemoStatus = $Result.DefaultSelection<Prisma.$DemoStatusPayload>
 /**
  * Model SetupChecklist
  * 
@@ -38,6 +48,16 @@ export type SetupChecklist = $Result.DefaultSelection<Prisma.$SetupChecklistPayl
  * 
  */
 export type Instructor = $Result.DefaultSelection<Prisma.$InstructorPayload>
+/**
+ * Model MaintenanceSchedule
+ * 
+ */
+export type MaintenanceSchedule = $Result.DefaultSelection<Prisma.$MaintenanceSchedulePayload>
+/**
+ * Model MaintenanceItem
+ * 
+ */
+export type MaintenanceItem = $Result.DefaultSelection<Prisma.$MaintenanceItemPayload>
 /**
  * Model Package
  * 
@@ -63,6 +83,21 @@ export type SchoolSetUp = $Result.DefaultSelection<Prisma.$SchoolSetUpPayload>
  * 
  */
 export type Student = $Result.DefaultSelection<Prisma.$StudentPayload>
+/**
+ * Model MessageQueue
+ * 
+ */
+export type MessageQueue = $Result.DefaultSelection<Prisma.$MessageQueuePayload>
+/**
+ * Model WhatsAppTemplate
+ * 
+ */
+export type WhatsAppTemplate = $Result.DefaultSelection<Prisma.$WhatsAppTemplatePayload>
+/**
+ * Model WhatsAppToken
+ * 
+ */
+export type WhatsAppToken = $Result.DefaultSelection<Prisma.$WhatsAppTokenPayload>
 
 /**
  * Enums
@@ -87,6 +122,32 @@ export const JobType: {
 export type JobType = (typeof JobType)[keyof typeof JobType]
 
 
+export const MaintenanceType: {
+  OIL_CHANGE: 'OIL_CHANGE',
+  OIL_FILTER: 'OIL_FILTER',
+  AIR_FILTER: 'AIR_FILTER',
+  TYRE_CHECK: 'TYRE_CHECK',
+  TYRE_REPLACEMENT: 'TYRE_REPLACEMENT',
+  BRAKE_CHECK: 'BRAKE_CHECK',
+  BRAKE_PAD_REPLACEMENT: 'BRAKE_PAD_REPLACEMENT',
+  BATTERY_CHECK: 'BATTERY_CHECK',
+  BATTERY_REPLACEMENT: 'BATTERY_REPLACEMENT',
+  ENGINE_CHECK: 'ENGINE_CHECK',
+  COOLANT: 'COOLANT',
+  BRAKE_FLUID: 'BRAKE_FLUID',
+  TRANSMISSION_FLUID: 'TRANSMISSION_FLUID',
+  AC_SERVICE: 'AC_SERVICE',
+  WHEEL_ALIGNMENT: 'WHEEL_ALIGNMENT',
+  WHEEL_BALANCING: 'WHEEL_BALANCING',
+  GENERAL_CHECKUP: 'GENERAL_CHECKUP',
+  REPAIR: 'REPAIR',
+  CAR_WASH: 'CAR_WASH',
+  POLISHING: 'POLISHING'
+};
+
+export type MaintenanceType = (typeof MaintenanceType)[keyof typeof MaintenanceType]
+
+
 export const PaymentStatus: {
   PENDING: 'PENDING',
   PARTIALLY_PAID: 'PARTIALLY_PAID',
@@ -97,12 +158,14 @@ export const PaymentStatus: {
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
-export const Enrollment_status: {
-  ENQUIRY: 'ENQUIRY',
-  CHOSEN: 'CHOSEN'
+export const MessageQueueStatus: {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SENT: 'SENT',
+  FAILED: 'FAILED'
 };
 
-export type Enrollment_status = (typeof Enrollment_status)[keyof typeof Enrollment_status]
+export type MessageQueueStatus = (typeof MessageQueueStatus)[keyof typeof MessageQueueStatus]
 
 }
 
@@ -114,13 +177,17 @@ export type JobType = $Enums.JobType
 
 export const JobType: typeof $Enums.JobType
 
+export type MaintenanceType = $Enums.MaintenanceType
+
+export const MaintenanceType: typeof $Enums.MaintenanceType
+
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
 
-export type Enrollment_status = $Enums.Enrollment_status
+export type MessageQueueStatus = $Enums.MessageQueueStatus
 
-export const Enrollment_status: typeof $Enums.Enrollment_status
+export const MessageQueueStatus: typeof $Enums.MessageQueueStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -264,6 +331,16 @@ export class PrismaClient<
   get attendance(): Prisma.AttendanceDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.calendarEvent`: Exposes CRUD operations for the **CalendarEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CalendarEvents
+    * const calendarEvents = await prisma.calendarEvent.findMany()
+    * ```
+    */
+  get calendarEvent(): Prisma.CalendarEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.car`: Exposes CRUD operations for the **Car** model.
     * Example usage:
     * ```ts
@@ -272,6 +349,16 @@ export class PrismaClient<
     * ```
     */
   get car(): Prisma.CarDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.demoStatus`: Exposes CRUD operations for the **DemoStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DemoStatuses
+    * const demoStatuses = await prisma.demoStatus.findMany()
+    * ```
+    */
+  get demoStatus(): Prisma.DemoStatusDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.setupChecklist`: Exposes CRUD operations for the **SetupChecklist** model.
@@ -292,6 +379,26 @@ export class PrismaClient<
     * ```
     */
   get instructor(): Prisma.InstructorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenanceSchedule`: Exposes CRUD operations for the **MaintenanceSchedule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceSchedules
+    * const maintenanceSchedules = await prisma.maintenanceSchedule.findMany()
+    * ```
+    */
+  get maintenanceSchedule(): Prisma.MaintenanceScheduleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenanceItem`: Exposes CRUD operations for the **MaintenanceItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceItems
+    * const maintenanceItems = await prisma.maintenanceItem.findMany()
+    * ```
+    */
+  get maintenanceItem(): Prisma.MaintenanceItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.package`: Exposes CRUD operations for the **Package** model.
@@ -342,6 +449,36 @@ export class PrismaClient<
     * ```
     */
   get student(): Prisma.StudentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.messageQueue`: Exposes CRUD operations for the **MessageQueue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessageQueues
+    * const messageQueues = await prisma.messageQueue.findMany()
+    * ```
+    */
+  get messageQueue(): Prisma.MessageQueueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsAppTemplate`: Exposes CRUD operations for the **WhatsAppTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsAppTemplates
+    * const whatsAppTemplates = await prisma.whatsAppTemplate.findMany()
+    * ```
+    */
+  get whatsAppTemplate(): Prisma.WhatsAppTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsAppToken`: Exposes CRUD operations for the **WhatsAppToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsAppTokens
+    * const whatsAppTokens = await prisma.whatsAppToken.findMany()
+    * ```
+    */
+  get whatsAppToken(): Prisma.WhatsAppTokenDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -791,14 +928,21 @@ export namespace Prisma {
   export const ModelName: {
     PaymentTaken: 'PaymentTaken',
     Attendance: 'Attendance',
+    CalendarEvent: 'CalendarEvent',
     Car: 'Car',
+    DemoStatus: 'DemoStatus',
     SetupChecklist: 'SetupChecklist',
     Instructor: 'Instructor',
+    MaintenanceSchedule: 'MaintenanceSchedule',
+    MaintenanceItem: 'MaintenanceItem',
     Package: 'Package',
     PaymentCycle: 'PaymentCycle',
     Schedule: 'Schedule',
     SchoolSetUp: 'SchoolSetUp',
-    Student: 'Student'
+    Student: 'Student',
+    MessageQueue: 'MessageQueue',
+    WhatsAppTemplate: 'WhatsAppTemplate',
+    WhatsAppToken: 'WhatsAppToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -814,7 +958,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "paymentTaken" | "attendance" | "car" | "setupChecklist" | "instructor" | "package" | "paymentCycle" | "schedule" | "schoolSetUp" | "student"
+      modelProps: "paymentTaken" | "attendance" | "calendarEvent" | "car" | "demoStatus" | "setupChecklist" | "instructor" | "maintenanceSchedule" | "maintenanceItem" | "package" | "paymentCycle" | "schedule" | "schoolSetUp" | "student" | "messageQueue" | "whatsAppTemplate" | "whatsAppToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -966,6 +1110,80 @@ export namespace Prisma {
           }
         }
       }
+      CalendarEvent: {
+        payload: Prisma.$CalendarEventPayload<ExtArgs>
+        fields: Prisma.CalendarEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CalendarEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CalendarEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          findFirst: {
+            args: Prisma.CalendarEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CalendarEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          findMany: {
+            args: Prisma.CalendarEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>[]
+          }
+          create: {
+            args: Prisma.CalendarEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          createMany: {
+            args: Prisma.CalendarEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CalendarEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>[]
+          }
+          delete: {
+            args: Prisma.CalendarEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          update: {
+            args: Prisma.CalendarEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.CalendarEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CalendarEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CalendarEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.CalendarEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalendarEventPayload>
+          }
+          aggregate: {
+            args: Prisma.CalendarEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCalendarEvent>
+          }
+          groupBy: {
+            args: Prisma.CalendarEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CalendarEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CalendarEventCountArgs<ExtArgs>
+            result: $Utils.Optional<CalendarEventCountAggregateOutputType> | number
+          }
+        }
+      }
       Car: {
         payload: Prisma.$CarPayload<ExtArgs>
         fields: Prisma.CarFieldRefs
@@ -1037,6 +1255,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CarCountArgs<ExtArgs>
             result: $Utils.Optional<CarCountAggregateOutputType> | number
+          }
+        }
+      }
+      DemoStatus: {
+        payload: Prisma.$DemoStatusPayload<ExtArgs>
+        fields: Prisma.DemoStatusFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DemoStatusFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DemoStatusFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          findFirst: {
+            args: Prisma.DemoStatusFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DemoStatusFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          findMany: {
+            args: Prisma.DemoStatusFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>[]
+          }
+          create: {
+            args: Prisma.DemoStatusCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          createMany: {
+            args: Prisma.DemoStatusCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DemoStatusCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>[]
+          }
+          delete: {
+            args: Prisma.DemoStatusDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          update: {
+            args: Prisma.DemoStatusUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          deleteMany: {
+            args: Prisma.DemoStatusDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DemoStatusUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DemoStatusUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>[]
+          }
+          upsert: {
+            args: Prisma.DemoStatusUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoStatusPayload>
+          }
+          aggregate: {
+            args: Prisma.DemoStatusAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDemoStatus>
+          }
+          groupBy: {
+            args: Prisma.DemoStatusGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DemoStatusGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DemoStatusCountArgs<ExtArgs>
+            result: $Utils.Optional<DemoStatusCountAggregateOutputType> | number
           }
         }
       }
@@ -1185,6 +1477,154 @@ export namespace Prisma {
           count: {
             args: Prisma.InstructorCountArgs<ExtArgs>
             result: $Utils.Optional<InstructorCountAggregateOutputType> | number
+          }
+        }
+      }
+      MaintenanceSchedule: {
+        payload: Prisma.$MaintenanceSchedulePayload<ExtArgs>
+        fields: Prisma.MaintenanceScheduleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceScheduleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceScheduleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceScheduleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceScheduleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceScheduleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceScheduleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceScheduleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceScheduleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceScheduleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          update: {
+            args: Prisma.MaintenanceScheduleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceScheduleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceScheduleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceScheduleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceScheduleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceSchedulePayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceScheduleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceSchedule>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceScheduleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceScheduleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceScheduleCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceScheduleCountAggregateOutputType> | number
+          }
+        }
+      }
+      MaintenanceItem: {
+        payload: Prisma.$MaintenanceItemPayload<ExtArgs>
+        fields: Prisma.MaintenanceItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          update: {
+            args: Prisma.MaintenanceItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceItemPayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceItem>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceItemCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceItemCountAggregateOutputType> | number
           }
         }
       }
@@ -1558,6 +1998,228 @@ export namespace Prisma {
           }
         }
       }
+      MessageQueue: {
+        payload: Prisma.$MessageQueuePayload<ExtArgs>
+        fields: Prisma.MessageQueueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageQueueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageQueueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageQueueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageQueueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          findMany: {
+            args: Prisma.MessageQueueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>[]
+          }
+          create: {
+            args: Prisma.MessageQueueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          createMany: {
+            args: Prisma.MessageQueueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageQueueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageQueueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          update: {
+            args: Prisma.MessageQueueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageQueueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageQueueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageQueueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageQueueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageQueuePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageQueueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessageQueue>
+          }
+          groupBy: {
+            args: Prisma.MessageQueueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageQueueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageQueueCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageQueueCountAggregateOutputType> | number
+          }
+        }
+      }
+      WhatsAppTemplate: {
+        payload: Prisma.$WhatsAppTemplatePayload<ExtArgs>
+        fields: Prisma.WhatsAppTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsAppTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsAppTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsAppTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsAppTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.WhatsAppTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.WhatsAppTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.WhatsAppTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WhatsAppTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.WhatsAppTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          update: {
+            args: Prisma.WhatsAppTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsAppTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsAppTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WhatsAppTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.WhatsAppTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsAppTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsAppTemplate>
+          }
+          groupBy: {
+            args: Prisma.WhatsAppTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsAppTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      WhatsAppToken: {
+        payload: Prisma.$WhatsAppTokenPayload<ExtArgs>
+        fields: Prisma.WhatsAppTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsAppTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsAppTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsAppTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsAppTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          findMany: {
+            args: Prisma.WhatsAppTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>[]
+          }
+          create: {
+            args: Prisma.WhatsAppTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          createMany: {
+            args: Prisma.WhatsAppTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WhatsAppTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.WhatsAppTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          update: {
+            args: Prisma.WhatsAppTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsAppTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsAppTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WhatsAppTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.WhatsAppTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsAppTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsAppToken>
+          }
+          groupBy: {
+            args: Prisma.WhatsAppTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsAppTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppTokenCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1683,14 +2345,21 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     paymentTaken?: PaymentTakenOmit
     attendance?: AttendanceOmit
+    calendarEvent?: CalendarEventOmit
     car?: CarOmit
+    demoStatus?: DemoStatusOmit
     setupChecklist?: SetupChecklistOmit
     instructor?: InstructorOmit
+    maintenanceSchedule?: MaintenanceScheduleOmit
+    maintenanceItem?: MaintenanceItemOmit
     package?: PackageOmit
     paymentCycle?: PaymentCycleOmit
     schedule?: ScheduleOmit
     schoolSetUp?: SchoolSetUpOmit
     student?: StudentOmit
+    messageQueue?: MessageQueueOmit
+    whatsAppTemplate?: WhatsAppTemplateOmit
+    whatsAppToken?: WhatsAppTokenOmit
   }
 
   /* Types for Logging */
@@ -1767,15 +2436,75 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CarCountOutputType
+   */
+
+  export type CarCountOutputType = {
+    students: number
+    instructors: number
+    maintenanceItem: number
+    maintenanceSchedules: number
+  }
+
+  export type CarCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    students?: boolean | CarCountOutputTypeCountStudentsArgs
+    instructors?: boolean | CarCountOutputTypeCountInstructorsArgs
+    maintenanceItem?: boolean | CarCountOutputTypeCountMaintenanceItemArgs
+    maintenanceSchedules?: boolean | CarCountOutputTypeCountMaintenanceSchedulesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CarCountOutputType without action
+   */
+  export type CarCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CarCountOutputType
+     */
+    select?: CarCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CarCountOutputType without action
+   */
+  export type CarCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentWhereInput
+  }
+
+  /**
+   * CarCountOutputType without action
+   */
+  export type CarCountOutputTypeCountInstructorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InstructorWhereInput
+  }
+
+  /**
+   * CarCountOutputType without action
+   */
+  export type CarCountOutputTypeCountMaintenanceItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceItemWhereInput
+  }
+
+  /**
+   * CarCountOutputType without action
+   */
+  export type CarCountOutputTypeCountMaintenanceSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceScheduleWhereInput
+  }
+
+
+  /**
    * Count Type InstructorCountOutputType
    */
 
   export type InstructorCountOutputType = {
     paymentCycles: number
+    students: number
   }
 
   export type InstructorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     paymentCycles?: boolean | InstructorCountOutputTypeCountPaymentCyclesArgs
+    students?: boolean | InstructorCountOutputTypeCountStudentsArgs
   }
 
   // Custom InputTypes
@@ -1794,6 +2523,44 @@ export namespace Prisma {
    */
   export type InstructorCountOutputTypeCountPaymentCyclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentCycleWhereInput
+  }
+
+  /**
+   * InstructorCountOutputType without action
+   */
+  export type InstructorCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentWhereInput
+  }
+
+
+  /**
+   * Count Type MaintenanceScheduleCountOutputType
+   */
+
+  export type MaintenanceScheduleCountOutputType = {
+    items: number
+  }
+
+  export type MaintenanceScheduleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | MaintenanceScheduleCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MaintenanceScheduleCountOutputType without action
+   */
+  export type MaintenanceScheduleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceScheduleCountOutputType
+     */
+    select?: MaintenanceScheduleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceScheduleCountOutputType without action
+   */
+  export type MaintenanceScheduleCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceItemWhereInput
   }
 
 
@@ -1825,6 +2592,37 @@ export namespace Prisma {
    */
   export type PaymentCycleCountOutputTypeCountPaymentsTakenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentTakenWhereInput
+  }
+
+
+  /**
+   * Count Type WhatsAppTemplateCountOutputType
+   */
+
+  export type WhatsAppTemplateCountOutputType = {
+    messages: number
+  }
+
+  export type WhatsAppTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | WhatsAppTemplateCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WhatsAppTemplateCountOutputType without action
+   */
+  export type WhatsAppTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplateCountOutputType
+     */
+    select?: WhatsAppTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WhatsAppTemplateCountOutputType without action
+   */
+  export type WhatsAppTemplateCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageQueueWhereInput
   }
 
 
@@ -3952,6 +4750,1043 @@ export namespace Prisma {
 
 
   /**
+   * Model CalendarEvent
+   */
+
+  export type AggregateCalendarEvent = {
+    _count: CalendarEventCountAggregateOutputType | null
+    _min: CalendarEventMinAggregateOutputType | null
+    _max: CalendarEventMaxAggregateOutputType | null
+  }
+
+  export type CalendarEventMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    date: string | null
+    type: string | null
+    description: string | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CalendarEventMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    date: string | null
+    type: string | null
+    description: string | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CalendarEventCountAggregateOutputType = {
+    id: number
+    title: number
+    date: number
+    type: number
+    description: number
+    color: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CalendarEventMinAggregateInputType = {
+    id?: true
+    title?: true
+    date?: true
+    type?: true
+    description?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CalendarEventMaxAggregateInputType = {
+    id?: true
+    title?: true
+    date?: true
+    type?: true
+    description?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CalendarEventCountAggregateInputType = {
+    id?: true
+    title?: true
+    date?: true
+    type?: true
+    description?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CalendarEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CalendarEvent to aggregate.
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalendarEvents to fetch.
+     */
+    orderBy?: CalendarEventOrderByWithRelationInput | CalendarEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CalendarEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalendarEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalendarEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CalendarEvents
+    **/
+    _count?: true | CalendarEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CalendarEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CalendarEventMaxAggregateInputType
+  }
+
+  export type GetCalendarEventAggregateType<T extends CalendarEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateCalendarEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCalendarEvent[P]>
+      : GetScalarType<T[P], AggregateCalendarEvent[P]>
+  }
+
+
+
+
+  export type CalendarEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CalendarEventWhereInput
+    orderBy?: CalendarEventOrderByWithAggregationInput | CalendarEventOrderByWithAggregationInput[]
+    by: CalendarEventScalarFieldEnum[] | CalendarEventScalarFieldEnum
+    having?: CalendarEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CalendarEventCountAggregateInputType | true
+    _min?: CalendarEventMinAggregateInputType
+    _max?: CalendarEventMaxAggregateInputType
+  }
+
+  export type CalendarEventGroupByOutputType = {
+    id: string
+    title: string
+    date: string
+    type: string
+    description: string | null
+    color: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CalendarEventCountAggregateOutputType | null
+    _min: CalendarEventMinAggregateOutputType | null
+    _max: CalendarEventMaxAggregateOutputType | null
+  }
+
+  type GetCalendarEventGroupByPayload<T extends CalendarEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CalendarEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CalendarEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CalendarEventGroupByOutputType[P]>
+            : GetScalarType<T[P], CalendarEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CalendarEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    date?: boolean
+    type?: boolean
+    description?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["calendarEvent"]>
+
+  export type CalendarEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    date?: boolean
+    type?: boolean
+    description?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["calendarEvent"]>
+
+  export type CalendarEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    date?: boolean
+    type?: boolean
+    description?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["calendarEvent"]>
+
+  export type CalendarEventSelectScalar = {
+    id?: boolean
+    title?: boolean
+    date?: boolean
+    type?: boolean
+    description?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CalendarEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "type" | "description" | "color" | "createdAt" | "updatedAt", ExtArgs["result"]["calendarEvent"]>
+
+  export type $CalendarEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CalendarEvent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      date: string
+      type: string
+      description: string | null
+      color: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["calendarEvent"]>
+    composites: {}
+  }
+
+  type CalendarEventGetPayload<S extends boolean | null | undefined | CalendarEventDefaultArgs> = $Result.GetResult<Prisma.$CalendarEventPayload, S>
+
+  type CalendarEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CalendarEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CalendarEventCountAggregateInputType | true
+    }
+
+  export interface CalendarEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CalendarEvent'], meta: { name: 'CalendarEvent' } }
+    /**
+     * Find zero or one CalendarEvent that matches the filter.
+     * @param {CalendarEventFindUniqueArgs} args - Arguments to find a CalendarEvent
+     * @example
+     * // Get one CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CalendarEventFindUniqueArgs>(args: SelectSubset<T, CalendarEventFindUniqueArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CalendarEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CalendarEventFindUniqueOrThrowArgs} args - Arguments to find a CalendarEvent
+     * @example
+     * // Get one CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CalendarEventFindUniqueOrThrowArgs>(args: SelectSubset<T, CalendarEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CalendarEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventFindFirstArgs} args - Arguments to find a CalendarEvent
+     * @example
+     * // Get one CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CalendarEventFindFirstArgs>(args?: SelectSubset<T, CalendarEventFindFirstArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CalendarEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventFindFirstOrThrowArgs} args - Arguments to find a CalendarEvent
+     * @example
+     * // Get one CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CalendarEventFindFirstOrThrowArgs>(args?: SelectSubset<T, CalendarEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CalendarEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CalendarEvents
+     * const calendarEvents = await prisma.calendarEvent.findMany()
+     * 
+     * // Get first 10 CalendarEvents
+     * const calendarEvents = await prisma.calendarEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const calendarEventWithIdOnly = await prisma.calendarEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CalendarEventFindManyArgs>(args?: SelectSubset<T, CalendarEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CalendarEvent.
+     * @param {CalendarEventCreateArgs} args - Arguments to create a CalendarEvent.
+     * @example
+     * // Create one CalendarEvent
+     * const CalendarEvent = await prisma.calendarEvent.create({
+     *   data: {
+     *     // ... data to create a CalendarEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends CalendarEventCreateArgs>(args: SelectSubset<T, CalendarEventCreateArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CalendarEvents.
+     * @param {CalendarEventCreateManyArgs} args - Arguments to create many CalendarEvents.
+     * @example
+     * // Create many CalendarEvents
+     * const calendarEvent = await prisma.calendarEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CalendarEventCreateManyArgs>(args?: SelectSubset<T, CalendarEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CalendarEvents and returns the data saved in the database.
+     * @param {CalendarEventCreateManyAndReturnArgs} args - Arguments to create many CalendarEvents.
+     * @example
+     * // Create many CalendarEvents
+     * const calendarEvent = await prisma.calendarEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CalendarEvents and only return the `id`
+     * const calendarEventWithIdOnly = await prisma.calendarEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CalendarEventCreateManyAndReturnArgs>(args?: SelectSubset<T, CalendarEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CalendarEvent.
+     * @param {CalendarEventDeleteArgs} args - Arguments to delete one CalendarEvent.
+     * @example
+     * // Delete one CalendarEvent
+     * const CalendarEvent = await prisma.calendarEvent.delete({
+     *   where: {
+     *     // ... filter to delete one CalendarEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CalendarEventDeleteArgs>(args: SelectSubset<T, CalendarEventDeleteArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CalendarEvent.
+     * @param {CalendarEventUpdateArgs} args - Arguments to update one CalendarEvent.
+     * @example
+     * // Update one CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CalendarEventUpdateArgs>(args: SelectSubset<T, CalendarEventUpdateArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CalendarEvents.
+     * @param {CalendarEventDeleteManyArgs} args - Arguments to filter CalendarEvents to delete.
+     * @example
+     * // Delete a few CalendarEvents
+     * const { count } = await prisma.calendarEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CalendarEventDeleteManyArgs>(args?: SelectSubset<T, CalendarEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CalendarEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CalendarEvents
+     * const calendarEvent = await prisma.calendarEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CalendarEventUpdateManyArgs>(args: SelectSubset<T, CalendarEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CalendarEvents and returns the data updated in the database.
+     * @param {CalendarEventUpdateManyAndReturnArgs} args - Arguments to update many CalendarEvents.
+     * @example
+     * // Update many CalendarEvents
+     * const calendarEvent = await prisma.calendarEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CalendarEvents and only return the `id`
+     * const calendarEventWithIdOnly = await prisma.calendarEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CalendarEventUpdateManyAndReturnArgs>(args: SelectSubset<T, CalendarEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CalendarEvent.
+     * @param {CalendarEventUpsertArgs} args - Arguments to update or create a CalendarEvent.
+     * @example
+     * // Update or create a CalendarEvent
+     * const calendarEvent = await prisma.calendarEvent.upsert({
+     *   create: {
+     *     // ... data to create a CalendarEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CalendarEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CalendarEventUpsertArgs>(args: SelectSubset<T, CalendarEventUpsertArgs<ExtArgs>>): Prisma__CalendarEventClient<$Result.GetResult<Prisma.$CalendarEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CalendarEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventCountArgs} args - Arguments to filter CalendarEvents to count.
+     * @example
+     * // Count the number of CalendarEvents
+     * const count = await prisma.calendarEvent.count({
+     *   where: {
+     *     // ... the filter for the CalendarEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends CalendarEventCountArgs>(
+      args?: Subset<T, CalendarEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CalendarEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CalendarEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CalendarEventAggregateArgs>(args: Subset<T, CalendarEventAggregateArgs>): Prisma.PrismaPromise<GetCalendarEventAggregateType<T>>
+
+    /**
+     * Group by CalendarEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalendarEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CalendarEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CalendarEventGroupByArgs['orderBy'] }
+        : { orderBy?: CalendarEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CalendarEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCalendarEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CalendarEvent model
+   */
+  readonly fields: CalendarEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CalendarEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CalendarEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CalendarEvent model
+   */
+  interface CalendarEventFieldRefs {
+    readonly id: FieldRef<"CalendarEvent", 'String'>
+    readonly title: FieldRef<"CalendarEvent", 'String'>
+    readonly date: FieldRef<"CalendarEvent", 'String'>
+    readonly type: FieldRef<"CalendarEvent", 'String'>
+    readonly description: FieldRef<"CalendarEvent", 'String'>
+    readonly color: FieldRef<"CalendarEvent", 'String'>
+    readonly createdAt: FieldRef<"CalendarEvent", 'DateTime'>
+    readonly updatedAt: FieldRef<"CalendarEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CalendarEvent findUnique
+   */
+  export type CalendarEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter, which CalendarEvent to fetch.
+     */
+    where: CalendarEventWhereUniqueInput
+  }
+
+  /**
+   * CalendarEvent findUniqueOrThrow
+   */
+  export type CalendarEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter, which CalendarEvent to fetch.
+     */
+    where: CalendarEventWhereUniqueInput
+  }
+
+  /**
+   * CalendarEvent findFirst
+   */
+  export type CalendarEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter, which CalendarEvent to fetch.
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalendarEvents to fetch.
+     */
+    orderBy?: CalendarEventOrderByWithRelationInput | CalendarEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CalendarEvents.
+     */
+    cursor?: CalendarEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalendarEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalendarEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CalendarEvents.
+     */
+    distinct?: CalendarEventScalarFieldEnum | CalendarEventScalarFieldEnum[]
+  }
+
+  /**
+   * CalendarEvent findFirstOrThrow
+   */
+  export type CalendarEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter, which CalendarEvent to fetch.
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalendarEvents to fetch.
+     */
+    orderBy?: CalendarEventOrderByWithRelationInput | CalendarEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CalendarEvents.
+     */
+    cursor?: CalendarEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalendarEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalendarEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CalendarEvents.
+     */
+    distinct?: CalendarEventScalarFieldEnum | CalendarEventScalarFieldEnum[]
+  }
+
+  /**
+   * CalendarEvent findMany
+   */
+  export type CalendarEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter, which CalendarEvents to fetch.
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalendarEvents to fetch.
+     */
+    orderBy?: CalendarEventOrderByWithRelationInput | CalendarEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CalendarEvents.
+     */
+    cursor?: CalendarEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalendarEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalendarEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CalendarEvents.
+     */
+    distinct?: CalendarEventScalarFieldEnum | CalendarEventScalarFieldEnum[]
+  }
+
+  /**
+   * CalendarEvent create
+   */
+  export type CalendarEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * The data needed to create a CalendarEvent.
+     */
+    data: XOR<CalendarEventCreateInput, CalendarEventUncheckedCreateInput>
+  }
+
+  /**
+   * CalendarEvent createMany
+   */
+  export type CalendarEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CalendarEvents.
+     */
+    data: CalendarEventCreateManyInput | CalendarEventCreateManyInput[]
+  }
+
+  /**
+   * CalendarEvent createManyAndReturn
+   */
+  export type CalendarEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many CalendarEvents.
+     */
+    data: CalendarEventCreateManyInput | CalendarEventCreateManyInput[]
+  }
+
+  /**
+   * CalendarEvent update
+   */
+  export type CalendarEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * The data needed to update a CalendarEvent.
+     */
+    data: XOR<CalendarEventUpdateInput, CalendarEventUncheckedUpdateInput>
+    /**
+     * Choose, which CalendarEvent to update.
+     */
+    where: CalendarEventWhereUniqueInput
+  }
+
+  /**
+   * CalendarEvent updateMany
+   */
+  export type CalendarEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CalendarEvents.
+     */
+    data: XOR<CalendarEventUpdateManyMutationInput, CalendarEventUncheckedUpdateManyInput>
+    /**
+     * Filter which CalendarEvents to update
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * Limit how many CalendarEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CalendarEvent updateManyAndReturn
+   */
+  export type CalendarEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * The data used to update CalendarEvents.
+     */
+    data: XOR<CalendarEventUpdateManyMutationInput, CalendarEventUncheckedUpdateManyInput>
+    /**
+     * Filter which CalendarEvents to update
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * Limit how many CalendarEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CalendarEvent upsert
+   */
+  export type CalendarEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * The filter to search for the CalendarEvent to update in case it exists.
+     */
+    where: CalendarEventWhereUniqueInput
+    /**
+     * In case the CalendarEvent found by the `where` argument doesn't exist, create a new CalendarEvent with this data.
+     */
+    create: XOR<CalendarEventCreateInput, CalendarEventUncheckedCreateInput>
+    /**
+     * In case the CalendarEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CalendarEventUpdateInput, CalendarEventUncheckedUpdateInput>
+  }
+
+  /**
+   * CalendarEvent delete
+   */
+  export type CalendarEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+    /**
+     * Filter which CalendarEvent to delete.
+     */
+    where: CalendarEventWhereUniqueInput
+  }
+
+  /**
+   * CalendarEvent deleteMany
+   */
+  export type CalendarEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CalendarEvents to delete
+     */
+    where?: CalendarEventWhereInput
+    /**
+     * Limit how many CalendarEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CalendarEvent without action
+   */
+  export type CalendarEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalendarEvent
+     */
+    select?: CalendarEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalendarEvent
+     */
+    omit?: CalendarEventOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Car
    */
 
@@ -3966,10 +5801,10 @@ export namespace Prisma {
     name: string | null
     transmission: string | null
     assigned_instructor: string | null
-    car_year: string | null
     car_Number: string | null
-    createdAt: Date | null
+    car_year: string | null
     updatedAt: Date | null
+    createdAt: Date | null
   }
 
   export type CarMaxAggregateOutputType = {
@@ -3977,10 +5812,10 @@ export namespace Prisma {
     name: string | null
     transmission: string | null
     assigned_instructor: string | null
-    car_year: string | null
     car_Number: string | null
-    createdAt: Date | null
+    car_year: string | null
     updatedAt: Date | null
+    createdAt: Date | null
   }
 
   export type CarCountAggregateOutputType = {
@@ -3988,10 +5823,10 @@ export namespace Prisma {
     name: number
     transmission: number
     assigned_instructor: number
-    car_year: number
     car_Number: number
-    createdAt: number
+    car_year: number
     updatedAt: number
+    createdAt: number
     _all: number
   }
 
@@ -4001,10 +5836,10 @@ export namespace Prisma {
     name?: true
     transmission?: true
     assigned_instructor?: true
-    car_year?: true
     car_Number?: true
-    createdAt?: true
+    car_year?: true
     updatedAt?: true
+    createdAt?: true
   }
 
   export type CarMaxAggregateInputType = {
@@ -4012,10 +5847,10 @@ export namespace Prisma {
     name?: true
     transmission?: true
     assigned_instructor?: true
-    car_year?: true
     car_Number?: true
-    createdAt?: true
+    car_year?: true
     updatedAt?: true
+    createdAt?: true
   }
 
   export type CarCountAggregateInputType = {
@@ -4023,10 +5858,10 @@ export namespace Prisma {
     name?: true
     transmission?: true
     assigned_instructor?: true
-    car_year?: true
     car_Number?: true
-    createdAt?: true
+    car_year?: true
     updatedAt?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -4106,11 +5941,11 @@ export namespace Prisma {
     id: string
     name: string
     transmission: string
-    assigned_instructor: string
-    car_year: string
+    assigned_instructor: string | null
     car_Number: string
-    createdAt: Date
+    car_year: string
     updatedAt: Date
+    createdAt: Date
     _count: CarCountAggregateOutputType | null
     _min: CarMinAggregateOutputType | null
     _max: CarMaxAggregateOutputType | null
@@ -4135,10 +5970,15 @@ export namespace Prisma {
     name?: boolean
     transmission?: boolean
     assigned_instructor?: boolean
-    car_year?: boolean
     car_Number?: boolean
-    createdAt?: boolean
+    car_year?: boolean
     updatedAt?: boolean
+    createdAt?: boolean
+    students?: boolean | Car$studentsArgs<ExtArgs>
+    instructors?: boolean | Car$instructorsArgs<ExtArgs>
+    maintenanceItem?: boolean | Car$maintenanceItemArgs<ExtArgs>
+    maintenanceSchedules?: boolean | Car$maintenanceSchedulesArgs<ExtArgs>
+    _count?: boolean | CarCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["car"]>
 
   export type CarSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4146,10 +5986,10 @@ export namespace Prisma {
     name?: boolean
     transmission?: boolean
     assigned_instructor?: boolean
-    car_year?: boolean
     car_Number?: boolean
-    createdAt?: boolean
+    car_year?: boolean
     updatedAt?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["car"]>
 
   export type CarSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4157,10 +5997,10 @@ export namespace Prisma {
     name?: boolean
     transmission?: boolean
     assigned_instructor?: boolean
-    car_year?: boolean
     car_Number?: boolean
-    createdAt?: boolean
+    car_year?: boolean
     updatedAt?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["car"]>
 
   export type CarSelectScalar = {
@@ -4168,26 +6008,40 @@ export namespace Prisma {
     name?: boolean
     transmission?: boolean
     assigned_instructor?: boolean
-    car_year?: boolean
     car_Number?: boolean
-    createdAt?: boolean
+    car_year?: boolean
     updatedAt?: boolean
+    createdAt?: boolean
   }
 
-  export type CarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "transmission" | "assigned_instructor" | "car_year" | "car_Number" | "createdAt" | "updatedAt", ExtArgs["result"]["car"]>
+  export type CarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "transmission" | "assigned_instructor" | "car_Number" | "car_year" | "updatedAt" | "createdAt", ExtArgs["result"]["car"]>
+  export type CarInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    students?: boolean | Car$studentsArgs<ExtArgs>
+    instructors?: boolean | Car$instructorsArgs<ExtArgs>
+    maintenanceItem?: boolean | Car$maintenanceItemArgs<ExtArgs>
+    maintenanceSchedules?: boolean | Car$maintenanceSchedulesArgs<ExtArgs>
+    _count?: boolean | CarCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CarIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CarIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CarPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Car"
-    objects: {}
+    objects: {
+      students: Prisma.$StudentPayload<ExtArgs>[]
+      instructors: Prisma.$InstructorPayload<ExtArgs>[]
+      maintenanceItem: Prisma.$MaintenanceItemPayload<ExtArgs>[]
+      maintenanceSchedules: Prisma.$MaintenanceSchedulePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       transmission: string
-      assigned_instructor: string
-      car_year: string
+      assigned_instructor: string | null
       car_Number: string
-      createdAt: Date
+      car_year: string
       updatedAt: Date
+      createdAt: Date
     }, ExtArgs["result"]["car"]>
     composites: {}
   }
@@ -4582,6 +6436,10 @@ export namespace Prisma {
    */
   export interface Prisma__CarClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    students<T extends Car$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Car$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    instructors<T extends Car$instructorsArgs<ExtArgs> = {}>(args?: Subset<T, Car$instructorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceItem<T extends Car$maintenanceItemArgs<ExtArgs> = {}>(args?: Subset<T, Car$maintenanceItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceSchedules<T extends Car$maintenanceSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Car$maintenanceSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4615,10 +6473,10 @@ export namespace Prisma {
     readonly name: FieldRef<"Car", 'String'>
     readonly transmission: FieldRef<"Car", 'String'>
     readonly assigned_instructor: FieldRef<"Car", 'String'>
-    readonly car_year: FieldRef<"Car", 'String'>
     readonly car_Number: FieldRef<"Car", 'String'>
-    readonly createdAt: FieldRef<"Car", 'DateTime'>
+    readonly car_year: FieldRef<"Car", 'String'>
     readonly updatedAt: FieldRef<"Car", 'DateTime'>
+    readonly createdAt: FieldRef<"Car", 'DateTime'>
   }
     
 
@@ -4635,6 +6493,10 @@ export namespace Prisma {
      * Omit specific fields from the Car
      */
     omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
     /**
      * Filter, which Car to fetch.
      */
@@ -4654,6 +6516,10 @@ export namespace Prisma {
      */
     omit?: CarOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    /**
      * Filter, which Car to fetch.
      */
     where: CarWhereUniqueInput
@@ -4671,6 +6537,10 @@ export namespace Prisma {
      * Omit specific fields from the Car
      */
     omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
     /**
      * Filter, which Car to fetch.
      */
@@ -4720,6 +6590,10 @@ export namespace Prisma {
      */
     omit?: CarOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    /**
      * Filter, which Car to fetch.
      */
     where?: CarWhereInput
@@ -4767,6 +6641,10 @@ export namespace Prisma {
      * Omit specific fields from the Car
      */
     omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
     /**
      * Filter, which Cars to fetch.
      */
@@ -4816,6 +6694,10 @@ export namespace Prisma {
      */
     omit?: CarOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    /**
      * The data needed to create a Car.
      */
     data: XOR<CarCreateInput, CarUncheckedCreateInput>
@@ -4861,6 +6743,10 @@ export namespace Prisma {
      * Omit specific fields from the Car
      */
     omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
     /**
      * The data needed to update a Car.
      */
@@ -4928,6 +6814,10 @@ export namespace Prisma {
      */
     omit?: CarOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    /**
      * The filter to search for the Car to update in case it exists.
      */
     where: CarWhereUniqueInput
@@ -4954,6 +6844,10 @@ export namespace Prisma {
      */
     omit?: CarOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    /**
      * Filter which Car to delete.
      */
     where: CarWhereUniqueInput
@@ -4974,6 +6868,102 @@ export namespace Prisma {
   }
 
   /**
+   * Car.students
+   */
+  export type Car$studentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student
+     */
+    select?: StudentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Student
+     */
+    omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    where?: StudentWhereInput
+    orderBy?: StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]
+    cursor?: StudentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentScalarFieldEnum | StudentScalarFieldEnum[]
+  }
+
+  /**
+   * Car.instructors
+   */
+  export type Car$instructorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    where?: InstructorWhereInput
+    orderBy?: InstructorOrderByWithRelationInput | InstructorOrderByWithRelationInput[]
+    cursor?: InstructorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InstructorScalarFieldEnum | InstructorScalarFieldEnum[]
+  }
+
+  /**
+   * Car.maintenanceItem
+   */
+  export type Car$maintenanceItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    where?: MaintenanceItemWhereInput
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    cursor?: MaintenanceItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * Car.maintenanceSchedules
+   */
+  export type Car$maintenanceSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    where?: MaintenanceScheduleWhereInput
+    orderBy?: MaintenanceScheduleOrderByWithRelationInput | MaintenanceScheduleOrderByWithRelationInput[]
+    cursor?: MaintenanceScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScheduleScalarFieldEnum | MaintenanceScheduleScalarFieldEnum[]
+  }
+
+  /**
    * Car without action
    */
   export type CarDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4985,6 +6975,982 @@ export namespace Prisma {
      * Omit specific fields from the Car
      */
     omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DemoStatus
+   */
+
+  export type AggregateDemoStatus = {
+    _count: DemoStatusCountAggregateOutputType | null
+    _min: DemoStatusMinAggregateOutputType | null
+    _max: DemoStatusMaxAggregateOutputType | null
+  }
+
+  export type DemoStatusMinAggregateOutputType = {
+    id: string | null
+    isDemo: boolean | null
+    startDate: Date | null
+  }
+
+  export type DemoStatusMaxAggregateOutputType = {
+    id: string | null
+    isDemo: boolean | null
+    startDate: Date | null
+  }
+
+  export type DemoStatusCountAggregateOutputType = {
+    id: number
+    isDemo: number
+    startDate: number
+    _all: number
+  }
+
+
+  export type DemoStatusMinAggregateInputType = {
+    id?: true
+    isDemo?: true
+    startDate?: true
+  }
+
+  export type DemoStatusMaxAggregateInputType = {
+    id?: true
+    isDemo?: true
+    startDate?: true
+  }
+
+  export type DemoStatusCountAggregateInputType = {
+    id?: true
+    isDemo?: true
+    startDate?: true
+    _all?: true
+  }
+
+  export type DemoStatusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemoStatus to aggregate.
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoStatuses to fetch.
+     */
+    orderBy?: DemoStatusOrderByWithRelationInput | DemoStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DemoStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DemoStatuses
+    **/
+    _count?: true | DemoStatusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DemoStatusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DemoStatusMaxAggregateInputType
+  }
+
+  export type GetDemoStatusAggregateType<T extends DemoStatusAggregateArgs> = {
+        [P in keyof T & keyof AggregateDemoStatus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDemoStatus[P]>
+      : GetScalarType<T[P], AggregateDemoStatus[P]>
+  }
+
+
+
+
+  export type DemoStatusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DemoStatusWhereInput
+    orderBy?: DemoStatusOrderByWithAggregationInput | DemoStatusOrderByWithAggregationInput[]
+    by: DemoStatusScalarFieldEnum[] | DemoStatusScalarFieldEnum
+    having?: DemoStatusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DemoStatusCountAggregateInputType | true
+    _min?: DemoStatusMinAggregateInputType
+    _max?: DemoStatusMaxAggregateInputType
+  }
+
+  export type DemoStatusGroupByOutputType = {
+    id: string
+    isDemo: boolean
+    startDate: Date
+    _count: DemoStatusCountAggregateOutputType | null
+    _min: DemoStatusMinAggregateOutputType | null
+    _max: DemoStatusMaxAggregateOutputType | null
+  }
+
+  type GetDemoStatusGroupByPayload<T extends DemoStatusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DemoStatusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DemoStatusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DemoStatusGroupByOutputType[P]>
+            : GetScalarType<T[P], DemoStatusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DemoStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    isDemo?: boolean
+    startDate?: boolean
+  }, ExtArgs["result"]["demoStatus"]>
+
+  export type DemoStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    isDemo?: boolean
+    startDate?: boolean
+  }, ExtArgs["result"]["demoStatus"]>
+
+  export type DemoStatusSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    isDemo?: boolean
+    startDate?: boolean
+  }, ExtArgs["result"]["demoStatus"]>
+
+  export type DemoStatusSelectScalar = {
+    id?: boolean
+    isDemo?: boolean
+    startDate?: boolean
+  }
+
+  export type DemoStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isDemo" | "startDate", ExtArgs["result"]["demoStatus"]>
+
+  export type $DemoStatusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DemoStatus"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      isDemo: boolean
+      startDate: Date
+    }, ExtArgs["result"]["demoStatus"]>
+    composites: {}
+  }
+
+  type DemoStatusGetPayload<S extends boolean | null | undefined | DemoStatusDefaultArgs> = $Result.GetResult<Prisma.$DemoStatusPayload, S>
+
+  type DemoStatusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DemoStatusFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DemoStatusCountAggregateInputType | true
+    }
+
+  export interface DemoStatusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DemoStatus'], meta: { name: 'DemoStatus' } }
+    /**
+     * Find zero or one DemoStatus that matches the filter.
+     * @param {DemoStatusFindUniqueArgs} args - Arguments to find a DemoStatus
+     * @example
+     * // Get one DemoStatus
+     * const demoStatus = await prisma.demoStatus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DemoStatusFindUniqueArgs>(args: SelectSubset<T, DemoStatusFindUniqueArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DemoStatus that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DemoStatusFindUniqueOrThrowArgs} args - Arguments to find a DemoStatus
+     * @example
+     * // Get one DemoStatus
+     * const demoStatus = await prisma.demoStatus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DemoStatusFindUniqueOrThrowArgs>(args: SelectSubset<T, DemoStatusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemoStatus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusFindFirstArgs} args - Arguments to find a DemoStatus
+     * @example
+     * // Get one DemoStatus
+     * const demoStatus = await prisma.demoStatus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DemoStatusFindFirstArgs>(args?: SelectSubset<T, DemoStatusFindFirstArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemoStatus that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusFindFirstOrThrowArgs} args - Arguments to find a DemoStatus
+     * @example
+     * // Get one DemoStatus
+     * const demoStatus = await prisma.demoStatus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DemoStatusFindFirstOrThrowArgs>(args?: SelectSubset<T, DemoStatusFindFirstOrThrowArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DemoStatuses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DemoStatuses
+     * const demoStatuses = await prisma.demoStatus.findMany()
+     * 
+     * // Get first 10 DemoStatuses
+     * const demoStatuses = await prisma.demoStatus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const demoStatusWithIdOnly = await prisma.demoStatus.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DemoStatusFindManyArgs>(args?: SelectSubset<T, DemoStatusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DemoStatus.
+     * @param {DemoStatusCreateArgs} args - Arguments to create a DemoStatus.
+     * @example
+     * // Create one DemoStatus
+     * const DemoStatus = await prisma.demoStatus.create({
+     *   data: {
+     *     // ... data to create a DemoStatus
+     *   }
+     * })
+     * 
+     */
+    create<T extends DemoStatusCreateArgs>(args: SelectSubset<T, DemoStatusCreateArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DemoStatuses.
+     * @param {DemoStatusCreateManyArgs} args - Arguments to create many DemoStatuses.
+     * @example
+     * // Create many DemoStatuses
+     * const demoStatus = await prisma.demoStatus.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DemoStatusCreateManyArgs>(args?: SelectSubset<T, DemoStatusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DemoStatuses and returns the data saved in the database.
+     * @param {DemoStatusCreateManyAndReturnArgs} args - Arguments to create many DemoStatuses.
+     * @example
+     * // Create many DemoStatuses
+     * const demoStatus = await prisma.demoStatus.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DemoStatuses and only return the `id`
+     * const demoStatusWithIdOnly = await prisma.demoStatus.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DemoStatusCreateManyAndReturnArgs>(args?: SelectSubset<T, DemoStatusCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DemoStatus.
+     * @param {DemoStatusDeleteArgs} args - Arguments to delete one DemoStatus.
+     * @example
+     * // Delete one DemoStatus
+     * const DemoStatus = await prisma.demoStatus.delete({
+     *   where: {
+     *     // ... filter to delete one DemoStatus
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DemoStatusDeleteArgs>(args: SelectSubset<T, DemoStatusDeleteArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DemoStatus.
+     * @param {DemoStatusUpdateArgs} args - Arguments to update one DemoStatus.
+     * @example
+     * // Update one DemoStatus
+     * const demoStatus = await prisma.demoStatus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DemoStatusUpdateArgs>(args: SelectSubset<T, DemoStatusUpdateArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DemoStatuses.
+     * @param {DemoStatusDeleteManyArgs} args - Arguments to filter DemoStatuses to delete.
+     * @example
+     * // Delete a few DemoStatuses
+     * const { count } = await prisma.demoStatus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DemoStatusDeleteManyArgs>(args?: SelectSubset<T, DemoStatusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemoStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DemoStatuses
+     * const demoStatus = await prisma.demoStatus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DemoStatusUpdateManyArgs>(args: SelectSubset<T, DemoStatusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemoStatuses and returns the data updated in the database.
+     * @param {DemoStatusUpdateManyAndReturnArgs} args - Arguments to update many DemoStatuses.
+     * @example
+     * // Update many DemoStatuses
+     * const demoStatus = await prisma.demoStatus.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DemoStatuses and only return the `id`
+     * const demoStatusWithIdOnly = await prisma.demoStatus.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DemoStatusUpdateManyAndReturnArgs>(args: SelectSubset<T, DemoStatusUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DemoStatus.
+     * @param {DemoStatusUpsertArgs} args - Arguments to update or create a DemoStatus.
+     * @example
+     * // Update or create a DemoStatus
+     * const demoStatus = await prisma.demoStatus.upsert({
+     *   create: {
+     *     // ... data to create a DemoStatus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DemoStatus we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DemoStatusUpsertArgs>(args: SelectSubset<T, DemoStatusUpsertArgs<ExtArgs>>): Prisma__DemoStatusClient<$Result.GetResult<Prisma.$DemoStatusPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DemoStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusCountArgs} args - Arguments to filter DemoStatuses to count.
+     * @example
+     * // Count the number of DemoStatuses
+     * const count = await prisma.demoStatus.count({
+     *   where: {
+     *     // ... the filter for the DemoStatuses we want to count
+     *   }
+     * })
+    **/
+    count<T extends DemoStatusCountArgs>(
+      args?: Subset<T, DemoStatusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DemoStatusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DemoStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DemoStatusAggregateArgs>(args: Subset<T, DemoStatusAggregateArgs>): Prisma.PrismaPromise<GetDemoStatusAggregateType<T>>
+
+    /**
+     * Group by DemoStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoStatusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DemoStatusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DemoStatusGroupByArgs['orderBy'] }
+        : { orderBy?: DemoStatusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DemoStatusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDemoStatusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DemoStatus model
+   */
+  readonly fields: DemoStatusFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DemoStatus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DemoStatusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DemoStatus model
+   */
+  interface DemoStatusFieldRefs {
+    readonly id: FieldRef<"DemoStatus", 'String'>
+    readonly isDemo: FieldRef<"DemoStatus", 'Boolean'>
+    readonly startDate: FieldRef<"DemoStatus", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DemoStatus findUnique
+   */
+  export type DemoStatusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which DemoStatus to fetch.
+     */
+    where: DemoStatusWhereUniqueInput
+  }
+
+  /**
+   * DemoStatus findUniqueOrThrow
+   */
+  export type DemoStatusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which DemoStatus to fetch.
+     */
+    where: DemoStatusWhereUniqueInput
+  }
+
+  /**
+   * DemoStatus findFirst
+   */
+  export type DemoStatusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which DemoStatus to fetch.
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoStatuses to fetch.
+     */
+    orderBy?: DemoStatusOrderByWithRelationInput | DemoStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemoStatuses.
+     */
+    cursor?: DemoStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemoStatuses.
+     */
+    distinct?: DemoStatusScalarFieldEnum | DemoStatusScalarFieldEnum[]
+  }
+
+  /**
+   * DemoStatus findFirstOrThrow
+   */
+  export type DemoStatusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which DemoStatus to fetch.
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoStatuses to fetch.
+     */
+    orderBy?: DemoStatusOrderByWithRelationInput | DemoStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemoStatuses.
+     */
+    cursor?: DemoStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemoStatuses.
+     */
+    distinct?: DemoStatusScalarFieldEnum | DemoStatusScalarFieldEnum[]
+  }
+
+  /**
+   * DemoStatus findMany
+   */
+  export type DemoStatusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which DemoStatuses to fetch.
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoStatuses to fetch.
+     */
+    orderBy?: DemoStatusOrderByWithRelationInput | DemoStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DemoStatuses.
+     */
+    cursor?: DemoStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemoStatuses.
+     */
+    distinct?: DemoStatusScalarFieldEnum | DemoStatusScalarFieldEnum[]
+  }
+
+  /**
+   * DemoStatus create
+   */
+  export type DemoStatusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DemoStatus.
+     */
+    data?: XOR<DemoStatusCreateInput, DemoStatusUncheckedCreateInput>
+  }
+
+  /**
+   * DemoStatus createMany
+   */
+  export type DemoStatusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DemoStatuses.
+     */
+    data: DemoStatusCreateManyInput | DemoStatusCreateManyInput[]
+  }
+
+  /**
+   * DemoStatus createManyAndReturn
+   */
+  export type DemoStatusCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * The data used to create many DemoStatuses.
+     */
+    data: DemoStatusCreateManyInput | DemoStatusCreateManyInput[]
+  }
+
+  /**
+   * DemoStatus update
+   */
+  export type DemoStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DemoStatus.
+     */
+    data: XOR<DemoStatusUpdateInput, DemoStatusUncheckedUpdateInput>
+    /**
+     * Choose, which DemoStatus to update.
+     */
+    where: DemoStatusWhereUniqueInput
+  }
+
+  /**
+   * DemoStatus updateMany
+   */
+  export type DemoStatusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DemoStatuses.
+     */
+    data: XOR<DemoStatusUpdateManyMutationInput, DemoStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which DemoStatuses to update
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * Limit how many DemoStatuses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemoStatus updateManyAndReturn
+   */
+  export type DemoStatusUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * The data used to update DemoStatuses.
+     */
+    data: XOR<DemoStatusUpdateManyMutationInput, DemoStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which DemoStatuses to update
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * Limit how many DemoStatuses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemoStatus upsert
+   */
+  export type DemoStatusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DemoStatus to update in case it exists.
+     */
+    where: DemoStatusWhereUniqueInput
+    /**
+     * In case the DemoStatus found by the `where` argument doesn't exist, create a new DemoStatus with this data.
+     */
+    create: XOR<DemoStatusCreateInput, DemoStatusUncheckedCreateInput>
+    /**
+     * In case the DemoStatus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DemoStatusUpdateInput, DemoStatusUncheckedUpdateInput>
+  }
+
+  /**
+   * DemoStatus delete
+   */
+  export type DemoStatusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
+    /**
+     * Filter which DemoStatus to delete.
+     */
+    where: DemoStatusWhereUniqueInput
+  }
+
+  /**
+   * DemoStatus deleteMany
+   */
+  export type DemoStatusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemoStatuses to delete
+     */
+    where?: DemoStatusWhereInput
+    /**
+     * Limit how many DemoStatuses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemoStatus without action
+   */
+  export type DemoStatusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoStatus
+     */
+    select?: DemoStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoStatus
+     */
+    omit?: DemoStatusOmit<ExtArgs> | null
   }
 
 
@@ -6018,8 +8984,20 @@ export namespace Prisma {
 
   export type AggregateInstructor = {
     _count: InstructorCountAggregateOutputType | null
+    _avg: InstructorAvgAggregateOutputType | null
+    _sum: InstructorSumAggregateOutputType | null
     _min: InstructorMinAggregateOutputType | null
     _max: InstructorMaxAggregateOutputType | null
+  }
+
+  export type InstructorAvgAggregateOutputType = {
+    payment: number | null
+    paymentDate: number | null
+  }
+
+  export type InstructorSumAggregateOutputType = {
+    payment: number | null
+    paymentDate: number | null
   }
 
   export type InstructorMinAggregateOutputType = {
@@ -6032,6 +9010,9 @@ export namespace Prisma {
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    payment: number | null
+    paymentDate: number | null
+    assignedCarId: string | null
   }
 
   export type InstructorMaxAggregateOutputType = {
@@ -6044,6 +9025,9 @@ export namespace Prisma {
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    payment: number | null
+    paymentDate: number | null
+    assignedCarId: string | null
   }
 
   export type InstructorCountAggregateOutputType = {
@@ -6056,9 +9040,22 @@ export namespace Prisma {
     isActive: number
     createdAt: number
     updatedAt: number
+    payment: number
+    paymentDate: number
+    assignedCarId: number
     _all: number
   }
 
+
+  export type InstructorAvgAggregateInputType = {
+    payment?: true
+    paymentDate?: true
+  }
+
+  export type InstructorSumAggregateInputType = {
+    payment?: true
+    paymentDate?: true
+  }
 
   export type InstructorMinAggregateInputType = {
     id?: true
@@ -6070,6 +9067,9 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    payment?: true
+    paymentDate?: true
+    assignedCarId?: true
   }
 
   export type InstructorMaxAggregateInputType = {
@@ -6082,6 +9082,9 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    payment?: true
+    paymentDate?: true
+    assignedCarId?: true
   }
 
   export type InstructorCountAggregateInputType = {
@@ -6094,6 +9097,9 @@ export namespace Prisma {
     isActive?: true
     createdAt?: true
     updatedAt?: true
+    payment?: true
+    paymentDate?: true
+    assignedCarId?: true
     _all?: true
   }
 
@@ -6135,6 +9141,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: InstructorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InstructorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: InstructorMinAggregateInputType
@@ -6165,6 +9183,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: InstructorCountAggregateInputType | true
+    _avg?: InstructorAvgAggregateInputType
+    _sum?: InstructorSumAggregateInputType
     _min?: InstructorMinAggregateInputType
     _max?: InstructorMaxAggregateInputType
   }
@@ -6179,7 +9199,12 @@ export namespace Prisma {
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    payment: number | null
+    paymentDate: number | null
+    assignedCarId: string | null
     _count: InstructorCountAggregateOutputType | null
+    _avg: InstructorAvgAggregateOutputType | null
+    _sum: InstructorSumAggregateOutputType | null
     _min: InstructorMinAggregateOutputType | null
     _max: InstructorMaxAggregateOutputType | null
   }
@@ -6208,7 +9233,12 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    payment?: boolean
+    paymentDate?: boolean
+    assignedCarId?: boolean
+    car?: boolean | Instructor$carArgs<ExtArgs>
     paymentCycles?: boolean | Instructor$paymentCyclesArgs<ExtArgs>
+    students?: boolean | Instructor$studentsArgs<ExtArgs>
     _count?: boolean | InstructorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["instructor"]>
 
@@ -6222,6 +9252,10 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    payment?: boolean
+    paymentDate?: boolean
+    assignedCarId?: boolean
+    car?: boolean | Instructor$carArgs<ExtArgs>
   }, ExtArgs["result"]["instructor"]>
 
   export type InstructorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6234,6 +9268,10 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    payment?: boolean
+    paymentDate?: boolean
+    assignedCarId?: boolean
+    car?: boolean | Instructor$carArgs<ExtArgs>
   }, ExtArgs["result"]["instructor"]>
 
   export type InstructorSelectScalar = {
@@ -6246,20 +9284,31 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    payment?: boolean
+    paymentDate?: boolean
+    assignedCarId?: boolean
   }
 
-  export type InstructorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "licenseNumber" | "jobType" | "joiningDate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["instructor"]>
+  export type InstructorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "licenseNumber" | "jobType" | "joiningDate" | "isActive" | "createdAt" | "updatedAt" | "payment" | "paymentDate" | "assignedCarId", ExtArgs["result"]["instructor"]>
   export type InstructorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | Instructor$carArgs<ExtArgs>
     paymentCycles?: boolean | Instructor$paymentCyclesArgs<ExtArgs>
+    students?: boolean | Instructor$studentsArgs<ExtArgs>
     _count?: boolean | InstructorCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type InstructorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type InstructorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InstructorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | Instructor$carArgs<ExtArgs>
+  }
+  export type InstructorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | Instructor$carArgs<ExtArgs>
+  }
 
   export type $InstructorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Instructor"
     objects: {
+      car: Prisma.$CarPayload<ExtArgs> | null
       paymentCycles: Prisma.$PaymentCyclePayload<ExtArgs>[]
+      students: Prisma.$StudentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6271,6 +9320,9 @@ export namespace Prisma {
       isActive: boolean
       createdAt: Date
       updatedAt: Date
+      payment: number | null
+      paymentDate: number | null
+      assignedCarId: string | null
     }, ExtArgs["result"]["instructor"]>
     composites: {}
   }
@@ -6665,7 +9717,9 @@ export namespace Prisma {
    */
   export interface Prisma__InstructorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    car<T extends Instructor$carArgs<ExtArgs> = {}>(args?: Subset<T, Instructor$carArgs<ExtArgs>>): Prisma__CarClient<$Result.GetResult<Prisma.$CarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     paymentCycles<T extends Instructor$paymentCyclesArgs<ExtArgs> = {}>(args?: Subset<T, Instructor$paymentCyclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentCyclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    students<T extends Instructor$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Instructor$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6704,6 +9758,9 @@ export namespace Prisma {
     readonly isActive: FieldRef<"Instructor", 'Boolean'>
     readonly createdAt: FieldRef<"Instructor", 'DateTime'>
     readonly updatedAt: FieldRef<"Instructor", 'DateTime'>
+    readonly payment: FieldRef<"Instructor", 'Float'>
+    readonly paymentDate: FieldRef<"Instructor", 'Int'>
+    readonly assignedCarId: FieldRef<"Instructor", 'String'>
   }
     
 
@@ -6956,6 +10013,10 @@ export namespace Prisma {
      * The data used to create many Instructors.
      */
     data: InstructorCreateManyInput | InstructorCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7026,6 +10087,10 @@ export namespace Prisma {
      * Limit how many Instructors to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7095,6 +10160,25 @@ export namespace Prisma {
   }
 
   /**
+   * Instructor.car
+   */
+  export type Instructor$carArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Car
+     */
+    select?: CarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Car
+     */
+    omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    where?: CarWhereInput
+  }
+
+  /**
    * Instructor.paymentCycles
    */
   export type Instructor$paymentCyclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7119,6 +10203,30 @@ export namespace Prisma {
   }
 
   /**
+   * Instructor.students
+   */
+  export type Instructor$studentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student
+     */
+    select?: StudentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Student
+     */
+    omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    where?: StudentWhereInput
+    orderBy?: StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]
+    cursor?: StudentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentScalarFieldEnum | StudentScalarFieldEnum[]
+  }
+
+  /**
    * Instructor without action
    */
   export type InstructorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7134,6 +10242,2258 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: InstructorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MaintenanceSchedule
+   */
+
+  export type AggregateMaintenanceSchedule = {
+    _count: MaintenanceScheduleCountAggregateOutputType | null
+    _min: MaintenanceScheduleMinAggregateOutputType | null
+    _max: MaintenanceScheduleMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceScheduleMinAggregateOutputType = {
+    id: string | null
+    carId: string | null
+    serviceDate: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaintenanceScheduleMaxAggregateOutputType = {
+    id: string | null
+    carId: string | null
+    serviceDate: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MaintenanceScheduleCountAggregateOutputType = {
+    id: number
+    carId: number
+    serviceDate: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MaintenanceScheduleMinAggregateInputType = {
+    id?: true
+    carId?: true
+    serviceDate?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaintenanceScheduleMaxAggregateInputType = {
+    id?: true
+    carId?: true
+    serviceDate?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MaintenanceScheduleCountAggregateInputType = {
+    id?: true
+    carId?: true
+    serviceDate?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MaintenanceScheduleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceSchedule to aggregate.
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceSchedules to fetch.
+     */
+    orderBy?: MaintenanceScheduleOrderByWithRelationInput | MaintenanceScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceSchedules
+    **/
+    _count?: true | MaintenanceScheduleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceScheduleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceScheduleMaxAggregateInputType
+  }
+
+  export type GetMaintenanceScheduleAggregateType<T extends MaintenanceScheduleAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceSchedule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceSchedule[P]>
+      : GetScalarType<T[P], AggregateMaintenanceSchedule[P]>
+  }
+
+
+
+
+  export type MaintenanceScheduleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceScheduleWhereInput
+    orderBy?: MaintenanceScheduleOrderByWithAggregationInput | MaintenanceScheduleOrderByWithAggregationInput[]
+    by: MaintenanceScheduleScalarFieldEnum[] | MaintenanceScheduleScalarFieldEnum
+    having?: MaintenanceScheduleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceScheduleCountAggregateInputType | true
+    _min?: MaintenanceScheduleMinAggregateInputType
+    _max?: MaintenanceScheduleMaxAggregateInputType
+  }
+
+  export type MaintenanceScheduleGroupByOutputType = {
+    id: string
+    carId: string
+    serviceDate: Date
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MaintenanceScheduleCountAggregateOutputType | null
+    _min: MaintenanceScheduleMinAggregateOutputType | null
+    _max: MaintenanceScheduleMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceScheduleGroupByPayload<T extends MaintenanceScheduleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceScheduleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceScheduleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceScheduleGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceScheduleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceScheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    carId?: boolean
+    serviceDate?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    car?: boolean | CarDefaultArgs<ExtArgs>
+    items?: boolean | MaintenanceSchedule$itemsArgs<ExtArgs>
+    _count?: boolean | MaintenanceScheduleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceSchedule"]>
+
+  export type MaintenanceScheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    carId?: boolean
+    serviceDate?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    car?: boolean | CarDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceSchedule"]>
+
+  export type MaintenanceScheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    carId?: boolean
+    serviceDate?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    car?: boolean | CarDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceSchedule"]>
+
+  export type MaintenanceScheduleSelectScalar = {
+    id?: boolean
+    carId?: boolean
+    serviceDate?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MaintenanceScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "carId" | "serviceDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["maintenanceSchedule"]>
+  export type MaintenanceScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | CarDefaultArgs<ExtArgs>
+    items?: boolean | MaintenanceSchedule$itemsArgs<ExtArgs>
+    _count?: boolean | MaintenanceScheduleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MaintenanceScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | CarDefaultArgs<ExtArgs>
+  }
+  export type MaintenanceScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    car?: boolean | CarDefaultArgs<ExtArgs>
+  }
+
+  export type $MaintenanceSchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceSchedule"
+    objects: {
+      car: Prisma.$CarPayload<ExtArgs>
+      items: Prisma.$MaintenanceItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      carId: string
+      serviceDate: Date
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["maintenanceSchedule"]>
+    composites: {}
+  }
+
+  type MaintenanceScheduleGetPayload<S extends boolean | null | undefined | MaintenanceScheduleDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceSchedulePayload, S>
+
+  type MaintenanceScheduleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceScheduleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceScheduleCountAggregateInputType | true
+    }
+
+  export interface MaintenanceScheduleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceSchedule'], meta: { name: 'MaintenanceSchedule' } }
+    /**
+     * Find zero or one MaintenanceSchedule that matches the filter.
+     * @param {MaintenanceScheduleFindUniqueArgs} args - Arguments to find a MaintenanceSchedule
+     * @example
+     * // Get one MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceScheduleFindUniqueArgs>(args: SelectSubset<T, MaintenanceScheduleFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceSchedule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceScheduleFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceSchedule
+     * @example
+     * // Get one MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceScheduleFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceScheduleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceSchedule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleFindFirstArgs} args - Arguments to find a MaintenanceSchedule
+     * @example
+     * // Get one MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceScheduleFindFirstArgs>(args?: SelectSubset<T, MaintenanceScheduleFindFirstArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceSchedule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleFindFirstOrThrowArgs} args - Arguments to find a MaintenanceSchedule
+     * @example
+     * // Get one MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceScheduleFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceScheduleFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceSchedules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceSchedules
+     * const maintenanceSchedules = await prisma.maintenanceSchedule.findMany()
+     * 
+     * // Get first 10 MaintenanceSchedules
+     * const maintenanceSchedules = await prisma.maintenanceSchedule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceScheduleWithIdOnly = await prisma.maintenanceSchedule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceScheduleFindManyArgs>(args?: SelectSubset<T, MaintenanceScheduleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceSchedule.
+     * @param {MaintenanceScheduleCreateArgs} args - Arguments to create a MaintenanceSchedule.
+     * @example
+     * // Create one MaintenanceSchedule
+     * const MaintenanceSchedule = await prisma.maintenanceSchedule.create({
+     *   data: {
+     *     // ... data to create a MaintenanceSchedule
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceScheduleCreateArgs>(args: SelectSubset<T, MaintenanceScheduleCreateArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceSchedules.
+     * @param {MaintenanceScheduleCreateManyArgs} args - Arguments to create many MaintenanceSchedules.
+     * @example
+     * // Create many MaintenanceSchedules
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceScheduleCreateManyArgs>(args?: SelectSubset<T, MaintenanceScheduleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaintenanceSchedules and returns the data saved in the database.
+     * @param {MaintenanceScheduleCreateManyAndReturnArgs} args - Arguments to create many MaintenanceSchedules.
+     * @example
+     * // Create many MaintenanceSchedules
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaintenanceSchedules and only return the `id`
+     * const maintenanceScheduleWithIdOnly = await prisma.maintenanceSchedule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceScheduleCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceScheduleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaintenanceSchedule.
+     * @param {MaintenanceScheduleDeleteArgs} args - Arguments to delete one MaintenanceSchedule.
+     * @example
+     * // Delete one MaintenanceSchedule
+     * const MaintenanceSchedule = await prisma.maintenanceSchedule.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceSchedule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceScheduleDeleteArgs>(args: SelectSubset<T, MaintenanceScheduleDeleteArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceSchedule.
+     * @param {MaintenanceScheduleUpdateArgs} args - Arguments to update one MaintenanceSchedule.
+     * @example
+     * // Update one MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceScheduleUpdateArgs>(args: SelectSubset<T, MaintenanceScheduleUpdateArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceSchedules.
+     * @param {MaintenanceScheduleDeleteManyArgs} args - Arguments to filter MaintenanceSchedules to delete.
+     * @example
+     * // Delete a few MaintenanceSchedules
+     * const { count } = await prisma.maintenanceSchedule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceScheduleDeleteManyArgs>(args?: SelectSubset<T, MaintenanceScheduleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceSchedules
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceScheduleUpdateManyArgs>(args: SelectSubset<T, MaintenanceScheduleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceSchedules and returns the data updated in the database.
+     * @param {MaintenanceScheduleUpdateManyAndReturnArgs} args - Arguments to update many MaintenanceSchedules.
+     * @example
+     * // Update many MaintenanceSchedules
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaintenanceSchedules and only return the `id`
+     * const maintenanceScheduleWithIdOnly = await prisma.maintenanceSchedule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceScheduleUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceScheduleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaintenanceSchedule.
+     * @param {MaintenanceScheduleUpsertArgs} args - Arguments to update or create a MaintenanceSchedule.
+     * @example
+     * // Update or create a MaintenanceSchedule
+     * const maintenanceSchedule = await prisma.maintenanceSchedule.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceSchedule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceSchedule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceScheduleUpsertArgs>(args: SelectSubset<T, MaintenanceScheduleUpsertArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleCountArgs} args - Arguments to filter MaintenanceSchedules to count.
+     * @example
+     * // Count the number of MaintenanceSchedules
+     * const count = await prisma.maintenanceSchedule.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceSchedules we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceScheduleCountArgs>(
+      args?: Subset<T, MaintenanceScheduleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceScheduleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceScheduleAggregateArgs>(args: Subset<T, MaintenanceScheduleAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceScheduleAggregateType<T>>
+
+    /**
+     * Group by MaintenanceSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceScheduleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceScheduleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceScheduleGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceScheduleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceScheduleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceScheduleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceSchedule model
+   */
+  readonly fields: MaintenanceScheduleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceSchedule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    car<T extends CarDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CarDefaultArgs<ExtArgs>>): Prisma__CarClient<$Result.GetResult<Prisma.$CarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    items<T extends MaintenanceSchedule$itemsArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceSchedule$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceSchedule model
+   */
+  interface MaintenanceScheduleFieldRefs {
+    readonly id: FieldRef<"MaintenanceSchedule", 'String'>
+    readonly carId: FieldRef<"MaintenanceSchedule", 'String'>
+    readonly serviceDate: FieldRef<"MaintenanceSchedule", 'DateTime'>
+    readonly notes: FieldRef<"MaintenanceSchedule", 'String'>
+    readonly createdAt: FieldRef<"MaintenanceSchedule", 'DateTime'>
+    readonly updatedAt: FieldRef<"MaintenanceSchedule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceSchedule findUnique
+   */
+  export type MaintenanceScheduleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceSchedule to fetch.
+     */
+    where: MaintenanceScheduleWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceSchedule findUniqueOrThrow
+   */
+  export type MaintenanceScheduleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceSchedule to fetch.
+     */
+    where: MaintenanceScheduleWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceSchedule findFirst
+   */
+  export type MaintenanceScheduleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceSchedule to fetch.
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceSchedules to fetch.
+     */
+    orderBy?: MaintenanceScheduleOrderByWithRelationInput | MaintenanceScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceSchedules.
+     */
+    cursor?: MaintenanceScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceSchedules.
+     */
+    distinct?: MaintenanceScheduleScalarFieldEnum | MaintenanceScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceSchedule findFirstOrThrow
+   */
+  export type MaintenanceScheduleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceSchedule to fetch.
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceSchedules to fetch.
+     */
+    orderBy?: MaintenanceScheduleOrderByWithRelationInput | MaintenanceScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceSchedules.
+     */
+    cursor?: MaintenanceScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceSchedules.
+     */
+    distinct?: MaintenanceScheduleScalarFieldEnum | MaintenanceScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceSchedule findMany
+   */
+  export type MaintenanceScheduleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceSchedules to fetch.
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceSchedules to fetch.
+     */
+    orderBy?: MaintenanceScheduleOrderByWithRelationInput | MaintenanceScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceSchedules.
+     */
+    cursor?: MaintenanceScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceSchedules.
+     */
+    distinct?: MaintenanceScheduleScalarFieldEnum | MaintenanceScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceSchedule create
+   */
+  export type MaintenanceScheduleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceSchedule.
+     */
+    data: XOR<MaintenanceScheduleCreateInput, MaintenanceScheduleUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceSchedule createMany
+   */
+  export type MaintenanceScheduleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceSchedules.
+     */
+    data: MaintenanceScheduleCreateManyInput | MaintenanceScheduleCreateManyInput[]
+  }
+
+  /**
+   * MaintenanceSchedule createManyAndReturn
+   */
+  export type MaintenanceScheduleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaintenanceSchedules.
+     */
+    data: MaintenanceScheduleCreateManyInput | MaintenanceScheduleCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceSchedule update
+   */
+  export type MaintenanceScheduleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceSchedule.
+     */
+    data: XOR<MaintenanceScheduleUpdateInput, MaintenanceScheduleUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceSchedule to update.
+     */
+    where: MaintenanceScheduleWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceSchedule updateMany
+   */
+  export type MaintenanceScheduleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceSchedules.
+     */
+    data: XOR<MaintenanceScheduleUpdateManyMutationInput, MaintenanceScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceSchedules to update
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * Limit how many MaintenanceSchedules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceSchedule updateManyAndReturn
+   */
+  export type MaintenanceScheduleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to update MaintenanceSchedules.
+     */
+    data: XOR<MaintenanceScheduleUpdateManyMutationInput, MaintenanceScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceSchedules to update
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * Limit how many MaintenanceSchedules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceSchedule upsert
+   */
+  export type MaintenanceScheduleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceSchedule to update in case it exists.
+     */
+    where: MaintenanceScheduleWhereUniqueInput
+    /**
+     * In case the MaintenanceSchedule found by the `where` argument doesn't exist, create a new MaintenanceSchedule with this data.
+     */
+    create: XOR<MaintenanceScheduleCreateInput, MaintenanceScheduleUncheckedCreateInput>
+    /**
+     * In case the MaintenanceSchedule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceScheduleUpdateInput, MaintenanceScheduleUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceSchedule delete
+   */
+  export type MaintenanceScheduleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+    /**
+     * Filter which MaintenanceSchedule to delete.
+     */
+    where: MaintenanceScheduleWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceSchedule deleteMany
+   */
+  export type MaintenanceScheduleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceSchedules to delete
+     */
+    where?: MaintenanceScheduleWhereInput
+    /**
+     * Limit how many MaintenanceSchedules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceSchedule.items
+   */
+  export type MaintenanceSchedule$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    where?: MaintenanceItemWhereInput
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    cursor?: MaintenanceItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceSchedule without action
+   */
+  export type MaintenanceScheduleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceSchedule
+     */
+    select?: MaintenanceScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceSchedule
+     */
+    omit?: MaintenanceScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceScheduleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MaintenanceItem
+   */
+
+  export type AggregateMaintenanceItem = {
+    _count: MaintenanceItemCountAggregateOutputType | null
+    _avg: MaintenanceItemAvgAggregateOutputType | null
+    _sum: MaintenanceItemSumAggregateOutputType | null
+    _min: MaintenanceItemMinAggregateOutputType | null
+    _max: MaintenanceItemMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceItemAvgAggregateOutputType = {
+    intervalDays: number | null
+  }
+
+  export type MaintenanceItemSumAggregateOutputType = {
+    intervalDays: number | null
+  }
+
+  export type MaintenanceItemMinAggregateOutputType = {
+    id: string | null
+    maintenanceScheduleId: string | null
+    type: $Enums.MaintenanceType | null
+    intervalDays: number | null
+    nextServiceDate: Date | null
+    notes: string | null
+    carId: string | null
+  }
+
+  export type MaintenanceItemMaxAggregateOutputType = {
+    id: string | null
+    maintenanceScheduleId: string | null
+    type: $Enums.MaintenanceType | null
+    intervalDays: number | null
+    nextServiceDate: Date | null
+    notes: string | null
+    carId: string | null
+  }
+
+  export type MaintenanceItemCountAggregateOutputType = {
+    id: number
+    maintenanceScheduleId: number
+    type: number
+    intervalDays: number
+    nextServiceDate: number
+    notes: number
+    carId: number
+    _all: number
+  }
+
+
+  export type MaintenanceItemAvgAggregateInputType = {
+    intervalDays?: true
+  }
+
+  export type MaintenanceItemSumAggregateInputType = {
+    intervalDays?: true
+  }
+
+  export type MaintenanceItemMinAggregateInputType = {
+    id?: true
+    maintenanceScheduleId?: true
+    type?: true
+    intervalDays?: true
+    nextServiceDate?: true
+    notes?: true
+    carId?: true
+  }
+
+  export type MaintenanceItemMaxAggregateInputType = {
+    id?: true
+    maintenanceScheduleId?: true
+    type?: true
+    intervalDays?: true
+    nextServiceDate?: true
+    notes?: true
+    carId?: true
+  }
+
+  export type MaintenanceItemCountAggregateInputType = {
+    id?: true
+    maintenanceScheduleId?: true
+    type?: true
+    intervalDays?: true
+    nextServiceDate?: true
+    notes?: true
+    carId?: true
+    _all?: true
+  }
+
+  export type MaintenanceItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceItem to aggregate.
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceItems to fetch.
+     */
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceItems
+    **/
+    _count?: true | MaintenanceItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceItemMaxAggregateInputType
+  }
+
+  export type GetMaintenanceItemAggregateType<T extends MaintenanceItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceItem[P]>
+      : GetScalarType<T[P], AggregateMaintenanceItem[P]>
+  }
+
+
+
+
+  export type MaintenanceItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceItemWhereInput
+    orderBy?: MaintenanceItemOrderByWithAggregationInput | MaintenanceItemOrderByWithAggregationInput[]
+    by: MaintenanceItemScalarFieldEnum[] | MaintenanceItemScalarFieldEnum
+    having?: MaintenanceItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceItemCountAggregateInputType | true
+    _avg?: MaintenanceItemAvgAggregateInputType
+    _sum?: MaintenanceItemSumAggregateInputType
+    _min?: MaintenanceItemMinAggregateInputType
+    _max?: MaintenanceItemMaxAggregateInputType
+  }
+
+  export type MaintenanceItemGroupByOutputType = {
+    id: string
+    maintenanceScheduleId: string
+    type: $Enums.MaintenanceType
+    intervalDays: number | null
+    nextServiceDate: Date | null
+    notes: string | null
+    carId: string | null
+    _count: MaintenanceItemCountAggregateOutputType | null
+    _avg: MaintenanceItemAvgAggregateOutputType | null
+    _sum: MaintenanceItemSumAggregateOutputType | null
+    _min: MaintenanceItemMinAggregateOutputType | null
+    _max: MaintenanceItemMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceItemGroupByPayload<T extends MaintenanceItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceItemGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    maintenanceScheduleId?: boolean
+    type?: boolean
+    intervalDays?: boolean
+    nextServiceDate?: boolean
+    notes?: boolean
+    carId?: boolean
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceItem"]>
+
+  export type MaintenanceItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    maintenanceScheduleId?: boolean
+    type?: boolean
+    intervalDays?: boolean
+    nextServiceDate?: boolean
+    notes?: boolean
+    carId?: boolean
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceItem"]>
+
+  export type MaintenanceItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    maintenanceScheduleId?: boolean
+    type?: boolean
+    intervalDays?: boolean
+    nextServiceDate?: boolean
+    notes?: boolean
+    carId?: boolean
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceItem"]>
+
+  export type MaintenanceItemSelectScalar = {
+    id?: boolean
+    maintenanceScheduleId?: boolean
+    type?: boolean
+    intervalDays?: boolean
+    nextServiceDate?: boolean
+    notes?: boolean
+    carId?: boolean
+  }
+
+  export type MaintenanceItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "maintenanceScheduleId" | "type" | "intervalDays" | "nextServiceDate" | "notes" | "carId", ExtArgs["result"]["maintenanceItem"]>
+  export type MaintenanceItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }
+  export type MaintenanceItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }
+  export type MaintenanceItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenanceSchedule?: boolean | MaintenanceScheduleDefaultArgs<ExtArgs>
+    car?: boolean | MaintenanceItem$carArgs<ExtArgs>
+  }
+
+  export type $MaintenanceItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceItem"
+    objects: {
+      maintenanceSchedule: Prisma.$MaintenanceSchedulePayload<ExtArgs>
+      car: Prisma.$CarPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      maintenanceScheduleId: string
+      type: $Enums.MaintenanceType
+      intervalDays: number | null
+      nextServiceDate: Date | null
+      notes: string | null
+      carId: string | null
+    }, ExtArgs["result"]["maintenanceItem"]>
+    composites: {}
+  }
+
+  type MaintenanceItemGetPayload<S extends boolean | null | undefined | MaintenanceItemDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceItemPayload, S>
+
+  type MaintenanceItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceItemCountAggregateInputType | true
+    }
+
+  export interface MaintenanceItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceItem'], meta: { name: 'MaintenanceItem' } }
+    /**
+     * Find zero or one MaintenanceItem that matches the filter.
+     * @param {MaintenanceItemFindUniqueArgs} args - Arguments to find a MaintenanceItem
+     * @example
+     * // Get one MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceItemFindUniqueArgs>(args: SelectSubset<T, MaintenanceItemFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceItemFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceItem
+     * @example
+     * // Get one MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceItemFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemFindFirstArgs} args - Arguments to find a MaintenanceItem
+     * @example
+     * // Get one MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceItemFindFirstArgs>(args?: SelectSubset<T, MaintenanceItemFindFirstArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemFindFirstOrThrowArgs} args - Arguments to find a MaintenanceItem
+     * @example
+     * // Get one MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceItemFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceItems
+     * const maintenanceItems = await prisma.maintenanceItem.findMany()
+     * 
+     * // Get first 10 MaintenanceItems
+     * const maintenanceItems = await prisma.maintenanceItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceItemWithIdOnly = await prisma.maintenanceItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceItemFindManyArgs>(args?: SelectSubset<T, MaintenanceItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceItem.
+     * @param {MaintenanceItemCreateArgs} args - Arguments to create a MaintenanceItem.
+     * @example
+     * // Create one MaintenanceItem
+     * const MaintenanceItem = await prisma.maintenanceItem.create({
+     *   data: {
+     *     // ... data to create a MaintenanceItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceItemCreateArgs>(args: SelectSubset<T, MaintenanceItemCreateArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceItems.
+     * @param {MaintenanceItemCreateManyArgs} args - Arguments to create many MaintenanceItems.
+     * @example
+     * // Create many MaintenanceItems
+     * const maintenanceItem = await prisma.maintenanceItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceItemCreateManyArgs>(args?: SelectSubset<T, MaintenanceItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaintenanceItems and returns the data saved in the database.
+     * @param {MaintenanceItemCreateManyAndReturnArgs} args - Arguments to create many MaintenanceItems.
+     * @example
+     * // Create many MaintenanceItems
+     * const maintenanceItem = await prisma.maintenanceItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaintenanceItems and only return the `id`
+     * const maintenanceItemWithIdOnly = await prisma.maintenanceItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceItemCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaintenanceItem.
+     * @param {MaintenanceItemDeleteArgs} args - Arguments to delete one MaintenanceItem.
+     * @example
+     * // Delete one MaintenanceItem
+     * const MaintenanceItem = await prisma.maintenanceItem.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceItemDeleteArgs>(args: SelectSubset<T, MaintenanceItemDeleteArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceItem.
+     * @param {MaintenanceItemUpdateArgs} args - Arguments to update one MaintenanceItem.
+     * @example
+     * // Update one MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceItemUpdateArgs>(args: SelectSubset<T, MaintenanceItemUpdateArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceItems.
+     * @param {MaintenanceItemDeleteManyArgs} args - Arguments to filter MaintenanceItems to delete.
+     * @example
+     * // Delete a few MaintenanceItems
+     * const { count } = await prisma.maintenanceItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceItemDeleteManyArgs>(args?: SelectSubset<T, MaintenanceItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceItems
+     * const maintenanceItem = await prisma.maintenanceItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceItemUpdateManyArgs>(args: SelectSubset<T, MaintenanceItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceItems and returns the data updated in the database.
+     * @param {MaintenanceItemUpdateManyAndReturnArgs} args - Arguments to update many MaintenanceItems.
+     * @example
+     * // Update many MaintenanceItems
+     * const maintenanceItem = await prisma.maintenanceItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaintenanceItems and only return the `id`
+     * const maintenanceItemWithIdOnly = await prisma.maintenanceItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceItemUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaintenanceItem.
+     * @param {MaintenanceItemUpsertArgs} args - Arguments to update or create a MaintenanceItem.
+     * @example
+     * // Update or create a MaintenanceItem
+     * const maintenanceItem = await prisma.maintenanceItem.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceItemUpsertArgs>(args: SelectSubset<T, MaintenanceItemUpsertArgs<ExtArgs>>): Prisma__MaintenanceItemClient<$Result.GetResult<Prisma.$MaintenanceItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemCountArgs} args - Arguments to filter MaintenanceItems to count.
+     * @example
+     * // Count the number of MaintenanceItems
+     * const count = await prisma.maintenanceItem.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceItemCountArgs>(
+      args?: Subset<T, MaintenanceItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceItemAggregateArgs>(args: Subset<T, MaintenanceItemAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceItemAggregateType<T>>
+
+    /**
+     * Group by MaintenanceItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceItemGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceItem model
+   */
+  readonly fields: MaintenanceItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    maintenanceSchedule<T extends MaintenanceScheduleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceScheduleDefaultArgs<ExtArgs>>): Prisma__MaintenanceScheduleClient<$Result.GetResult<Prisma.$MaintenanceSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    car<T extends MaintenanceItem$carArgs<ExtArgs> = {}>(args?: Subset<T, MaintenanceItem$carArgs<ExtArgs>>): Prisma__CarClient<$Result.GetResult<Prisma.$CarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceItem model
+   */
+  interface MaintenanceItemFieldRefs {
+    readonly id: FieldRef<"MaintenanceItem", 'String'>
+    readonly maintenanceScheduleId: FieldRef<"MaintenanceItem", 'String'>
+    readonly type: FieldRef<"MaintenanceItem", 'MaintenanceType'>
+    readonly intervalDays: FieldRef<"MaintenanceItem", 'Int'>
+    readonly nextServiceDate: FieldRef<"MaintenanceItem", 'DateTime'>
+    readonly notes: FieldRef<"MaintenanceItem", 'String'>
+    readonly carId: FieldRef<"MaintenanceItem", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceItem findUnique
+   */
+  export type MaintenanceItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceItem to fetch.
+     */
+    where: MaintenanceItemWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceItem findUniqueOrThrow
+   */
+  export type MaintenanceItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceItem to fetch.
+     */
+    where: MaintenanceItemWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceItem findFirst
+   */
+  export type MaintenanceItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceItem to fetch.
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceItems to fetch.
+     */
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceItems.
+     */
+    cursor?: MaintenanceItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceItems.
+     */
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceItem findFirstOrThrow
+   */
+  export type MaintenanceItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceItem to fetch.
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceItems to fetch.
+     */
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceItems.
+     */
+    cursor?: MaintenanceItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceItems.
+     */
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceItem findMany
+   */
+  export type MaintenanceItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceItems to fetch.
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceItems to fetch.
+     */
+    orderBy?: MaintenanceItemOrderByWithRelationInput | MaintenanceItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceItems.
+     */
+    cursor?: MaintenanceItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceItems.
+     */
+    distinct?: MaintenanceItemScalarFieldEnum | MaintenanceItemScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceItem create
+   */
+  export type MaintenanceItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceItem.
+     */
+    data: XOR<MaintenanceItemCreateInput, MaintenanceItemUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceItem createMany
+   */
+  export type MaintenanceItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceItems.
+     */
+    data: MaintenanceItemCreateManyInput | MaintenanceItemCreateManyInput[]
+  }
+
+  /**
+   * MaintenanceItem createManyAndReturn
+   */
+  export type MaintenanceItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaintenanceItems.
+     */
+    data: MaintenanceItemCreateManyInput | MaintenanceItemCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceItem update
+   */
+  export type MaintenanceItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceItem.
+     */
+    data: XOR<MaintenanceItemUpdateInput, MaintenanceItemUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceItem to update.
+     */
+    where: MaintenanceItemWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceItem updateMany
+   */
+  export type MaintenanceItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceItems.
+     */
+    data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceItems to update
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * Limit how many MaintenanceItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceItem updateManyAndReturn
+   */
+  export type MaintenanceItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * The data used to update MaintenanceItems.
+     */
+    data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceItems to update
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * Limit how many MaintenanceItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceItem upsert
+   */
+  export type MaintenanceItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceItem to update in case it exists.
+     */
+    where: MaintenanceItemWhereUniqueInput
+    /**
+     * In case the MaintenanceItem found by the `where` argument doesn't exist, create a new MaintenanceItem with this data.
+     */
+    create: XOR<MaintenanceItemCreateInput, MaintenanceItemUncheckedCreateInput>
+    /**
+     * In case the MaintenanceItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceItemUpdateInput, MaintenanceItemUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceItem delete
+   */
+  export type MaintenanceItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
+    /**
+     * Filter which MaintenanceItem to delete.
+     */
+    where: MaintenanceItemWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceItem deleteMany
+   */
+  export type MaintenanceItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceItems to delete
+     */
+    where?: MaintenanceItemWhereInput
+    /**
+     * Limit how many MaintenanceItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceItem.car
+   */
+  export type MaintenanceItem$carArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Car
+     */
+    select?: CarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Car
+     */
+    omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    where?: CarWhereInput
+  }
+
+  /**
+   * MaintenanceItem without action
+   */
+  export type MaintenanceItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceItem
+     */
+    select?: MaintenanceItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceItem
+     */
+    omit?: MaintenanceItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceItemInclude<ExtArgs> | null
   }
 
 
@@ -10428,7 +15788,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMinAggregateOutputType = {
     id: string | null
-    systemId: string | null
+    systemID: string | null
     school_name: string | null
     support_Email: string | null
     address: string | null
@@ -10439,7 +15799,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMaxAggregateOutputType = {
     id: string | null
-    systemId: string | null
+    systemID: string | null
     school_name: string | null
     support_Email: string | null
     address: string | null
@@ -10450,7 +15810,7 @@ export namespace Prisma {
 
   export type SchoolSetUpCountAggregateOutputType = {
     id: number
-    systemId: number
+    systemID: number
     school_name: number
     support_Email: number
     address: number
@@ -10463,7 +15823,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMinAggregateInputType = {
     id?: true
-    systemId?: true
+    systemID?: true
     school_name?: true
     support_Email?: true
     address?: true
@@ -10474,7 +15834,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMaxAggregateInputType = {
     id?: true
-    systemId?: true
+    systemID?: true
     school_name?: true
     support_Email?: true
     address?: true
@@ -10485,7 +15845,7 @@ export namespace Prisma {
 
   export type SchoolSetUpCountAggregateInputType = {
     id?: true
-    systemId?: true
+    systemID?: true
     school_name?: true
     support_Email?: true
     address?: true
@@ -10569,7 +15929,7 @@ export namespace Prisma {
 
   export type SchoolSetUpGroupByOutputType = {
     id: string
-    systemId: string | null
+    systemID: string | null
     school_name: string
     support_Email: string
     address: string
@@ -10597,7 +15957,7 @@ export namespace Prisma {
 
   export type SchoolSetUpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    systemId?: boolean
+    systemID?: boolean
     school_name?: boolean
     support_Email?: boolean
     address?: boolean
@@ -10608,7 +15968,7 @@ export namespace Prisma {
 
   export type SchoolSetUpSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    systemId?: boolean
+    systemID?: boolean
     school_name?: boolean
     support_Email?: boolean
     address?: boolean
@@ -10619,7 +15979,7 @@ export namespace Prisma {
 
   export type SchoolSetUpSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    systemId?: boolean
+    systemID?: boolean
     school_name?: boolean
     support_Email?: boolean
     address?: boolean
@@ -10630,7 +15990,7 @@ export namespace Prisma {
 
   export type SchoolSetUpSelectScalar = {
     id?: boolean
-    systemId?: boolean
+    systemID?: boolean
     school_name?: boolean
     support_Email?: boolean
     address?: boolean
@@ -10639,14 +15999,14 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SchoolSetUpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "systemId" | "school_name" | "support_Email" | "address" | "contact_Number" | "createdAt" | "updatedAt", ExtArgs["result"]["schoolSetUp"]>
+  export type SchoolSetUpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "systemID" | "school_name" | "support_Email" | "address" | "contact_Number" | "createdAt" | "updatedAt", ExtArgs["result"]["schoolSetUp"]>
 
   export type $SchoolSetUpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SchoolSetUp"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      systemId: string | null
+      systemID: string | null
       school_name: string
       support_Email: string
       address: string
@@ -11077,7 +16437,7 @@ export namespace Prisma {
    */
   interface SchoolSetUpFieldRefs {
     readonly id: FieldRef<"SchoolSetUp", 'String'>
-    readonly systemId: FieldRef<"SchoolSetUp", 'String'>
+    readonly systemID: FieldRef<"SchoolSetUp", 'String'>
     readonly school_name: FieldRef<"SchoolSetUp", 'String'>
     readonly support_Email: FieldRef<"SchoolSetUp", 'String'>
     readonly address: FieldRef<"SchoolSetUp", 'String'>
@@ -11483,10 +16843,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     mobile: string | null
-    email: string | null
     packageId: string | null
     package_name: string | null
-    Enrollment_status: $Enums.Enrollment_status | null
+    Enrollment_status: string | null
     Course_Start_date: Date | null
     Course_End_Date: Date | null
     Assigned_Instructor: string | null
@@ -11494,10 +16853,6 @@ export namespace Prisma {
     Amount_paid: number | null
     Remaining_percentage: number | null
     remaining_amount: number | null
-    Thank_you_msg: string | null
-    Welcome_msg: string | null
-    Remainder_msg: string | null
-    Balance_remaining_date: Date | null
     Assigned_car_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11507,10 +16862,9 @@ export namespace Prisma {
     id: string | null
     name: string | null
     mobile: string | null
-    email: string | null
     packageId: string | null
     package_name: string | null
-    Enrollment_status: $Enums.Enrollment_status | null
+    Enrollment_status: string | null
     Course_Start_date: Date | null
     Course_End_Date: Date | null
     Assigned_Instructor: string | null
@@ -11518,10 +16872,6 @@ export namespace Prisma {
     Amount_paid: number | null
     Remaining_percentage: number | null
     remaining_amount: number | null
-    Thank_you_msg: string | null
-    Welcome_msg: string | null
-    Remainder_msg: string | null
-    Balance_remaining_date: Date | null
     Assigned_car_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11531,7 +16881,6 @@ export namespace Prisma {
     id: number
     name: number
     mobile: number
-    email: number
     packageId: number
     package_name: number
     Enrollment_status: number
@@ -11542,10 +16891,6 @@ export namespace Prisma {
     Amount_paid: number
     Remaining_percentage: number
     remaining_amount: number
-    Thank_you_msg: number
-    Welcome_msg: number
-    Remainder_msg: number
-    Balance_remaining_date: number
     Assigned_car_id: number
     createdAt: number
     updatedAt: number
@@ -11571,7 +16916,6 @@ export namespace Prisma {
     id?: true
     name?: true
     mobile?: true
-    email?: true
     packageId?: true
     package_name?: true
     Enrollment_status?: true
@@ -11582,10 +16926,6 @@ export namespace Prisma {
     Amount_paid?: true
     Remaining_percentage?: true
     remaining_amount?: true
-    Thank_you_msg?: true
-    Welcome_msg?: true
-    Remainder_msg?: true
-    Balance_remaining_date?: true
     Assigned_car_id?: true
     createdAt?: true
     updatedAt?: true
@@ -11595,7 +16935,6 @@ export namespace Prisma {
     id?: true
     name?: true
     mobile?: true
-    email?: true
     packageId?: true
     package_name?: true
     Enrollment_status?: true
@@ -11606,10 +16945,6 @@ export namespace Prisma {
     Amount_paid?: true
     Remaining_percentage?: true
     remaining_amount?: true
-    Thank_you_msg?: true
-    Welcome_msg?: true
-    Remainder_msg?: true
-    Balance_remaining_date?: true
     Assigned_car_id?: true
     createdAt?: true
     updatedAt?: true
@@ -11619,7 +16954,6 @@ export namespace Prisma {
     id?: true
     name?: true
     mobile?: true
-    email?: true
     packageId?: true
     package_name?: true
     Enrollment_status?: true
@@ -11630,10 +16964,6 @@ export namespace Prisma {
     Amount_paid?: true
     Remaining_percentage?: true
     remaining_amount?: true
-    Thank_you_msg?: true
-    Welcome_msg?: true
-    Remainder_msg?: true
-    Balance_remaining_date?: true
     Assigned_car_id?: true
     createdAt?: true
     updatedAt?: true
@@ -11730,10 +17060,9 @@ export namespace Prisma {
     id: string
     name: string
     mobile: string
-    email: string
     packageId: string | null
     package_name: string | null
-    Enrollment_status: $Enums.Enrollment_status
+    Enrollment_status: string
     Course_Start_date: Date | null
     Course_End_Date: Date | null
     Assigned_Instructor: string | null
@@ -11741,11 +17070,7 @@ export namespace Prisma {
     Amount_paid: number
     Remaining_percentage: number
     remaining_amount: number
-    Thank_you_msg: string
-    Welcome_msg: string
-    Remainder_msg: string
-    Balance_remaining_date: Date | null
-    Assigned_car_id: string
+    Assigned_car_id: string | null
     createdAt: Date
     updatedAt: Date
     _count: StudentCountAggregateOutputType | null
@@ -11773,7 +17098,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     mobile?: boolean
-    email?: boolean
     packageId?: boolean
     package_name?: boolean
     Enrollment_status?: boolean
@@ -11784,20 +17108,17 @@ export namespace Prisma {
     Amount_paid?: boolean
     Remaining_percentage?: boolean
     remaining_amount?: boolean
-    Thank_you_msg?: boolean
-    Welcome_msg?: boolean
-    Remainder_msg?: boolean
-    Balance_remaining_date?: boolean
     Assigned_car_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     mobile?: boolean
-    email?: boolean
     packageId?: boolean
     package_name?: boolean
     Enrollment_status?: boolean
@@ -11808,20 +17129,17 @@ export namespace Prisma {
     Amount_paid?: boolean
     Remaining_percentage?: boolean
     remaining_amount?: boolean
-    Thank_you_msg?: boolean
-    Welcome_msg?: boolean
-    Remainder_msg?: boolean
-    Balance_remaining_date?: boolean
     Assigned_car_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     mobile?: boolean
-    email?: boolean
     packageId?: boolean
     package_name?: boolean
     Enrollment_status?: boolean
@@ -11832,20 +17150,17 @@ export namespace Prisma {
     Amount_paid?: boolean
     Remaining_percentage?: boolean
     remaining_amount?: boolean
-    Thank_you_msg?: boolean
-    Welcome_msg?: boolean
-    Remainder_msg?: boolean
-    Balance_remaining_date?: boolean
     Assigned_car_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectScalar = {
     id?: boolean
     name?: boolean
     mobile?: boolean
-    email?: boolean
     packageId?: boolean
     package_name?: boolean
     Enrollment_status?: boolean
@@ -11856,28 +17171,38 @@ export namespace Prisma {
     Amount_paid?: boolean
     Remaining_percentage?: boolean
     remaining_amount?: boolean
-    Thank_you_msg?: boolean
-    Welcome_msg?: boolean
-    Remainder_msg?: boolean
-    Balance_remaining_date?: boolean
     Assigned_car_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "email" | "packageId" | "package_name" | "Enrollment_status" | "Course_Start_date" | "Course_End_Date" | "Assigned_Instructor" | "Total_amount" | "Amount_paid" | "Remaining_percentage" | "remaining_amount" | "Thank_you_msg" | "Welcome_msg" | "Remainder_msg" | "Balance_remaining_date" | "Assigned_car_id" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "mobile" | "packageId" | "package_name" | "Enrollment_status" | "Course_Start_date" | "Course_End_Date" | "Assigned_Instructor" | "Total_amount" | "Amount_paid" | "Remaining_percentage" | "remaining_amount" | "Assigned_car_id" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+  export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
+  }
+  export type StudentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
+  }
+  export type StudentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instructor?: boolean | Student$instructorArgs<ExtArgs>
+    car?: boolean | Student$carArgs<ExtArgs>
+  }
 
   export type $StudentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Student"
-    objects: {}
+    objects: {
+      instructor: Prisma.$InstructorPayload<ExtArgs> | null
+      car: Prisma.$CarPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       mobile: string
-      email: string
       packageId: string | null
       package_name: string | null
-      Enrollment_status: $Enums.Enrollment_status
+      Enrollment_status: string
       Course_Start_date: Date | null
       Course_End_Date: Date | null
       Assigned_Instructor: string | null
@@ -11885,11 +17210,7 @@ export namespace Prisma {
       Amount_paid: number
       Remaining_percentage: number
       remaining_amount: number
-      Thank_you_msg: string
-      Welcome_msg: string
-      Remainder_msg: string
-      Balance_remaining_date: Date | null
-      Assigned_car_id: string
+      Assigned_car_id: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["student"]>
@@ -12286,6 +17607,8 @@ export namespace Prisma {
    */
   export interface Prisma__StudentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    instructor<T extends Student$instructorArgs<ExtArgs> = {}>(args?: Subset<T, Student$instructorArgs<ExtArgs>>): Prisma__InstructorClient<$Result.GetResult<Prisma.$InstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    car<T extends Student$carArgs<ExtArgs> = {}>(args?: Subset<T, Student$carArgs<ExtArgs>>): Prisma__CarClient<$Result.GetResult<Prisma.$CarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12318,10 +17641,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Student", 'String'>
     readonly name: FieldRef<"Student", 'String'>
     readonly mobile: FieldRef<"Student", 'String'>
-    readonly email: FieldRef<"Student", 'String'>
     readonly packageId: FieldRef<"Student", 'String'>
     readonly package_name: FieldRef<"Student", 'String'>
-    readonly Enrollment_status: FieldRef<"Student", 'Enrollment_status'>
+    readonly Enrollment_status: FieldRef<"Student", 'String'>
     readonly Course_Start_date: FieldRef<"Student", 'DateTime'>
     readonly Course_End_Date: FieldRef<"Student", 'DateTime'>
     readonly Assigned_Instructor: FieldRef<"Student", 'String'>
@@ -12329,10 +17651,6 @@ export namespace Prisma {
     readonly Amount_paid: FieldRef<"Student", 'Int'>
     readonly Remaining_percentage: FieldRef<"Student", 'Int'>
     readonly remaining_amount: FieldRef<"Student", 'Int'>
-    readonly Thank_you_msg: FieldRef<"Student", 'String'>
-    readonly Welcome_msg: FieldRef<"Student", 'String'>
-    readonly Remainder_msg: FieldRef<"Student", 'String'>
-    readonly Balance_remaining_date: FieldRef<"Student", 'DateTime'>
     readonly Assigned_car_id: FieldRef<"Student", 'String'>
     readonly createdAt: FieldRef<"Student", 'DateTime'>
     readonly updatedAt: FieldRef<"Student", 'DateTime'>
@@ -12353,6 +17671,10 @@ export namespace Prisma {
      */
     omit?: StudentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    /**
      * Filter, which Student to fetch.
      */
     where: StudentWhereUniqueInput
@@ -12371,6 +17693,10 @@ export namespace Prisma {
      */
     omit?: StudentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    /**
      * Filter, which Student to fetch.
      */
     where: StudentWhereUniqueInput
@@ -12388,6 +17714,10 @@ export namespace Prisma {
      * Omit specific fields from the Student
      */
     omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
     /**
      * Filter, which Student to fetch.
      */
@@ -12437,6 +17767,10 @@ export namespace Prisma {
      */
     omit?: StudentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    /**
      * Filter, which Student to fetch.
      */
     where?: StudentWhereInput
@@ -12484,6 +17818,10 @@ export namespace Prisma {
      * Omit specific fields from the Student
      */
     omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
     /**
      * Filter, which Students to fetch.
      */
@@ -12533,6 +17871,10 @@ export namespace Prisma {
      */
     omit?: StudentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    /**
      * The data needed to create a Student.
      */
     data: XOR<StudentCreateInput, StudentUncheckedCreateInput>
@@ -12564,6 +17906,10 @@ export namespace Prisma {
      * The data used to create many Students.
      */
     data: StudentCreateManyInput | StudentCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -12578,6 +17924,10 @@ export namespace Prisma {
      * Omit specific fields from the Student
      */
     omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
     /**
      * The data needed to update a Student.
      */
@@ -12630,6 +17980,10 @@ export namespace Prisma {
      * Limit how many Students to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -12644,6 +17998,10 @@ export namespace Prisma {
      * Omit specific fields from the Student
      */
     omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
     /**
      * The filter to search for the Student to update in case it exists.
      */
@@ -12671,6 +18029,10 @@ export namespace Prisma {
      */
     omit?: StudentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    /**
      * Filter which Student to delete.
      */
     where: StudentWhereUniqueInput
@@ -12691,6 +18053,44 @@ export namespace Prisma {
   }
 
   /**
+   * Student.instructor
+   */
+  export type Student$instructorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Instructor
+     */
+    select?: InstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Instructor
+     */
+    omit?: InstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstructorInclude<ExtArgs> | null
+    where?: InstructorWhereInput
+  }
+
+  /**
+   * Student.car
+   */
+  export type Student$carArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Car
+     */
+    select?: CarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Car
+     */
+    omit?: CarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CarInclude<ExtArgs> | null
+    where?: CarWhereInput
+  }
+
+  /**
    * Student without action
    */
   export type StudentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12702,6 +18102,3445 @@ export namespace Prisma {
      * Omit specific fields from the Student
      */
     omit?: StudentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MessageQueue
+   */
+
+  export type AggregateMessageQueue = {
+    _count: MessageQueueCountAggregateOutputType | null
+    _avg: MessageQueueAvgAggregateOutputType | null
+    _sum: MessageQueueSumAggregateOutputType | null
+    _min: MessageQueueMinAggregateOutputType | null
+    _max: MessageQueueMaxAggregateOutputType | null
+  }
+
+  export type MessageQueueAvgAggregateOutputType = {
+    attempts: number | null
+    maxAttempts: number | null
+  }
+
+  export type MessageQueueSumAggregateOutputType = {
+    attempts: number | null
+    maxAttempts: number | null
+  }
+
+  export type MessageQueueMinAggregateOutputType = {
+    id: string | null
+    templateId: string | null
+    recipient: string | null
+    status: $Enums.MessageQueueStatus | null
+    attempts: number | null
+    maxAttempts: number | null
+    scheduledAt: Date | null
+    processingAt: Date | null
+    sentAt: Date | null
+    messageId: string | null
+    lastError: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessageQueueMaxAggregateOutputType = {
+    id: string | null
+    templateId: string | null
+    recipient: string | null
+    status: $Enums.MessageQueueStatus | null
+    attempts: number | null
+    maxAttempts: number | null
+    scheduledAt: Date | null
+    processingAt: Date | null
+    sentAt: Date | null
+    messageId: string | null
+    lastError: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessageQueueCountAggregateOutputType = {
+    id: number
+    templateId: number
+    recipient: number
+    variables: number
+    status: number
+    attempts: number
+    maxAttempts: number
+    scheduledAt: number
+    processingAt: number
+    sentAt: number
+    messageId: number
+    lastError: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MessageQueueAvgAggregateInputType = {
+    attempts?: true
+    maxAttempts?: true
+  }
+
+  export type MessageQueueSumAggregateInputType = {
+    attempts?: true
+    maxAttempts?: true
+  }
+
+  export type MessageQueueMinAggregateInputType = {
+    id?: true
+    templateId?: true
+    recipient?: true
+    status?: true
+    attempts?: true
+    maxAttempts?: true
+    scheduledAt?: true
+    processingAt?: true
+    sentAt?: true
+    messageId?: true
+    lastError?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessageQueueMaxAggregateInputType = {
+    id?: true
+    templateId?: true
+    recipient?: true
+    status?: true
+    attempts?: true
+    maxAttempts?: true
+    scheduledAt?: true
+    processingAt?: true
+    sentAt?: true
+    messageId?: true
+    lastError?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessageQueueCountAggregateInputType = {
+    id?: true
+    templateId?: true
+    recipient?: true
+    variables?: true
+    status?: true
+    attempts?: true
+    maxAttempts?: true
+    scheduledAt?: true
+    processingAt?: true
+    sentAt?: true
+    messageId?: true
+    lastError?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MessageQueueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageQueue to aggregate.
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageQueues to fetch.
+     */
+    orderBy?: MessageQueueOrderByWithRelationInput | MessageQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessageQueues
+    **/
+    _count?: true | MessageQueueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageQueueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageQueueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageQueueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageQueueMaxAggregateInputType
+  }
+
+  export type GetMessageQueueAggregateType<T extends MessageQueueAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessageQueue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessageQueue[P]>
+      : GetScalarType<T[P], AggregateMessageQueue[P]>
+  }
+
+
+
+
+  export type MessageQueueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageQueueWhereInput
+    orderBy?: MessageQueueOrderByWithAggregationInput | MessageQueueOrderByWithAggregationInput[]
+    by: MessageQueueScalarFieldEnum[] | MessageQueueScalarFieldEnum
+    having?: MessageQueueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageQueueCountAggregateInputType | true
+    _avg?: MessageQueueAvgAggregateInputType
+    _sum?: MessageQueueSumAggregateInputType
+    _min?: MessageQueueMinAggregateInputType
+    _max?: MessageQueueMaxAggregateInputType
+  }
+
+  export type MessageQueueGroupByOutputType = {
+    id: string
+    templateId: string
+    recipient: string
+    variables: JsonValue
+    status: $Enums.MessageQueueStatus
+    attempts: number
+    maxAttempts: number
+    scheduledAt: Date
+    processingAt: Date | null
+    sentAt: Date | null
+    messageId: string | null
+    lastError: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MessageQueueCountAggregateOutputType | null
+    _avg: MessageQueueAvgAggregateOutputType | null
+    _sum: MessageQueueSumAggregateOutputType | null
+    _min: MessageQueueMinAggregateOutputType | null
+    _max: MessageQueueMaxAggregateOutputType | null
+  }
+
+  type GetMessageQueueGroupByPayload<T extends MessageQueueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageQueueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageQueueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageQueueGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageQueueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageQueueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    templateId?: boolean
+    recipient?: boolean
+    variables?: boolean
+    status?: boolean
+    attempts?: boolean
+    maxAttempts?: boolean
+    scheduledAt?: boolean
+    processingAt?: boolean
+    sentAt?: boolean
+    messageId?: boolean
+    lastError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageQueue"]>
+
+  export type MessageQueueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    templateId?: boolean
+    recipient?: boolean
+    variables?: boolean
+    status?: boolean
+    attempts?: boolean
+    maxAttempts?: boolean
+    scheduledAt?: boolean
+    processingAt?: boolean
+    sentAt?: boolean
+    messageId?: boolean
+    lastError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageQueue"]>
+
+  export type MessageQueueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    templateId?: boolean
+    recipient?: boolean
+    variables?: boolean
+    status?: boolean
+    attempts?: boolean
+    maxAttempts?: boolean
+    scheduledAt?: boolean
+    processingAt?: boolean
+    sentAt?: boolean
+    messageId?: boolean
+    lastError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageQueue"]>
+
+  export type MessageQueueSelectScalar = {
+    id?: boolean
+    templateId?: boolean
+    recipient?: boolean
+    variables?: boolean
+    status?: boolean
+    attempts?: boolean
+    maxAttempts?: boolean
+    scheduledAt?: boolean
+    processingAt?: boolean
+    sentAt?: boolean
+    messageId?: boolean
+    lastError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MessageQueueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "templateId" | "recipient" | "variables" | "status" | "attempts" | "maxAttempts" | "scheduledAt" | "processingAt" | "sentAt" | "messageId" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["messageQueue"]>
+  export type MessageQueueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }
+  export type MessageQueueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }
+  export type MessageQueueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    template?: boolean | WhatsAppTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $MessageQueuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessageQueue"
+    objects: {
+      template: Prisma.$WhatsAppTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      templateId: string
+      recipient: string
+      variables: Prisma.JsonValue
+      status: $Enums.MessageQueueStatus
+      attempts: number
+      maxAttempts: number
+      scheduledAt: Date
+      processingAt: Date | null
+      sentAt: Date | null
+      messageId: string | null
+      lastError: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["messageQueue"]>
+    composites: {}
+  }
+
+  type MessageQueueGetPayload<S extends boolean | null | undefined | MessageQueueDefaultArgs> = $Result.GetResult<Prisma.$MessageQueuePayload, S>
+
+  type MessageQueueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageQueueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageQueueCountAggregateInputType | true
+    }
+
+  export interface MessageQueueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessageQueue'], meta: { name: 'MessageQueue' } }
+    /**
+     * Find zero or one MessageQueue that matches the filter.
+     * @param {MessageQueueFindUniqueArgs} args - Arguments to find a MessageQueue
+     * @example
+     * // Get one MessageQueue
+     * const messageQueue = await prisma.messageQueue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageQueueFindUniqueArgs>(args: SelectSubset<T, MessageQueueFindUniqueArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MessageQueue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageQueueFindUniqueOrThrowArgs} args - Arguments to find a MessageQueue
+     * @example
+     * // Get one MessageQueue
+     * const messageQueue = await prisma.messageQueue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageQueueFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageQueueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageQueue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueFindFirstArgs} args - Arguments to find a MessageQueue
+     * @example
+     * // Get one MessageQueue
+     * const messageQueue = await prisma.messageQueue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageQueueFindFirstArgs>(args?: SelectSubset<T, MessageQueueFindFirstArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageQueue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueFindFirstOrThrowArgs} args - Arguments to find a MessageQueue
+     * @example
+     * // Get one MessageQueue
+     * const messageQueue = await prisma.messageQueue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageQueueFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageQueueFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MessageQueues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessageQueues
+     * const messageQueues = await prisma.messageQueue.findMany()
+     * 
+     * // Get first 10 MessageQueues
+     * const messageQueues = await prisma.messageQueue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageQueueWithIdOnly = await prisma.messageQueue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageQueueFindManyArgs>(args?: SelectSubset<T, MessageQueueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MessageQueue.
+     * @param {MessageQueueCreateArgs} args - Arguments to create a MessageQueue.
+     * @example
+     * // Create one MessageQueue
+     * const MessageQueue = await prisma.messageQueue.create({
+     *   data: {
+     *     // ... data to create a MessageQueue
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageQueueCreateArgs>(args: SelectSubset<T, MessageQueueCreateArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MessageQueues.
+     * @param {MessageQueueCreateManyArgs} args - Arguments to create many MessageQueues.
+     * @example
+     * // Create many MessageQueues
+     * const messageQueue = await prisma.messageQueue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageQueueCreateManyArgs>(args?: SelectSubset<T, MessageQueueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessageQueues and returns the data saved in the database.
+     * @param {MessageQueueCreateManyAndReturnArgs} args - Arguments to create many MessageQueues.
+     * @example
+     * // Create many MessageQueues
+     * const messageQueue = await prisma.messageQueue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessageQueues and only return the `id`
+     * const messageQueueWithIdOnly = await prisma.messageQueue.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageQueueCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageQueueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MessageQueue.
+     * @param {MessageQueueDeleteArgs} args - Arguments to delete one MessageQueue.
+     * @example
+     * // Delete one MessageQueue
+     * const MessageQueue = await prisma.messageQueue.delete({
+     *   where: {
+     *     // ... filter to delete one MessageQueue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageQueueDeleteArgs>(args: SelectSubset<T, MessageQueueDeleteArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MessageQueue.
+     * @param {MessageQueueUpdateArgs} args - Arguments to update one MessageQueue.
+     * @example
+     * // Update one MessageQueue
+     * const messageQueue = await prisma.messageQueue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageQueueUpdateArgs>(args: SelectSubset<T, MessageQueueUpdateArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MessageQueues.
+     * @param {MessageQueueDeleteManyArgs} args - Arguments to filter MessageQueues to delete.
+     * @example
+     * // Delete a few MessageQueues
+     * const { count } = await prisma.messageQueue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageQueueDeleteManyArgs>(args?: SelectSubset<T, MessageQueueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageQueues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessageQueues
+     * const messageQueue = await prisma.messageQueue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageQueueUpdateManyArgs>(args: SelectSubset<T, MessageQueueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageQueues and returns the data updated in the database.
+     * @param {MessageQueueUpdateManyAndReturnArgs} args - Arguments to update many MessageQueues.
+     * @example
+     * // Update many MessageQueues
+     * const messageQueue = await prisma.messageQueue.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MessageQueues and only return the `id`
+     * const messageQueueWithIdOnly = await prisma.messageQueue.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageQueueUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageQueueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MessageQueue.
+     * @param {MessageQueueUpsertArgs} args - Arguments to update or create a MessageQueue.
+     * @example
+     * // Update or create a MessageQueue
+     * const messageQueue = await prisma.messageQueue.upsert({
+     *   create: {
+     *     // ... data to create a MessageQueue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessageQueue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageQueueUpsertArgs>(args: SelectSubset<T, MessageQueueUpsertArgs<ExtArgs>>): Prisma__MessageQueueClient<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MessageQueues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueCountArgs} args - Arguments to filter MessageQueues to count.
+     * @example
+     * // Count the number of MessageQueues
+     * const count = await prisma.messageQueue.count({
+     *   where: {
+     *     // ... the filter for the MessageQueues we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageQueueCountArgs>(
+      args?: Subset<T, MessageQueueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageQueueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessageQueue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageQueueAggregateArgs>(args: Subset<T, MessageQueueAggregateArgs>): Prisma.PrismaPromise<GetMessageQueueAggregateType<T>>
+
+    /**
+     * Group by MessageQueue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageQueueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageQueueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageQueueGroupByArgs['orderBy'] }
+        : { orderBy?: MessageQueueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageQueueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageQueueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessageQueue model
+   */
+  readonly fields: MessageQueueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessageQueue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageQueueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    template<T extends WhatsAppTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppTemplateDefaultArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessageQueue model
+   */
+  interface MessageQueueFieldRefs {
+    readonly id: FieldRef<"MessageQueue", 'String'>
+    readonly templateId: FieldRef<"MessageQueue", 'String'>
+    readonly recipient: FieldRef<"MessageQueue", 'String'>
+    readonly variables: FieldRef<"MessageQueue", 'Json'>
+    readonly status: FieldRef<"MessageQueue", 'MessageQueueStatus'>
+    readonly attempts: FieldRef<"MessageQueue", 'Int'>
+    readonly maxAttempts: FieldRef<"MessageQueue", 'Int'>
+    readonly scheduledAt: FieldRef<"MessageQueue", 'DateTime'>
+    readonly processingAt: FieldRef<"MessageQueue", 'DateTime'>
+    readonly sentAt: FieldRef<"MessageQueue", 'DateTime'>
+    readonly messageId: FieldRef<"MessageQueue", 'String'>
+    readonly lastError: FieldRef<"MessageQueue", 'String'>
+    readonly createdAt: FieldRef<"MessageQueue", 'DateTime'>
+    readonly updatedAt: FieldRef<"MessageQueue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessageQueue findUnique
+   */
+  export type MessageQueueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageQueue to fetch.
+     */
+    where: MessageQueueWhereUniqueInput
+  }
+
+  /**
+   * MessageQueue findUniqueOrThrow
+   */
+  export type MessageQueueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageQueue to fetch.
+     */
+    where: MessageQueueWhereUniqueInput
+  }
+
+  /**
+   * MessageQueue findFirst
+   */
+  export type MessageQueueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageQueue to fetch.
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageQueues to fetch.
+     */
+    orderBy?: MessageQueueOrderByWithRelationInput | MessageQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageQueues.
+     */
+    cursor?: MessageQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageQueues.
+     */
+    distinct?: MessageQueueScalarFieldEnum | MessageQueueScalarFieldEnum[]
+  }
+
+  /**
+   * MessageQueue findFirstOrThrow
+   */
+  export type MessageQueueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageQueue to fetch.
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageQueues to fetch.
+     */
+    orderBy?: MessageQueueOrderByWithRelationInput | MessageQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageQueues.
+     */
+    cursor?: MessageQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageQueues.
+     */
+    distinct?: MessageQueueScalarFieldEnum | MessageQueueScalarFieldEnum[]
+  }
+
+  /**
+   * MessageQueue findMany
+   */
+  export type MessageQueueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageQueues to fetch.
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageQueues to fetch.
+     */
+    orderBy?: MessageQueueOrderByWithRelationInput | MessageQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessageQueues.
+     */
+    cursor?: MessageQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageQueues.
+     */
+    distinct?: MessageQueueScalarFieldEnum | MessageQueueScalarFieldEnum[]
+  }
+
+  /**
+   * MessageQueue create
+   */
+  export type MessageQueueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MessageQueue.
+     */
+    data: XOR<MessageQueueCreateInput, MessageQueueUncheckedCreateInput>
+  }
+
+  /**
+   * MessageQueue createMany
+   */
+  export type MessageQueueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessageQueues.
+     */
+    data: MessageQueueCreateManyInput | MessageQueueCreateManyInput[]
+  }
+
+  /**
+   * MessageQueue createManyAndReturn
+   */
+  export type MessageQueueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * The data used to create many MessageQueues.
+     */
+    data: MessageQueueCreateManyInput | MessageQueueCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageQueue update
+   */
+  export type MessageQueueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MessageQueue.
+     */
+    data: XOR<MessageQueueUpdateInput, MessageQueueUncheckedUpdateInput>
+    /**
+     * Choose, which MessageQueue to update.
+     */
+    where: MessageQueueWhereUniqueInput
+  }
+
+  /**
+   * MessageQueue updateMany
+   */
+  export type MessageQueueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessageQueues.
+     */
+    data: XOR<MessageQueueUpdateManyMutationInput, MessageQueueUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageQueues to update
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * Limit how many MessageQueues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageQueue updateManyAndReturn
+   */
+  export type MessageQueueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * The data used to update MessageQueues.
+     */
+    data: XOR<MessageQueueUpdateManyMutationInput, MessageQueueUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageQueues to update
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * Limit how many MessageQueues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageQueue upsert
+   */
+  export type MessageQueueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MessageQueue to update in case it exists.
+     */
+    where: MessageQueueWhereUniqueInput
+    /**
+     * In case the MessageQueue found by the `where` argument doesn't exist, create a new MessageQueue with this data.
+     */
+    create: XOR<MessageQueueCreateInput, MessageQueueUncheckedCreateInput>
+    /**
+     * In case the MessageQueue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageQueueUpdateInput, MessageQueueUncheckedUpdateInput>
+  }
+
+  /**
+   * MessageQueue delete
+   */
+  export type MessageQueueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    /**
+     * Filter which MessageQueue to delete.
+     */
+    where: MessageQueueWhereUniqueInput
+  }
+
+  /**
+   * MessageQueue deleteMany
+   */
+  export type MessageQueueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageQueues to delete
+     */
+    where?: MessageQueueWhereInput
+    /**
+     * Limit how many MessageQueues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageQueue without action
+   */
+  export type MessageQueueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsAppTemplate
+   */
+
+  export type AggregateWhatsAppTemplate = {
+    _count: WhatsAppTemplateCountAggregateOutputType | null
+    _min: WhatsAppTemplateMinAggregateOutputType | null
+    _max: WhatsAppTemplateMaxAggregateOutputType | null
+  }
+
+  export type WhatsAppTemplateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    clientId: string | null
+    templateId: string | null
+    language: string | null
+    category: string | null
+    status: string | null
+    body: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppTemplateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    clientId: string | null
+    templateId: string | null
+    language: string | null
+    category: string | null
+    status: string | null
+    body: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppTemplateCountAggregateOutputType = {
+    id: number
+    name: number
+    clientId: number
+    templateId: number
+    language: number
+    category: number
+    status: number
+    body: number
+    variables: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WhatsAppTemplateMinAggregateInputType = {
+    id?: true
+    name?: true
+    clientId?: true
+    templateId?: true
+    language?: true
+    category?: true
+    status?: true
+    body?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppTemplateMaxAggregateInputType = {
+    id?: true
+    name?: true
+    clientId?: true
+    templateId?: true
+    language?: true
+    category?: true
+    status?: true
+    body?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppTemplateCountAggregateInputType = {
+    id?: true
+    name?: true
+    clientId?: true
+    templateId?: true
+    language?: true
+    category?: true
+    status?: true
+    body?: true
+    variables?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WhatsAppTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppTemplate to aggregate.
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTemplates to fetch.
+     */
+    orderBy?: WhatsAppTemplateOrderByWithRelationInput | WhatsAppTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsAppTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsAppTemplates
+    **/
+    _count?: true | WhatsAppTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsAppTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsAppTemplateMaxAggregateInputType
+  }
+
+  export type GetWhatsAppTemplateAggregateType<T extends WhatsAppTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsAppTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsAppTemplate[P]>
+      : GetScalarType<T[P], AggregateWhatsAppTemplate[P]>
+  }
+
+
+
+
+  export type WhatsAppTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppTemplateWhereInput
+    orderBy?: WhatsAppTemplateOrderByWithAggregationInput | WhatsAppTemplateOrderByWithAggregationInput[]
+    by: WhatsAppTemplateScalarFieldEnum[] | WhatsAppTemplateScalarFieldEnum
+    having?: WhatsAppTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsAppTemplateCountAggregateInputType | true
+    _min?: WhatsAppTemplateMinAggregateInputType
+    _max?: WhatsAppTemplateMaxAggregateInputType
+  }
+
+  export type WhatsAppTemplateGroupByOutputType = {
+    id: string
+    name: string
+    clientId: string | null
+    templateId: string | null
+    language: string
+    category: string
+    status: string
+    body: string | null
+    variables: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: WhatsAppTemplateCountAggregateOutputType | null
+    _min: WhatsAppTemplateMinAggregateOutputType | null
+    _max: WhatsAppTemplateMaxAggregateOutputType | null
+  }
+
+  type GetWhatsAppTemplateGroupByPayload<T extends WhatsAppTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsAppTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsAppTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsAppTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsAppTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsAppTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    clientId?: boolean
+    templateId?: boolean
+    language?: boolean
+    category?: boolean
+    status?: boolean
+    body?: boolean
+    variables?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    messages?: boolean | WhatsAppTemplate$messagesArgs<ExtArgs>
+    _count?: boolean | WhatsAppTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppTemplate"]>
+
+  export type WhatsAppTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    clientId?: boolean
+    templateId?: boolean
+    language?: boolean
+    category?: boolean
+    status?: boolean
+    body?: boolean
+    variables?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["whatsAppTemplate"]>
+
+  export type WhatsAppTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    clientId?: boolean
+    templateId?: boolean
+    language?: boolean
+    category?: boolean
+    status?: boolean
+    body?: boolean
+    variables?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["whatsAppTemplate"]>
+
+  export type WhatsAppTemplateSelectScalar = {
+    id?: boolean
+    name?: boolean
+    clientId?: boolean
+    templateId?: boolean
+    language?: boolean
+    category?: boolean
+    status?: boolean
+    body?: boolean
+    variables?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WhatsAppTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "clientId" | "templateId" | "language" | "category" | "status" | "body" | "variables" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsAppTemplate"]>
+  export type WhatsAppTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | WhatsAppTemplate$messagesArgs<ExtArgs>
+    _count?: boolean | WhatsAppTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type WhatsAppTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type WhatsAppTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $WhatsAppTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsAppTemplate"
+    objects: {
+      messages: Prisma.$MessageQueuePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      clientId: string | null
+      templateId: string | null
+      language: string
+      category: string
+      status: string
+      body: string | null
+      variables: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["whatsAppTemplate"]>
+    composites: {}
+  }
+
+  type WhatsAppTemplateGetPayload<S extends boolean | null | undefined | WhatsAppTemplateDefaultArgs> = $Result.GetResult<Prisma.$WhatsAppTemplatePayload, S>
+
+  type WhatsAppTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsAppTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsAppTemplateCountAggregateInputType | true
+    }
+
+  export interface WhatsAppTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsAppTemplate'], meta: { name: 'WhatsAppTemplate' } }
+    /**
+     * Find zero or one WhatsAppTemplate that matches the filter.
+     * @param {WhatsAppTemplateFindUniqueArgs} args - Arguments to find a WhatsAppTemplate
+     * @example
+     * // Get one WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsAppTemplateFindUniqueArgs>(args: SelectSubset<T, WhatsAppTemplateFindUniqueArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsAppTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsAppTemplateFindUniqueOrThrowArgs} args - Arguments to find a WhatsAppTemplate
+     * @example
+     * // Get one WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsAppTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsAppTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateFindFirstArgs} args - Arguments to find a WhatsAppTemplate
+     * @example
+     * // Get one WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsAppTemplateFindFirstArgs>(args?: SelectSubset<T, WhatsAppTemplateFindFirstArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateFindFirstOrThrowArgs} args - Arguments to find a WhatsAppTemplate
+     * @example
+     * // Get one WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsAppTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsAppTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsAppTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsAppTemplates
+     * const whatsAppTemplates = await prisma.whatsAppTemplate.findMany()
+     * 
+     * // Get first 10 WhatsAppTemplates
+     * const whatsAppTemplates = await prisma.whatsAppTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsAppTemplateWithIdOnly = await prisma.whatsAppTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsAppTemplateFindManyArgs>(args?: SelectSubset<T, WhatsAppTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsAppTemplate.
+     * @param {WhatsAppTemplateCreateArgs} args - Arguments to create a WhatsAppTemplate.
+     * @example
+     * // Create one WhatsAppTemplate
+     * const WhatsAppTemplate = await prisma.whatsAppTemplate.create({
+     *   data: {
+     *     // ... data to create a WhatsAppTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsAppTemplateCreateArgs>(args: SelectSubset<T, WhatsAppTemplateCreateArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsAppTemplates.
+     * @param {WhatsAppTemplateCreateManyArgs} args - Arguments to create many WhatsAppTemplates.
+     * @example
+     * // Create many WhatsAppTemplates
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsAppTemplateCreateManyArgs>(args?: SelectSubset<T, WhatsAppTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WhatsAppTemplates and returns the data saved in the database.
+     * @param {WhatsAppTemplateCreateManyAndReturnArgs} args - Arguments to create many WhatsAppTemplates.
+     * @example
+     * // Create many WhatsAppTemplates
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WhatsAppTemplates and only return the `id`
+     * const whatsAppTemplateWithIdOnly = await prisma.whatsAppTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WhatsAppTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, WhatsAppTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WhatsAppTemplate.
+     * @param {WhatsAppTemplateDeleteArgs} args - Arguments to delete one WhatsAppTemplate.
+     * @example
+     * // Delete one WhatsAppTemplate
+     * const WhatsAppTemplate = await prisma.whatsAppTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsAppTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsAppTemplateDeleteArgs>(args: SelectSubset<T, WhatsAppTemplateDeleteArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsAppTemplate.
+     * @param {WhatsAppTemplateUpdateArgs} args - Arguments to update one WhatsAppTemplate.
+     * @example
+     * // Update one WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsAppTemplateUpdateArgs>(args: SelectSubset<T, WhatsAppTemplateUpdateArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsAppTemplates.
+     * @param {WhatsAppTemplateDeleteManyArgs} args - Arguments to filter WhatsAppTemplates to delete.
+     * @example
+     * // Delete a few WhatsAppTemplates
+     * const { count } = await prisma.whatsAppTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsAppTemplateDeleteManyArgs>(args?: SelectSubset<T, WhatsAppTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsAppTemplates
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsAppTemplateUpdateManyArgs>(args: SelectSubset<T, WhatsAppTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppTemplates and returns the data updated in the database.
+     * @param {WhatsAppTemplateUpdateManyAndReturnArgs} args - Arguments to update many WhatsAppTemplates.
+     * @example
+     * // Update many WhatsAppTemplates
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WhatsAppTemplates and only return the `id`
+     * const whatsAppTemplateWithIdOnly = await prisma.whatsAppTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WhatsAppTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, WhatsAppTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WhatsAppTemplate.
+     * @param {WhatsAppTemplateUpsertArgs} args - Arguments to update or create a WhatsAppTemplate.
+     * @example
+     * // Update or create a WhatsAppTemplate
+     * const whatsAppTemplate = await prisma.whatsAppTemplate.upsert({
+     *   create: {
+     *     // ... data to create a WhatsAppTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsAppTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsAppTemplateUpsertArgs>(args: SelectSubset<T, WhatsAppTemplateUpsertArgs<ExtArgs>>): Prisma__WhatsAppTemplateClient<$Result.GetResult<Prisma.$WhatsAppTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsAppTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateCountArgs} args - Arguments to filter WhatsAppTemplates to count.
+     * @example
+     * // Count the number of WhatsAppTemplates
+     * const count = await prisma.whatsAppTemplate.count({
+     *   where: {
+     *     // ... the filter for the WhatsAppTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsAppTemplateCountArgs>(
+      args?: Subset<T, WhatsAppTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsAppTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsAppTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsAppTemplateAggregateArgs>(args: Subset<T, WhatsAppTemplateAggregateArgs>): Prisma.PrismaPromise<GetWhatsAppTemplateAggregateType<T>>
+
+    /**
+     * Group by WhatsAppTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsAppTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsAppTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsAppTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsAppTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsAppTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsAppTemplate model
+   */
+  readonly fields: WhatsAppTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsAppTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsAppTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    messages<T extends WhatsAppTemplate$messagesArgs<ExtArgs> = {}>(args?: Subset<T, WhatsAppTemplate$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageQueuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsAppTemplate model
+   */
+  interface WhatsAppTemplateFieldRefs {
+    readonly id: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly name: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly clientId: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly templateId: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly language: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly category: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly status: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly body: FieldRef<"WhatsAppTemplate", 'String'>
+    readonly variables: FieldRef<"WhatsAppTemplate", 'Json'>
+    readonly createdAt: FieldRef<"WhatsAppTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"WhatsAppTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsAppTemplate findUnique
+   */
+  export type WhatsAppTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTemplate to fetch.
+     */
+    where: WhatsAppTemplateWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppTemplate findUniqueOrThrow
+   */
+  export type WhatsAppTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTemplate to fetch.
+     */
+    where: WhatsAppTemplateWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppTemplate findFirst
+   */
+  export type WhatsAppTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTemplate to fetch.
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTemplates to fetch.
+     */
+    orderBy?: WhatsAppTemplateOrderByWithRelationInput | WhatsAppTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppTemplates.
+     */
+    cursor?: WhatsAppTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTemplates.
+     */
+    distinct?: WhatsAppTemplateScalarFieldEnum | WhatsAppTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppTemplate findFirstOrThrow
+   */
+  export type WhatsAppTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTemplate to fetch.
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTemplates to fetch.
+     */
+    orderBy?: WhatsAppTemplateOrderByWithRelationInput | WhatsAppTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppTemplates.
+     */
+    cursor?: WhatsAppTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTemplates.
+     */
+    distinct?: WhatsAppTemplateScalarFieldEnum | WhatsAppTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppTemplate findMany
+   */
+  export type WhatsAppTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTemplates to fetch.
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTemplates to fetch.
+     */
+    orderBy?: WhatsAppTemplateOrderByWithRelationInput | WhatsAppTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsAppTemplates.
+     */
+    cursor?: WhatsAppTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTemplates.
+     */
+    distinct?: WhatsAppTemplateScalarFieldEnum | WhatsAppTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppTemplate create
+   */
+  export type WhatsAppTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsAppTemplate.
+     */
+    data: XOR<WhatsAppTemplateCreateInput, WhatsAppTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsAppTemplate createMany
+   */
+  export type WhatsAppTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsAppTemplates.
+     */
+    data: WhatsAppTemplateCreateManyInput | WhatsAppTemplateCreateManyInput[]
+  }
+
+  /**
+   * WhatsAppTemplate createManyAndReturn
+   */
+  export type WhatsAppTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many WhatsAppTemplates.
+     */
+    data: WhatsAppTemplateCreateManyInput | WhatsAppTemplateCreateManyInput[]
+  }
+
+  /**
+   * WhatsAppTemplate update
+   */
+  export type WhatsAppTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsAppTemplate.
+     */
+    data: XOR<WhatsAppTemplateUpdateInput, WhatsAppTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsAppTemplate to update.
+     */
+    where: WhatsAppTemplateWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppTemplate updateMany
+   */
+  export type WhatsAppTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsAppTemplates.
+     */
+    data: XOR<WhatsAppTemplateUpdateManyMutationInput, WhatsAppTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppTemplates to update
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * Limit how many WhatsAppTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppTemplate updateManyAndReturn
+   */
+  export type WhatsAppTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update WhatsAppTemplates.
+     */
+    data: XOR<WhatsAppTemplateUpdateManyMutationInput, WhatsAppTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppTemplates to update
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * Limit how many WhatsAppTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppTemplate upsert
+   */
+  export type WhatsAppTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsAppTemplate to update in case it exists.
+     */
+    where: WhatsAppTemplateWhereUniqueInput
+    /**
+     * In case the WhatsAppTemplate found by the `where` argument doesn't exist, create a new WhatsAppTemplate with this data.
+     */
+    create: XOR<WhatsAppTemplateCreateInput, WhatsAppTemplateUncheckedCreateInput>
+    /**
+     * In case the WhatsAppTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsAppTemplateUpdateInput, WhatsAppTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsAppTemplate delete
+   */
+  export type WhatsAppTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsAppTemplate to delete.
+     */
+    where: WhatsAppTemplateWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppTemplate deleteMany
+   */
+  export type WhatsAppTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppTemplates to delete
+     */
+    where?: WhatsAppTemplateWhereInput
+    /**
+     * Limit how many WhatsAppTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppTemplate.messages
+   */
+  export type WhatsAppTemplate$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageQueue
+     */
+    select?: MessageQueueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageQueue
+     */
+    omit?: MessageQueueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageQueueInclude<ExtArgs> | null
+    where?: MessageQueueWhereInput
+    orderBy?: MessageQueueOrderByWithRelationInput | MessageQueueOrderByWithRelationInput[]
+    cursor?: MessageQueueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageQueueScalarFieldEnum | MessageQueueScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppTemplate without action
+   */
+  export type WhatsAppTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppTemplate
+     */
+    select?: WhatsAppTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppTemplate
+     */
+    omit?: WhatsAppTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsAppToken
+   */
+
+  export type AggregateWhatsAppToken = {
+    _count: WhatsAppTokenCountAggregateOutputType | null
+    _min: WhatsAppTokenMinAggregateOutputType | null
+    _max: WhatsAppTokenMaxAggregateOutputType | null
+  }
+
+  export type WhatsAppTokenMinAggregateOutputType = {
+    id: string | null
+    wabaId: string | null
+    accessToken: string | null
+    phoneNumberId: string | null
+    status: string | null
+    schoolId: string | null
+    displayPhoneNumber: string | null
+    verifiedName: string | null
+    safeMode: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppTokenMaxAggregateOutputType = {
+    id: string | null
+    wabaId: string | null
+    accessToken: string | null
+    phoneNumberId: string | null
+    status: string | null
+    schoolId: string | null
+    displayPhoneNumber: string | null
+    verifiedName: string | null
+    safeMode: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppTokenCountAggregateOutputType = {
+    id: number
+    wabaId: number
+    accessToken: number
+    phoneNumberId: number
+    status: number
+    schoolId: number
+    displayPhoneNumber: number
+    verifiedName: number
+    safeMode: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WhatsAppTokenMinAggregateInputType = {
+    id?: true
+    wabaId?: true
+    accessToken?: true
+    phoneNumberId?: true
+    status?: true
+    schoolId?: true
+    displayPhoneNumber?: true
+    verifiedName?: true
+    safeMode?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppTokenMaxAggregateInputType = {
+    id?: true
+    wabaId?: true
+    accessToken?: true
+    phoneNumberId?: true
+    status?: true
+    schoolId?: true
+    displayPhoneNumber?: true
+    verifiedName?: true
+    safeMode?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppTokenCountAggregateInputType = {
+    id?: true
+    wabaId?: true
+    accessToken?: true
+    phoneNumberId?: true
+    status?: true
+    schoolId?: true
+    displayPhoneNumber?: true
+    verifiedName?: true
+    safeMode?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WhatsAppTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppToken to aggregate.
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTokens to fetch.
+     */
+    orderBy?: WhatsAppTokenOrderByWithRelationInput | WhatsAppTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsAppTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsAppTokens
+    **/
+    _count?: true | WhatsAppTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsAppTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsAppTokenMaxAggregateInputType
+  }
+
+  export type GetWhatsAppTokenAggregateType<T extends WhatsAppTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsAppToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsAppToken[P]>
+      : GetScalarType<T[P], AggregateWhatsAppToken[P]>
+  }
+
+
+
+
+  export type WhatsAppTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppTokenWhereInput
+    orderBy?: WhatsAppTokenOrderByWithAggregationInput | WhatsAppTokenOrderByWithAggregationInput[]
+    by: WhatsAppTokenScalarFieldEnum[] | WhatsAppTokenScalarFieldEnum
+    having?: WhatsAppTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsAppTokenCountAggregateInputType | true
+    _min?: WhatsAppTokenMinAggregateInputType
+    _max?: WhatsAppTokenMaxAggregateInputType
+  }
+
+  export type WhatsAppTokenGroupByOutputType = {
+    id: string
+    wabaId: string
+    accessToken: string
+    phoneNumberId: string
+    status: string
+    schoolId: string
+    displayPhoneNumber: string | null
+    verifiedName: string | null
+    safeMode: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: WhatsAppTokenCountAggregateOutputType | null
+    _min: WhatsAppTokenMinAggregateOutputType | null
+    _max: WhatsAppTokenMaxAggregateOutputType | null
+  }
+
+  type GetWhatsAppTokenGroupByPayload<T extends WhatsAppTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsAppTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsAppTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsAppTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsAppTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsAppTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    wabaId?: boolean
+    accessToken?: boolean
+    phoneNumberId?: boolean
+    status?: boolean
+    schoolId?: boolean
+    displayPhoneNumber?: boolean
+    verifiedName?: boolean
+    safeMode?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["whatsAppToken"]>
+
+  export type WhatsAppTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    wabaId?: boolean
+    accessToken?: boolean
+    phoneNumberId?: boolean
+    status?: boolean
+    schoolId?: boolean
+    displayPhoneNumber?: boolean
+    verifiedName?: boolean
+    safeMode?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["whatsAppToken"]>
+
+  export type WhatsAppTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    wabaId?: boolean
+    accessToken?: boolean
+    phoneNumberId?: boolean
+    status?: boolean
+    schoolId?: boolean
+    displayPhoneNumber?: boolean
+    verifiedName?: boolean
+    safeMode?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["whatsAppToken"]>
+
+  export type WhatsAppTokenSelectScalar = {
+    id?: boolean
+    wabaId?: boolean
+    accessToken?: boolean
+    phoneNumberId?: boolean
+    status?: boolean
+    schoolId?: boolean
+    displayPhoneNumber?: boolean
+    verifiedName?: boolean
+    safeMode?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WhatsAppTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "wabaId" | "accessToken" | "phoneNumberId" | "status" | "schoolId" | "displayPhoneNumber" | "verifiedName" | "safeMode" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsAppToken"]>
+
+  export type $WhatsAppTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsAppToken"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      wabaId: string
+      accessToken: string
+      phoneNumberId: string
+      status: string
+      schoolId: string
+      displayPhoneNumber: string | null
+      verifiedName: string | null
+      safeMode: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["whatsAppToken"]>
+    composites: {}
+  }
+
+  type WhatsAppTokenGetPayload<S extends boolean | null | undefined | WhatsAppTokenDefaultArgs> = $Result.GetResult<Prisma.$WhatsAppTokenPayload, S>
+
+  type WhatsAppTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsAppTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsAppTokenCountAggregateInputType | true
+    }
+
+  export interface WhatsAppTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsAppToken'], meta: { name: 'WhatsAppToken' } }
+    /**
+     * Find zero or one WhatsAppToken that matches the filter.
+     * @param {WhatsAppTokenFindUniqueArgs} args - Arguments to find a WhatsAppToken
+     * @example
+     * // Get one WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsAppTokenFindUniqueArgs>(args: SelectSubset<T, WhatsAppTokenFindUniqueArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsAppToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsAppTokenFindUniqueOrThrowArgs} args - Arguments to find a WhatsAppToken
+     * @example
+     * // Get one WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsAppTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsAppTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenFindFirstArgs} args - Arguments to find a WhatsAppToken
+     * @example
+     * // Get one WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsAppTokenFindFirstArgs>(args?: SelectSubset<T, WhatsAppTokenFindFirstArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenFindFirstOrThrowArgs} args - Arguments to find a WhatsAppToken
+     * @example
+     * // Get one WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsAppTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsAppTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsAppTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsAppTokens
+     * const whatsAppTokens = await prisma.whatsAppToken.findMany()
+     * 
+     * // Get first 10 WhatsAppTokens
+     * const whatsAppTokens = await prisma.whatsAppToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsAppTokenWithIdOnly = await prisma.whatsAppToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsAppTokenFindManyArgs>(args?: SelectSubset<T, WhatsAppTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsAppToken.
+     * @param {WhatsAppTokenCreateArgs} args - Arguments to create a WhatsAppToken.
+     * @example
+     * // Create one WhatsAppToken
+     * const WhatsAppToken = await prisma.whatsAppToken.create({
+     *   data: {
+     *     // ... data to create a WhatsAppToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsAppTokenCreateArgs>(args: SelectSubset<T, WhatsAppTokenCreateArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsAppTokens.
+     * @param {WhatsAppTokenCreateManyArgs} args - Arguments to create many WhatsAppTokens.
+     * @example
+     * // Create many WhatsAppTokens
+     * const whatsAppToken = await prisma.whatsAppToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsAppTokenCreateManyArgs>(args?: SelectSubset<T, WhatsAppTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WhatsAppTokens and returns the data saved in the database.
+     * @param {WhatsAppTokenCreateManyAndReturnArgs} args - Arguments to create many WhatsAppTokens.
+     * @example
+     * // Create many WhatsAppTokens
+     * const whatsAppToken = await prisma.whatsAppToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WhatsAppTokens and only return the `id`
+     * const whatsAppTokenWithIdOnly = await prisma.whatsAppToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WhatsAppTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, WhatsAppTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WhatsAppToken.
+     * @param {WhatsAppTokenDeleteArgs} args - Arguments to delete one WhatsAppToken.
+     * @example
+     * // Delete one WhatsAppToken
+     * const WhatsAppToken = await prisma.whatsAppToken.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsAppToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsAppTokenDeleteArgs>(args: SelectSubset<T, WhatsAppTokenDeleteArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsAppToken.
+     * @param {WhatsAppTokenUpdateArgs} args - Arguments to update one WhatsAppToken.
+     * @example
+     * // Update one WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsAppTokenUpdateArgs>(args: SelectSubset<T, WhatsAppTokenUpdateArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsAppTokens.
+     * @param {WhatsAppTokenDeleteManyArgs} args - Arguments to filter WhatsAppTokens to delete.
+     * @example
+     * // Delete a few WhatsAppTokens
+     * const { count } = await prisma.whatsAppToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsAppTokenDeleteManyArgs>(args?: SelectSubset<T, WhatsAppTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsAppTokens
+     * const whatsAppToken = await prisma.whatsAppToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsAppTokenUpdateManyArgs>(args: SelectSubset<T, WhatsAppTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppTokens and returns the data updated in the database.
+     * @param {WhatsAppTokenUpdateManyAndReturnArgs} args - Arguments to update many WhatsAppTokens.
+     * @example
+     * // Update many WhatsAppTokens
+     * const whatsAppToken = await prisma.whatsAppToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WhatsAppTokens and only return the `id`
+     * const whatsAppTokenWithIdOnly = await prisma.whatsAppToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WhatsAppTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, WhatsAppTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WhatsAppToken.
+     * @param {WhatsAppTokenUpsertArgs} args - Arguments to update or create a WhatsAppToken.
+     * @example
+     * // Update or create a WhatsAppToken
+     * const whatsAppToken = await prisma.whatsAppToken.upsert({
+     *   create: {
+     *     // ... data to create a WhatsAppToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsAppToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsAppTokenUpsertArgs>(args: SelectSubset<T, WhatsAppTokenUpsertArgs<ExtArgs>>): Prisma__WhatsAppTokenClient<$Result.GetResult<Prisma.$WhatsAppTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsAppTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenCountArgs} args - Arguments to filter WhatsAppTokens to count.
+     * @example
+     * // Count the number of WhatsAppTokens
+     * const count = await prisma.whatsAppToken.count({
+     *   where: {
+     *     // ... the filter for the WhatsAppTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsAppTokenCountArgs>(
+      args?: Subset<T, WhatsAppTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsAppTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsAppToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsAppTokenAggregateArgs>(args: Subset<T, WhatsAppTokenAggregateArgs>): Prisma.PrismaPromise<GetWhatsAppTokenAggregateType<T>>
+
+    /**
+     * Group by WhatsAppToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsAppTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsAppTokenGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsAppTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsAppTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsAppTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsAppToken model
+   */
+  readonly fields: WhatsAppTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsAppToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsAppTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsAppToken model
+   */
+  interface WhatsAppTokenFieldRefs {
+    readonly id: FieldRef<"WhatsAppToken", 'String'>
+    readonly wabaId: FieldRef<"WhatsAppToken", 'String'>
+    readonly accessToken: FieldRef<"WhatsAppToken", 'String'>
+    readonly phoneNumberId: FieldRef<"WhatsAppToken", 'String'>
+    readonly status: FieldRef<"WhatsAppToken", 'String'>
+    readonly schoolId: FieldRef<"WhatsAppToken", 'String'>
+    readonly displayPhoneNumber: FieldRef<"WhatsAppToken", 'String'>
+    readonly verifiedName: FieldRef<"WhatsAppToken", 'String'>
+    readonly safeMode: FieldRef<"WhatsAppToken", 'Boolean'>
+    readonly createdAt: FieldRef<"WhatsAppToken", 'DateTime'>
+    readonly updatedAt: FieldRef<"WhatsAppToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsAppToken findUnique
+   */
+  export type WhatsAppTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppToken to fetch.
+     */
+    where: WhatsAppTokenWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppToken findUniqueOrThrow
+   */
+  export type WhatsAppTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppToken to fetch.
+     */
+    where: WhatsAppTokenWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppToken findFirst
+   */
+  export type WhatsAppTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppToken to fetch.
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTokens to fetch.
+     */
+    orderBy?: WhatsAppTokenOrderByWithRelationInput | WhatsAppTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppTokens.
+     */
+    cursor?: WhatsAppTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTokens.
+     */
+    distinct?: WhatsAppTokenScalarFieldEnum | WhatsAppTokenScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppToken findFirstOrThrow
+   */
+  export type WhatsAppTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppToken to fetch.
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTokens to fetch.
+     */
+    orderBy?: WhatsAppTokenOrderByWithRelationInput | WhatsAppTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppTokens.
+     */
+    cursor?: WhatsAppTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTokens.
+     */
+    distinct?: WhatsAppTokenScalarFieldEnum | WhatsAppTokenScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppToken findMany
+   */
+  export type WhatsAppTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppTokens to fetch.
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppTokens to fetch.
+     */
+    orderBy?: WhatsAppTokenOrderByWithRelationInput | WhatsAppTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsAppTokens.
+     */
+    cursor?: WhatsAppTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppTokens.
+     */
+    distinct?: WhatsAppTokenScalarFieldEnum | WhatsAppTokenScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppToken create
+   */
+  export type WhatsAppTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsAppToken.
+     */
+    data: XOR<WhatsAppTokenCreateInput, WhatsAppTokenUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsAppToken createMany
+   */
+  export type WhatsAppTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsAppTokens.
+     */
+    data: WhatsAppTokenCreateManyInput | WhatsAppTokenCreateManyInput[]
+  }
+
+  /**
+   * WhatsAppToken createManyAndReturn
+   */
+  export type WhatsAppTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many WhatsAppTokens.
+     */
+    data: WhatsAppTokenCreateManyInput | WhatsAppTokenCreateManyInput[]
+  }
+
+  /**
+   * WhatsAppToken update
+   */
+  export type WhatsAppTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsAppToken.
+     */
+    data: XOR<WhatsAppTokenUpdateInput, WhatsAppTokenUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsAppToken to update.
+     */
+    where: WhatsAppTokenWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppToken updateMany
+   */
+  export type WhatsAppTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsAppTokens.
+     */
+    data: XOR<WhatsAppTokenUpdateManyMutationInput, WhatsAppTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppTokens to update
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * Limit how many WhatsAppTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppToken updateManyAndReturn
+   */
+  export type WhatsAppTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update WhatsAppTokens.
+     */
+    data: XOR<WhatsAppTokenUpdateManyMutationInput, WhatsAppTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppTokens to update
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * Limit how many WhatsAppTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppToken upsert
+   */
+  export type WhatsAppTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsAppToken to update in case it exists.
+     */
+    where: WhatsAppTokenWhereUniqueInput
+    /**
+     * In case the WhatsAppToken found by the `where` argument doesn't exist, create a new WhatsAppToken with this data.
+     */
+    create: XOR<WhatsAppTokenCreateInput, WhatsAppTokenUncheckedCreateInput>
+    /**
+     * In case the WhatsAppToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsAppTokenUpdateInput, WhatsAppTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsAppToken delete
+   */
+  export type WhatsAppTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
+    /**
+     * Filter which WhatsAppToken to delete.
+     */
+    where: WhatsAppTokenWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppToken deleteMany
+   */
+  export type WhatsAppTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppTokens to delete
+     */
+    where?: WhatsAppTokenWhereInput
+    /**
+     * Limit how many WhatsAppTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppToken without action
+   */
+  export type WhatsAppTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppToken
+     */
+    select?: WhatsAppTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppToken
+     */
+    omit?: WhatsAppTokenOmit<ExtArgs> | null
   }
 
 
@@ -12740,18 +21579,41 @@ export namespace Prisma {
   export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
+  export const CalendarEventScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    date: 'date',
+    type: 'type',
+    description: 'description',
+    color: 'color',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CalendarEventScalarFieldEnum = (typeof CalendarEventScalarFieldEnum)[keyof typeof CalendarEventScalarFieldEnum]
+
+
   export const CarScalarFieldEnum: {
     id: 'id',
     name: 'name',
     transmission: 'transmission',
     assigned_instructor: 'assigned_instructor',
-    car_year: 'car_year',
     car_Number: 'car_Number',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    car_year: 'car_year',
+    updatedAt: 'updatedAt',
+    createdAt: 'createdAt'
   };
 
   export type CarScalarFieldEnum = (typeof CarScalarFieldEnum)[keyof typeof CarScalarFieldEnum]
+
+
+  export const DemoStatusScalarFieldEnum: {
+    id: 'id',
+    isDemo: 'isDemo',
+    startDate: 'startDate'
+  };
+
+  export type DemoStatusScalarFieldEnum = (typeof DemoStatusScalarFieldEnum)[keyof typeof DemoStatusScalarFieldEnum]
 
 
   export const SetupChecklistScalarFieldEnum: {
@@ -12776,10 +21638,38 @@ export namespace Prisma {
     joiningDate: 'joiningDate',
     isActive: 'isActive',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    payment: 'payment',
+    paymentDate: 'paymentDate',
+    assignedCarId: 'assignedCarId'
   };
 
   export type InstructorScalarFieldEnum = (typeof InstructorScalarFieldEnum)[keyof typeof InstructorScalarFieldEnum]
+
+
+  export const MaintenanceScheduleScalarFieldEnum: {
+    id: 'id',
+    carId: 'carId',
+    serviceDate: 'serviceDate',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MaintenanceScheduleScalarFieldEnum = (typeof MaintenanceScheduleScalarFieldEnum)[keyof typeof MaintenanceScheduleScalarFieldEnum]
+
+
+  export const MaintenanceItemScalarFieldEnum: {
+    id: 'id',
+    maintenanceScheduleId: 'maintenanceScheduleId',
+    type: 'type',
+    intervalDays: 'intervalDays',
+    nextServiceDate: 'nextServiceDate',
+    notes: 'notes',
+    carId: 'carId'
+  };
+
+  export type MaintenanceItemScalarFieldEnum = (typeof MaintenanceItemScalarFieldEnum)[keyof typeof MaintenanceItemScalarFieldEnum]
 
 
   export const PackageScalarFieldEnum: {
@@ -12825,7 +21715,7 @@ export namespace Prisma {
 
   export const SchoolSetUpScalarFieldEnum: {
     id: 'id',
-    systemId: 'systemId',
+    systemID: 'systemID',
     school_name: 'school_name',
     support_Email: 'support_Email',
     address: 'address',
@@ -12841,7 +21731,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     mobile: 'mobile',
-    email: 'email',
     packageId: 'packageId',
     package_name: 'package_name',
     Enrollment_status: 'Enrollment_status',
@@ -12852,16 +21741,66 @@ export namespace Prisma {
     Amount_paid: 'Amount_paid',
     Remaining_percentage: 'Remaining_percentage',
     remaining_amount: 'remaining_amount',
-    Thank_you_msg: 'Thank_you_msg',
-    Welcome_msg: 'Welcome_msg',
-    Remainder_msg: 'Remainder_msg',
-    Balance_remaining_date: 'Balance_remaining_date',
     Assigned_car_id: 'Assigned_car_id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
+
+
+  export const MessageQueueScalarFieldEnum: {
+    id: 'id',
+    templateId: 'templateId',
+    recipient: 'recipient',
+    variables: 'variables',
+    status: 'status',
+    attempts: 'attempts',
+    maxAttempts: 'maxAttempts',
+    scheduledAt: 'scheduledAt',
+    processingAt: 'processingAt',
+    sentAt: 'sentAt',
+    messageId: 'messageId',
+    lastError: 'lastError',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MessageQueueScalarFieldEnum = (typeof MessageQueueScalarFieldEnum)[keyof typeof MessageQueueScalarFieldEnum]
+
+
+  export const WhatsAppTemplateScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    clientId: 'clientId',
+    templateId: 'templateId',
+    language: 'language',
+    category: 'category',
+    status: 'status',
+    body: 'body',
+    variables: 'variables',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WhatsAppTemplateScalarFieldEnum = (typeof WhatsAppTemplateScalarFieldEnum)[keyof typeof WhatsAppTemplateScalarFieldEnum]
+
+
+  export const WhatsAppTokenScalarFieldEnum: {
+    id: 'id',
+    wabaId: 'wabaId',
+    accessToken: 'accessToken',
+    phoneNumberId: 'phoneNumberId',
+    status: 'status',
+    schoolId: 'schoolId',
+    displayPhoneNumber: 'displayPhoneNumber',
+    verifiedName: 'verifiedName',
+    safeMode: 'safeMode',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WhatsAppTokenScalarFieldEnum = (typeof WhatsAppTokenScalarFieldEnum)[keyof typeof WhatsAppTokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12872,12 +21811,44 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   /**
@@ -12928,6 +21899,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaintenanceType'
+   */
+  export type EnumMaintenanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceType'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -12942,16 +21927,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Enrollment_status'
+   * Reference to a field of type 'Json'
    */
-  export type EnumEnrollment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Enrollment_status'>
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'QueryMode'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageQueueStatus'
+   */
+  export type EnumMessageQueueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageQueueStatus'>
     
   /**
    * Deep Input Types
@@ -13078,6 +22070,73 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
   }
 
+  export type CalendarEventWhereInput = {
+    AND?: CalendarEventWhereInput | CalendarEventWhereInput[]
+    OR?: CalendarEventWhereInput[]
+    NOT?: CalendarEventWhereInput | CalendarEventWhereInput[]
+    id?: StringFilter<"CalendarEvent"> | string
+    title?: StringFilter<"CalendarEvent"> | string
+    date?: StringFilter<"CalendarEvent"> | string
+    type?: StringFilter<"CalendarEvent"> | string
+    description?: StringNullableFilter<"CalendarEvent"> | string | null
+    color?: StringNullableFilter<"CalendarEvent"> | string | null
+    createdAt?: DateTimeFilter<"CalendarEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"CalendarEvent"> | Date | string
+  }
+
+  export type CalendarEventOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CalendarEventWhereInput | CalendarEventWhereInput[]
+    OR?: CalendarEventWhereInput[]
+    NOT?: CalendarEventWhereInput | CalendarEventWhereInput[]
+    title?: StringFilter<"CalendarEvent"> | string
+    date?: StringFilter<"CalendarEvent"> | string
+    type?: StringFilter<"CalendarEvent"> | string
+    description?: StringNullableFilter<"CalendarEvent"> | string | null
+    color?: StringNullableFilter<"CalendarEvent"> | string | null
+    createdAt?: DateTimeFilter<"CalendarEvent"> | Date | string
+    updatedAt?: DateTimeFilter<"CalendarEvent"> | Date | string
+  }, "id">
+
+  export type CalendarEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    type?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CalendarEventCountOrderByAggregateInput
+    _max?: CalendarEventMaxOrderByAggregateInput
+    _min?: CalendarEventMinOrderByAggregateInput
+  }
+
+  export type CalendarEventScalarWhereWithAggregatesInput = {
+    AND?: CalendarEventScalarWhereWithAggregatesInput | CalendarEventScalarWhereWithAggregatesInput[]
+    OR?: CalendarEventScalarWhereWithAggregatesInput[]
+    NOT?: CalendarEventScalarWhereWithAggregatesInput | CalendarEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CalendarEvent"> | string
+    title?: StringWithAggregatesFilter<"CalendarEvent"> | string
+    date?: StringWithAggregatesFilter<"CalendarEvent"> | string
+    type?: StringWithAggregatesFilter<"CalendarEvent"> | string
+    description?: StringNullableWithAggregatesFilter<"CalendarEvent"> | string | null
+    color?: StringNullableWithAggregatesFilter<"CalendarEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CalendarEvent"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CalendarEvent"> | Date | string
+  }
+
   export type CarWhereInput = {
     AND?: CarWhereInput | CarWhereInput[]
     OR?: CarWhereInput[]
@@ -13085,22 +22144,30 @@ export namespace Prisma {
     id?: StringFilter<"Car"> | string
     name?: StringFilter<"Car"> | string
     transmission?: StringFilter<"Car"> | string
-    assigned_instructor?: StringFilter<"Car"> | string
-    car_year?: StringFilter<"Car"> | string
+    assigned_instructor?: StringNullableFilter<"Car"> | string | null
     car_Number?: StringFilter<"Car"> | string
-    createdAt?: DateTimeFilter<"Car"> | Date | string
+    car_year?: StringFilter<"Car"> | string
     updatedAt?: DateTimeFilter<"Car"> | Date | string
+    createdAt?: DateTimeFilter<"Car"> | Date | string
+    students?: StudentListRelationFilter
+    instructors?: InstructorListRelationFilter
+    maintenanceItem?: MaintenanceItemListRelationFilter
+    maintenanceSchedules?: MaintenanceScheduleListRelationFilter
   }
 
   export type CarOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     transmission?: SortOrder
-    assigned_instructor?: SortOrder
-    car_year?: SortOrder
+    assigned_instructor?: SortOrderInput | SortOrder
     car_Number?: SortOrder
-    createdAt?: SortOrder
+    car_year?: SortOrder
     updatedAt?: SortOrder
+    createdAt?: SortOrder
+    students?: StudentOrderByRelationAggregateInput
+    instructors?: InstructorOrderByRelationAggregateInput
+    maintenanceItem?: MaintenanceItemOrderByRelationAggregateInput
+    maintenanceSchedules?: MaintenanceScheduleOrderByRelationAggregateInput
   }
 
   export type CarWhereUniqueInput = Prisma.AtLeast<{
@@ -13110,22 +22177,26 @@ export namespace Prisma {
     NOT?: CarWhereInput | CarWhereInput[]
     name?: StringFilter<"Car"> | string
     transmission?: StringFilter<"Car"> | string
-    assigned_instructor?: StringFilter<"Car"> | string
-    car_year?: StringFilter<"Car"> | string
+    assigned_instructor?: StringNullableFilter<"Car"> | string | null
     car_Number?: StringFilter<"Car"> | string
-    createdAt?: DateTimeFilter<"Car"> | Date | string
+    car_year?: StringFilter<"Car"> | string
     updatedAt?: DateTimeFilter<"Car"> | Date | string
+    createdAt?: DateTimeFilter<"Car"> | Date | string
+    students?: StudentListRelationFilter
+    instructors?: InstructorListRelationFilter
+    maintenanceItem?: MaintenanceItemListRelationFilter
+    maintenanceSchedules?: MaintenanceScheduleListRelationFilter
   }, "id">
 
   export type CarOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     transmission?: SortOrder
-    assigned_instructor?: SortOrder
-    car_year?: SortOrder
+    assigned_instructor?: SortOrderInput | SortOrder
     car_Number?: SortOrder
-    createdAt?: SortOrder
+    car_year?: SortOrder
     updatedAt?: SortOrder
+    createdAt?: SortOrder
     _count?: CarCountOrderByAggregateInput
     _max?: CarMaxOrderByAggregateInput
     _min?: CarMinOrderByAggregateInput
@@ -13138,11 +22209,53 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Car"> | string
     name?: StringWithAggregatesFilter<"Car"> | string
     transmission?: StringWithAggregatesFilter<"Car"> | string
-    assigned_instructor?: StringWithAggregatesFilter<"Car"> | string
-    car_year?: StringWithAggregatesFilter<"Car"> | string
+    assigned_instructor?: StringNullableWithAggregatesFilter<"Car"> | string | null
     car_Number?: StringWithAggregatesFilter<"Car"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Car"> | Date | string
+    car_year?: StringWithAggregatesFilter<"Car"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Car"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Car"> | Date | string
+  }
+
+  export type DemoStatusWhereInput = {
+    AND?: DemoStatusWhereInput | DemoStatusWhereInput[]
+    OR?: DemoStatusWhereInput[]
+    NOT?: DemoStatusWhereInput | DemoStatusWhereInput[]
+    id?: StringFilter<"DemoStatus"> | string
+    isDemo?: BoolFilter<"DemoStatus"> | boolean
+    startDate?: DateTimeFilter<"DemoStatus"> | Date | string
+  }
+
+  export type DemoStatusOrderByWithRelationInput = {
+    id?: SortOrder
+    isDemo?: SortOrder
+    startDate?: SortOrder
+  }
+
+  export type DemoStatusWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DemoStatusWhereInput | DemoStatusWhereInput[]
+    OR?: DemoStatusWhereInput[]
+    NOT?: DemoStatusWhereInput | DemoStatusWhereInput[]
+    isDemo?: BoolFilter<"DemoStatus"> | boolean
+    startDate?: DateTimeFilter<"DemoStatus"> | Date | string
+  }, "id">
+
+  export type DemoStatusOrderByWithAggregationInput = {
+    id?: SortOrder
+    isDemo?: SortOrder
+    startDate?: SortOrder
+    _count?: DemoStatusCountOrderByAggregateInput
+    _max?: DemoStatusMaxOrderByAggregateInput
+    _min?: DemoStatusMinOrderByAggregateInput
+  }
+
+  export type DemoStatusScalarWhereWithAggregatesInput = {
+    AND?: DemoStatusScalarWhereWithAggregatesInput | DemoStatusScalarWhereWithAggregatesInput[]
+    OR?: DemoStatusScalarWhereWithAggregatesInput[]
+    NOT?: DemoStatusScalarWhereWithAggregatesInput | DemoStatusScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DemoStatus"> | string
+    isDemo?: BoolWithAggregatesFilter<"DemoStatus"> | boolean
+    startDate?: DateTimeWithAggregatesFilter<"DemoStatus"> | Date | string
   }
 
   export type SetupChecklistWhereInput = {
@@ -13220,7 +22333,12 @@ export namespace Prisma {
     isActive?: BoolFilter<"Instructor"> | boolean
     createdAt?: DateTimeFilter<"Instructor"> | Date | string
     updatedAt?: DateTimeFilter<"Instructor"> | Date | string
+    payment?: FloatNullableFilter<"Instructor"> | number | null
+    paymentDate?: IntNullableFilter<"Instructor"> | number | null
+    assignedCarId?: StringNullableFilter<"Instructor"> | string | null
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
     paymentCycles?: PaymentCycleListRelationFilter
+    students?: StudentListRelationFilter
   }
 
   export type InstructorOrderByWithRelationInput = {
@@ -13233,7 +22351,12 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    payment?: SortOrderInput | SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    assignedCarId?: SortOrderInput | SortOrder
+    car?: CarOrderByWithRelationInput
     paymentCycles?: PaymentCycleOrderByRelationAggregateInput
+    students?: StudentOrderByRelationAggregateInput
   }
 
   export type InstructorWhereUniqueInput = Prisma.AtLeast<{
@@ -13249,7 +22372,12 @@ export namespace Prisma {
     isActive?: BoolFilter<"Instructor"> | boolean
     createdAt?: DateTimeFilter<"Instructor"> | Date | string
     updatedAt?: DateTimeFilter<"Instructor"> | Date | string
+    payment?: FloatNullableFilter<"Instructor"> | number | null
+    paymentDate?: IntNullableFilter<"Instructor"> | number | null
+    assignedCarId?: StringNullableFilter<"Instructor"> | string | null
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
     paymentCycles?: PaymentCycleListRelationFilter
+    students?: StudentListRelationFilter
   }, "id">
 
   export type InstructorOrderByWithAggregationInput = {
@@ -13262,9 +22390,14 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    payment?: SortOrderInput | SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    assignedCarId?: SortOrderInput | SortOrder
     _count?: InstructorCountOrderByAggregateInput
+    _avg?: InstructorAvgOrderByAggregateInput
     _max?: InstructorMaxOrderByAggregateInput
     _min?: InstructorMinOrderByAggregateInput
+    _sum?: InstructorSumOrderByAggregateInput
   }
 
   export type InstructorScalarWhereWithAggregatesInput = {
@@ -13280,6 +22413,142 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"Instructor"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Instructor"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Instructor"> | Date | string
+    payment?: FloatNullableWithAggregatesFilter<"Instructor"> | number | null
+    paymentDate?: IntNullableWithAggregatesFilter<"Instructor"> | number | null
+    assignedCarId?: StringNullableWithAggregatesFilter<"Instructor"> | string | null
+  }
+
+  export type MaintenanceScheduleWhereInput = {
+    AND?: MaintenanceScheduleWhereInput | MaintenanceScheduleWhereInput[]
+    OR?: MaintenanceScheduleWhereInput[]
+    NOT?: MaintenanceScheduleWhereInput | MaintenanceScheduleWhereInput[]
+    id?: StringFilter<"MaintenanceSchedule"> | string
+    carId?: StringFilter<"MaintenanceSchedule"> | string
+    serviceDate?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    notes?: StringNullableFilter<"MaintenanceSchedule"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    car?: XOR<CarScalarRelationFilter, CarWhereInput>
+    items?: MaintenanceItemListRelationFilter
+  }
+
+  export type MaintenanceScheduleOrderByWithRelationInput = {
+    id?: SortOrder
+    carId?: SortOrder
+    serviceDate?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    car?: CarOrderByWithRelationInput
+    items?: MaintenanceItemOrderByRelationAggregateInput
+  }
+
+  export type MaintenanceScheduleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaintenanceScheduleWhereInput | MaintenanceScheduleWhereInput[]
+    OR?: MaintenanceScheduleWhereInput[]
+    NOT?: MaintenanceScheduleWhereInput | MaintenanceScheduleWhereInput[]
+    carId?: StringFilter<"MaintenanceSchedule"> | string
+    serviceDate?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    notes?: StringNullableFilter<"MaintenanceSchedule"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    car?: XOR<CarScalarRelationFilter, CarWhereInput>
+    items?: MaintenanceItemListRelationFilter
+  }, "id">
+
+  export type MaintenanceScheduleOrderByWithAggregationInput = {
+    id?: SortOrder
+    carId?: SortOrder
+    serviceDate?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MaintenanceScheduleCountOrderByAggregateInput
+    _max?: MaintenanceScheduleMaxOrderByAggregateInput
+    _min?: MaintenanceScheduleMinOrderByAggregateInput
+  }
+
+  export type MaintenanceScheduleScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceScheduleScalarWhereWithAggregatesInput | MaintenanceScheduleScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceScheduleScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceScheduleScalarWhereWithAggregatesInput | MaintenanceScheduleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MaintenanceSchedule"> | string
+    carId?: StringWithAggregatesFilter<"MaintenanceSchedule"> | string
+    serviceDate?: DateTimeWithAggregatesFilter<"MaintenanceSchedule"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"MaintenanceSchedule"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MaintenanceSchedule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MaintenanceSchedule"> | Date | string
+  }
+
+  export type MaintenanceItemWhereInput = {
+    AND?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
+    OR?: MaintenanceItemWhereInput[]
+    NOT?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
+    id?: StringFilter<"MaintenanceItem"> | string
+    maintenanceScheduleId?: StringFilter<"MaintenanceItem"> | string
+    type?: EnumMaintenanceTypeFilter<"MaintenanceItem"> | $Enums.MaintenanceType
+    intervalDays?: IntNullableFilter<"MaintenanceItem"> | number | null
+    nextServiceDate?: DateTimeNullableFilter<"MaintenanceItem"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceItem"> | string | null
+    carId?: StringNullableFilter<"MaintenanceItem"> | string | null
+    maintenanceSchedule?: XOR<MaintenanceScheduleScalarRelationFilter, MaintenanceScheduleWhereInput>
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
+  }
+
+  export type MaintenanceItemOrderByWithRelationInput = {
+    id?: SortOrder
+    maintenanceScheduleId?: SortOrder
+    type?: SortOrder
+    intervalDays?: SortOrderInput | SortOrder
+    nextServiceDate?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    carId?: SortOrderInput | SortOrder
+    maintenanceSchedule?: MaintenanceScheduleOrderByWithRelationInput
+    car?: CarOrderByWithRelationInput
+  }
+
+  export type MaintenanceItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
+    OR?: MaintenanceItemWhereInput[]
+    NOT?: MaintenanceItemWhereInput | MaintenanceItemWhereInput[]
+    maintenanceScheduleId?: StringFilter<"MaintenanceItem"> | string
+    type?: EnumMaintenanceTypeFilter<"MaintenanceItem"> | $Enums.MaintenanceType
+    intervalDays?: IntNullableFilter<"MaintenanceItem"> | number | null
+    nextServiceDate?: DateTimeNullableFilter<"MaintenanceItem"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceItem"> | string | null
+    carId?: StringNullableFilter<"MaintenanceItem"> | string | null
+    maintenanceSchedule?: XOR<MaintenanceScheduleScalarRelationFilter, MaintenanceScheduleWhereInput>
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
+  }, "id">
+
+  export type MaintenanceItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    maintenanceScheduleId?: SortOrder
+    type?: SortOrder
+    intervalDays?: SortOrderInput | SortOrder
+    nextServiceDate?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    carId?: SortOrderInput | SortOrder
+    _count?: MaintenanceItemCountOrderByAggregateInput
+    _avg?: MaintenanceItemAvgOrderByAggregateInput
+    _max?: MaintenanceItemMaxOrderByAggregateInput
+    _min?: MaintenanceItemMinOrderByAggregateInput
+    _sum?: MaintenanceItemSumOrderByAggregateInput
+  }
+
+  export type MaintenanceItemScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceItemScalarWhereWithAggregatesInput | MaintenanceItemScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceItemScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceItemScalarWhereWithAggregatesInput | MaintenanceItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MaintenanceItem"> | string
+    maintenanceScheduleId?: StringWithAggregatesFilter<"MaintenanceItem"> | string
+    type?: EnumMaintenanceTypeWithAggregatesFilter<"MaintenanceItem"> | $Enums.MaintenanceType
+    intervalDays?: IntNullableWithAggregatesFilter<"MaintenanceItem"> | number | null
+    nextServiceDate?: DateTimeNullableWithAggregatesFilter<"MaintenanceItem"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"MaintenanceItem"> | string | null
+    carId?: StringNullableWithAggregatesFilter<"MaintenanceItem"> | string | null
   }
 
   export type PackageWhereInput = {
@@ -13494,7 +22763,7 @@ export namespace Prisma {
     OR?: SchoolSetUpWhereInput[]
     NOT?: SchoolSetUpWhereInput | SchoolSetUpWhereInput[]
     id?: StringFilter<"SchoolSetUp"> | string
-    systemId?: StringNullableFilter<"SchoolSetUp"> | string | null
+    systemID?: StringNullableFilter<"SchoolSetUp"> | string | null
     school_name?: StringFilter<"SchoolSetUp"> | string
     support_Email?: StringFilter<"SchoolSetUp"> | string
     address?: StringFilter<"SchoolSetUp"> | string
@@ -13505,7 +22774,7 @@ export namespace Prisma {
 
   export type SchoolSetUpOrderByWithRelationInput = {
     id?: SortOrder
-    systemId?: SortOrderInput | SortOrder
+    systemID?: SortOrderInput | SortOrder
     school_name?: SortOrder
     support_Email?: SortOrder
     address?: SortOrder
@@ -13519,7 +22788,7 @@ export namespace Prisma {
     AND?: SchoolSetUpWhereInput | SchoolSetUpWhereInput[]
     OR?: SchoolSetUpWhereInput[]
     NOT?: SchoolSetUpWhereInput | SchoolSetUpWhereInput[]
-    systemId?: StringNullableFilter<"SchoolSetUp"> | string | null
+    systemID?: StringNullableFilter<"SchoolSetUp"> | string | null
     school_name?: StringFilter<"SchoolSetUp"> | string
     support_Email?: StringFilter<"SchoolSetUp"> | string
     address?: StringFilter<"SchoolSetUp"> | string
@@ -13530,7 +22799,7 @@ export namespace Prisma {
 
   export type SchoolSetUpOrderByWithAggregationInput = {
     id?: SortOrder
-    systemId?: SortOrderInput | SortOrder
+    systemID?: SortOrderInput | SortOrder
     school_name?: SortOrder
     support_Email?: SortOrder
     address?: SortOrder
@@ -13547,7 +22816,7 @@ export namespace Prisma {
     OR?: SchoolSetUpScalarWhereWithAggregatesInput[]
     NOT?: SchoolSetUpScalarWhereWithAggregatesInput | SchoolSetUpScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SchoolSetUp"> | string
-    systemId?: StringNullableWithAggregatesFilter<"SchoolSetUp"> | string | null
+    systemID?: StringNullableWithAggregatesFilter<"SchoolSetUp"> | string | null
     school_name?: StringWithAggregatesFilter<"SchoolSetUp"> | string
     support_Email?: StringWithAggregatesFilter<"SchoolSetUp"> | string
     address?: StringWithAggregatesFilter<"SchoolSetUp"> | string
@@ -13563,10 +22832,9 @@ export namespace Prisma {
     id?: StringFilter<"Student"> | string
     name?: StringFilter<"Student"> | string
     mobile?: StringFilter<"Student"> | string
-    email?: StringFilter<"Student"> | string
     packageId?: StringNullableFilter<"Student"> | string | null
     package_name?: StringNullableFilter<"Student"> | string | null
-    Enrollment_status?: EnumEnrollment_statusFilter<"Student"> | $Enums.Enrollment_status
+    Enrollment_status?: StringFilter<"Student"> | string
     Course_Start_date?: DateTimeNullableFilter<"Student"> | Date | string | null
     Course_End_Date?: DateTimeNullableFilter<"Student"> | Date | string | null
     Assigned_Instructor?: StringNullableFilter<"Student"> | string | null
@@ -13574,20 +22842,17 @@ export namespace Prisma {
     Amount_paid?: IntFilter<"Student"> | number
     Remaining_percentage?: IntFilter<"Student"> | number
     remaining_amount?: IntFilter<"Student"> | number
-    Thank_you_msg?: StringFilter<"Student"> | string
-    Welcome_msg?: StringFilter<"Student"> | string
-    Remainder_msg?: StringFilter<"Student"> | string
-    Balance_remaining_date?: DateTimeNullableFilter<"Student"> | Date | string | null
-    Assigned_car_id?: StringFilter<"Student"> | string
+    Assigned_car_id?: StringNullableFilter<"Student"> | string | null
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
+    instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
   }
 
   export type StudentOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     mobile?: SortOrder
-    email?: SortOrder
     packageId?: SortOrderInput | SortOrder
     package_name?: SortOrderInput | SortOrder
     Enrollment_status?: SortOrder
@@ -13598,13 +22863,11 @@ export namespace Prisma {
     Amount_paid?: SortOrder
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
-    Thank_you_msg?: SortOrder
-    Welcome_msg?: SortOrder
-    Remainder_msg?: SortOrder
-    Balance_remaining_date?: SortOrderInput | SortOrder
-    Assigned_car_id?: SortOrder
+    Assigned_car_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    instructor?: InstructorOrderByWithRelationInput
+    car?: CarOrderByWithRelationInput
   }
 
   export type StudentWhereUniqueInput = Prisma.AtLeast<{
@@ -13614,10 +22877,9 @@ export namespace Prisma {
     NOT?: StudentWhereInput | StudentWhereInput[]
     name?: StringFilter<"Student"> | string
     mobile?: StringFilter<"Student"> | string
-    email?: StringFilter<"Student"> | string
     packageId?: StringNullableFilter<"Student"> | string | null
     package_name?: StringNullableFilter<"Student"> | string | null
-    Enrollment_status?: EnumEnrollment_statusFilter<"Student"> | $Enums.Enrollment_status
+    Enrollment_status?: StringFilter<"Student"> | string
     Course_Start_date?: DateTimeNullableFilter<"Student"> | Date | string | null
     Course_End_Date?: DateTimeNullableFilter<"Student"> | Date | string | null
     Assigned_Instructor?: StringNullableFilter<"Student"> | string | null
@@ -13625,20 +22887,17 @@ export namespace Prisma {
     Amount_paid?: IntFilter<"Student"> | number
     Remaining_percentage?: IntFilter<"Student"> | number
     remaining_amount?: IntFilter<"Student"> | number
-    Thank_you_msg?: StringFilter<"Student"> | string
-    Welcome_msg?: StringFilter<"Student"> | string
-    Remainder_msg?: StringFilter<"Student"> | string
-    Balance_remaining_date?: DateTimeNullableFilter<"Student"> | Date | string | null
-    Assigned_car_id?: StringFilter<"Student"> | string
+    Assigned_car_id?: StringNullableFilter<"Student"> | string | null
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
+    instructor?: XOR<InstructorNullableScalarRelationFilter, InstructorWhereInput> | null
+    car?: XOR<CarNullableScalarRelationFilter, CarWhereInput> | null
   }, "id">
 
   export type StudentOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     mobile?: SortOrder
-    email?: SortOrder
     packageId?: SortOrderInput | SortOrder
     package_name?: SortOrderInput | SortOrder
     Enrollment_status?: SortOrder
@@ -13649,11 +22908,7 @@ export namespace Prisma {
     Amount_paid?: SortOrder
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
-    Thank_you_msg?: SortOrder
-    Welcome_msg?: SortOrder
-    Remainder_msg?: SortOrder
-    Balance_remaining_date?: SortOrderInput | SortOrder
-    Assigned_car_id?: SortOrder
+    Assigned_car_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StudentCountOrderByAggregateInput
@@ -13670,10 +22925,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Student"> | string
     name?: StringWithAggregatesFilter<"Student"> | string
     mobile?: StringWithAggregatesFilter<"Student"> | string
-    email?: StringWithAggregatesFilter<"Student"> | string
     packageId?: StringNullableWithAggregatesFilter<"Student"> | string | null
     package_name?: StringNullableWithAggregatesFilter<"Student"> | string | null
-    Enrollment_status?: EnumEnrollment_statusWithAggregatesFilter<"Student"> | $Enums.Enrollment_status
+    Enrollment_status?: StringWithAggregatesFilter<"Student"> | string
     Course_Start_date?: DateTimeNullableWithAggregatesFilter<"Student"> | Date | string | null
     Course_End_Date?: DateTimeNullableWithAggregatesFilter<"Student"> | Date | string | null
     Assigned_Instructor?: StringNullableWithAggregatesFilter<"Student"> | string | null
@@ -13681,13 +22935,278 @@ export namespace Prisma {
     Amount_paid?: IntWithAggregatesFilter<"Student"> | number
     Remaining_percentage?: IntWithAggregatesFilter<"Student"> | number
     remaining_amount?: IntWithAggregatesFilter<"Student"> | number
-    Thank_you_msg?: StringWithAggregatesFilter<"Student"> | string
-    Welcome_msg?: StringWithAggregatesFilter<"Student"> | string
-    Remainder_msg?: StringWithAggregatesFilter<"Student"> | string
-    Balance_remaining_date?: DateTimeNullableWithAggregatesFilter<"Student"> | Date | string | null
-    Assigned_car_id?: StringWithAggregatesFilter<"Student"> | string
+    Assigned_car_id?: StringNullableWithAggregatesFilter<"Student"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
+  }
+
+  export type MessageQueueWhereInput = {
+    AND?: MessageQueueWhereInput | MessageQueueWhereInput[]
+    OR?: MessageQueueWhereInput[]
+    NOT?: MessageQueueWhereInput | MessageQueueWhereInput[]
+    id?: StringFilter<"MessageQueue"> | string
+    templateId?: StringFilter<"MessageQueue"> | string
+    recipient?: StringFilter<"MessageQueue"> | string
+    variables?: JsonFilter<"MessageQueue">
+    status?: EnumMessageQueueStatusFilter<"MessageQueue"> | $Enums.MessageQueueStatus
+    attempts?: IntFilter<"MessageQueue"> | number
+    maxAttempts?: IntFilter<"MessageQueue"> | number
+    scheduledAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    processingAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    messageId?: StringNullableFilter<"MessageQueue"> | string | null
+    lastError?: StringNullableFilter<"MessageQueue"> | string | null
+    createdAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    template?: XOR<WhatsAppTemplateScalarRelationFilter, WhatsAppTemplateWhereInput>
+  }
+
+  export type MessageQueueOrderByWithRelationInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    recipient?: SortOrder
+    variables?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+    scheduledAt?: SortOrder
+    processingAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    messageId?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    template?: WhatsAppTemplateOrderByWithRelationInput
+  }
+
+  export type MessageQueueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MessageQueueWhereInput | MessageQueueWhereInput[]
+    OR?: MessageQueueWhereInput[]
+    NOT?: MessageQueueWhereInput | MessageQueueWhereInput[]
+    templateId?: StringFilter<"MessageQueue"> | string
+    recipient?: StringFilter<"MessageQueue"> | string
+    variables?: JsonFilter<"MessageQueue">
+    status?: EnumMessageQueueStatusFilter<"MessageQueue"> | $Enums.MessageQueueStatus
+    attempts?: IntFilter<"MessageQueue"> | number
+    maxAttempts?: IntFilter<"MessageQueue"> | number
+    scheduledAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    processingAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    messageId?: StringNullableFilter<"MessageQueue"> | string | null
+    lastError?: StringNullableFilter<"MessageQueue"> | string | null
+    createdAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    template?: XOR<WhatsAppTemplateScalarRelationFilter, WhatsAppTemplateWhereInput>
+  }, "id">
+
+  export type MessageQueueOrderByWithAggregationInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    recipient?: SortOrder
+    variables?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+    scheduledAt?: SortOrder
+    processingAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    messageId?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MessageQueueCountOrderByAggregateInput
+    _avg?: MessageQueueAvgOrderByAggregateInput
+    _max?: MessageQueueMaxOrderByAggregateInput
+    _min?: MessageQueueMinOrderByAggregateInput
+    _sum?: MessageQueueSumOrderByAggregateInput
+  }
+
+  export type MessageQueueScalarWhereWithAggregatesInput = {
+    AND?: MessageQueueScalarWhereWithAggregatesInput | MessageQueueScalarWhereWithAggregatesInput[]
+    OR?: MessageQueueScalarWhereWithAggregatesInput[]
+    NOT?: MessageQueueScalarWhereWithAggregatesInput | MessageQueueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MessageQueue"> | string
+    templateId?: StringWithAggregatesFilter<"MessageQueue"> | string
+    recipient?: StringWithAggregatesFilter<"MessageQueue"> | string
+    variables?: JsonWithAggregatesFilter<"MessageQueue">
+    status?: EnumMessageQueueStatusWithAggregatesFilter<"MessageQueue"> | $Enums.MessageQueueStatus
+    attempts?: IntWithAggregatesFilter<"MessageQueue"> | number
+    maxAttempts?: IntWithAggregatesFilter<"MessageQueue"> | number
+    scheduledAt?: DateTimeWithAggregatesFilter<"MessageQueue"> | Date | string
+    processingAt?: DateTimeNullableWithAggregatesFilter<"MessageQueue"> | Date | string | null
+    sentAt?: DateTimeNullableWithAggregatesFilter<"MessageQueue"> | Date | string | null
+    messageId?: StringNullableWithAggregatesFilter<"MessageQueue"> | string | null
+    lastError?: StringNullableWithAggregatesFilter<"MessageQueue"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MessageQueue"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MessageQueue"> | Date | string
+  }
+
+  export type WhatsAppTemplateWhereInput = {
+    AND?: WhatsAppTemplateWhereInput | WhatsAppTemplateWhereInput[]
+    OR?: WhatsAppTemplateWhereInput[]
+    NOT?: WhatsAppTemplateWhereInput | WhatsAppTemplateWhereInput[]
+    id?: StringFilter<"WhatsAppTemplate"> | string
+    name?: StringFilter<"WhatsAppTemplate"> | string
+    clientId?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    templateId?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    language?: StringFilter<"WhatsAppTemplate"> | string
+    category?: StringFilter<"WhatsAppTemplate"> | string
+    status?: StringFilter<"WhatsAppTemplate"> | string
+    body?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    variables?: JsonNullableFilter<"WhatsAppTemplate">
+    createdAt?: DateTimeFilter<"WhatsAppTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppTemplate"> | Date | string
+    messages?: MessageQueueListRelationFilter
+  }
+
+  export type WhatsAppTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    clientId?: SortOrderInput | SortOrder
+    templateId?: SortOrderInput | SortOrder
+    language?: SortOrder
+    category?: SortOrder
+    status?: SortOrder
+    body?: SortOrderInput | SortOrder
+    variables?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    messages?: MessageQueueOrderByRelationAggregateInput
+  }
+
+  export type WhatsAppTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: WhatsAppTemplateWhereInput | WhatsAppTemplateWhereInput[]
+    OR?: WhatsAppTemplateWhereInput[]
+    NOT?: WhatsAppTemplateWhereInput | WhatsAppTemplateWhereInput[]
+    clientId?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    templateId?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    language?: StringFilter<"WhatsAppTemplate"> | string
+    category?: StringFilter<"WhatsAppTemplate"> | string
+    status?: StringFilter<"WhatsAppTemplate"> | string
+    body?: StringNullableFilter<"WhatsAppTemplate"> | string | null
+    variables?: JsonNullableFilter<"WhatsAppTemplate">
+    createdAt?: DateTimeFilter<"WhatsAppTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppTemplate"> | Date | string
+    messages?: MessageQueueListRelationFilter
+  }, "id" | "name">
+
+  export type WhatsAppTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    clientId?: SortOrderInput | SortOrder
+    templateId?: SortOrderInput | SortOrder
+    language?: SortOrder
+    category?: SortOrder
+    status?: SortOrder
+    body?: SortOrderInput | SortOrder
+    variables?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WhatsAppTemplateCountOrderByAggregateInput
+    _max?: WhatsAppTemplateMaxOrderByAggregateInput
+    _min?: WhatsAppTemplateMinOrderByAggregateInput
+  }
+
+  export type WhatsAppTemplateScalarWhereWithAggregatesInput = {
+    AND?: WhatsAppTemplateScalarWhereWithAggregatesInput | WhatsAppTemplateScalarWhereWithAggregatesInput[]
+    OR?: WhatsAppTemplateScalarWhereWithAggregatesInput[]
+    NOT?: WhatsAppTemplateScalarWhereWithAggregatesInput | WhatsAppTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsAppTemplate"> | string
+    name?: StringWithAggregatesFilter<"WhatsAppTemplate"> | string
+    clientId?: StringNullableWithAggregatesFilter<"WhatsAppTemplate"> | string | null
+    templateId?: StringNullableWithAggregatesFilter<"WhatsAppTemplate"> | string | null
+    language?: StringWithAggregatesFilter<"WhatsAppTemplate"> | string
+    category?: StringWithAggregatesFilter<"WhatsAppTemplate"> | string
+    status?: StringWithAggregatesFilter<"WhatsAppTemplate"> | string
+    body?: StringNullableWithAggregatesFilter<"WhatsAppTemplate"> | string | null
+    variables?: JsonNullableWithAggregatesFilter<"WhatsAppTemplate">
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsAppTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppTemplate"> | Date | string
+  }
+
+  export type WhatsAppTokenWhereInput = {
+    AND?: WhatsAppTokenWhereInput | WhatsAppTokenWhereInput[]
+    OR?: WhatsAppTokenWhereInput[]
+    NOT?: WhatsAppTokenWhereInput | WhatsAppTokenWhereInput[]
+    id?: StringFilter<"WhatsAppToken"> | string
+    wabaId?: StringFilter<"WhatsAppToken"> | string
+    accessToken?: StringFilter<"WhatsAppToken"> | string
+    phoneNumberId?: StringFilter<"WhatsAppToken"> | string
+    status?: StringFilter<"WhatsAppToken"> | string
+    schoolId?: StringFilter<"WhatsAppToken"> | string
+    displayPhoneNumber?: StringNullableFilter<"WhatsAppToken"> | string | null
+    verifiedName?: StringNullableFilter<"WhatsAppToken"> | string | null
+    safeMode?: BoolFilter<"WhatsAppToken"> | boolean
+    createdAt?: DateTimeFilter<"WhatsAppToken"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppToken"> | Date | string
+  }
+
+  export type WhatsAppTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    wabaId?: SortOrder
+    accessToken?: SortOrder
+    phoneNumberId?: SortOrder
+    status?: SortOrder
+    schoolId?: SortOrder
+    displayPhoneNumber?: SortOrderInput | SortOrder
+    verifiedName?: SortOrderInput | SortOrder
+    safeMode?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WhatsAppTokenWhereInput | WhatsAppTokenWhereInput[]
+    OR?: WhatsAppTokenWhereInput[]
+    NOT?: WhatsAppTokenWhereInput | WhatsAppTokenWhereInput[]
+    wabaId?: StringFilter<"WhatsAppToken"> | string
+    accessToken?: StringFilter<"WhatsAppToken"> | string
+    phoneNumberId?: StringFilter<"WhatsAppToken"> | string
+    status?: StringFilter<"WhatsAppToken"> | string
+    schoolId?: StringFilter<"WhatsAppToken"> | string
+    displayPhoneNumber?: StringNullableFilter<"WhatsAppToken"> | string | null
+    verifiedName?: StringNullableFilter<"WhatsAppToken"> | string | null
+    safeMode?: BoolFilter<"WhatsAppToken"> | boolean
+    createdAt?: DateTimeFilter<"WhatsAppToken"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppToken"> | Date | string
+  }, "id">
+
+  export type WhatsAppTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    wabaId?: SortOrder
+    accessToken?: SortOrder
+    phoneNumberId?: SortOrder
+    status?: SortOrder
+    schoolId?: SortOrder
+    displayPhoneNumber?: SortOrderInput | SortOrder
+    verifiedName?: SortOrderInput | SortOrder
+    safeMode?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WhatsAppTokenCountOrderByAggregateInput
+    _max?: WhatsAppTokenMaxOrderByAggregateInput
+    _min?: WhatsAppTokenMinOrderByAggregateInput
+  }
+
+  export type WhatsAppTokenScalarWhereWithAggregatesInput = {
+    AND?: WhatsAppTokenScalarWhereWithAggregatesInput | WhatsAppTokenScalarWhereWithAggregatesInput[]
+    OR?: WhatsAppTokenScalarWhereWithAggregatesInput[]
+    NOT?: WhatsAppTokenScalarWhereWithAggregatesInput | WhatsAppTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    wabaId?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    accessToken?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    phoneNumberId?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    status?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    schoolId?: StringWithAggregatesFilter<"WhatsAppToken"> | string
+    displayPhoneNumber?: StringNullableWithAggregatesFilter<"WhatsAppToken"> | string | null
+    verifiedName?: StringNullableWithAggregatesFilter<"WhatsAppToken"> | string | null
+    safeMode?: BoolWithAggregatesFilter<"WhatsAppToken"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsAppToken"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppToken"> | Date | string
   }
 
   export type PaymentTakenCreateInput = {
@@ -13815,81 +23334,216 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CalendarEventCreateInput = {
+    id?: string
+    title: string
+    date: string
+    type?: string
+    description?: string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CalendarEventUncheckedCreateInput = {
+    id?: string
+    title: string
+    date: string
+    type?: string
+    description?: string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CalendarEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalendarEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalendarEventCreateManyInput = {
+    id?: string
+    title: string
+    date: string
+    type?: string
+    description?: string | null
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CalendarEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalendarEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CarCreateInput = {
     id?: string
     name: string
     transmission: string
-    assigned_instructor: string
-    car_year: string
+    assigned_instructor?: string | null
     car_Number: string
-    createdAt?: Date | string
+    car_year: string
     updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentCreateNestedManyWithoutCarInput
+    instructors?: InstructorCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleCreateNestedManyWithoutCarInput
   }
 
   export type CarUncheckedCreateInput = {
     id?: string
     name: string
     transmission: string
-    assigned_instructor: string
-    car_year: string
+    assigned_instructor?: string | null
     car_Number: string
-    createdAt?: Date | string
+    car_year: string
     updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutCarInput
+    instructors?: InstructorUncheckedCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemUncheckedCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedCreateNestedManyWithoutCarInput
   }
 
   export type CarUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
-    assigned_instructor?: StringFieldUpdateOperationsInput | string
-    car_year?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
     car_Number?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car_year?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUpdateManyWithoutCarNestedInput
   }
 
   export type CarUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
-    assigned_instructor?: StringFieldUpdateOperationsInput | string
-    car_year?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
     car_Number?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car_year?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedUpdateManyWithoutCarNestedInput
   }
 
   export type CarCreateManyInput = {
     id?: string
     name: string
     transmission: string
-    assigned_instructor: string
-    car_year: string
+    assigned_instructor?: string | null
     car_Number: string
-    createdAt?: Date | string
+    car_year: string
     updatedAt?: Date | string
+    createdAt?: Date | string
   }
 
   export type CarUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
-    assigned_instructor?: StringFieldUpdateOperationsInput | string
-    car_year?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
     car_Number?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car_year?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CarUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
-    assigned_instructor?: StringFieldUpdateOperationsInput | string
-    car_year?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
     car_Number?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car_year?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoStatusCreateInput = {
+    id?: string
+    isDemo?: boolean
+    startDate?: Date | string
+  }
+
+  export type DemoStatusUncheckedCreateInput = {
+    id?: string
+    isDemo?: boolean
+    startDate?: Date | string
+  }
+
+  export type DemoStatusUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDemo?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoStatusUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDemo?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoStatusCreateManyInput = {
+    id?: string
+    isDemo?: boolean
+    startDate?: Date | string
+  }
+
+  export type DemoStatusUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDemo?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoStatusUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDemo?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SetupChecklistCreateInput = {
@@ -13972,7 +23626,11 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    car?: CarCreateNestedOneWithoutInstructorsInput
     paymentCycles?: PaymentCycleCreateNestedManyWithoutInstructorInput
+    students?: StudentCreateNestedManyWithoutInstructorInput
   }
 
   export type InstructorUncheckedCreateInput = {
@@ -13985,7 +23643,11 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    assignedCarId?: string | null
     paymentCycles?: PaymentCycleUncheckedCreateNestedManyWithoutInstructorInput
+    students?: StudentUncheckedCreateNestedManyWithoutInstructorInput
   }
 
   export type InstructorUpdateInput = {
@@ -13998,7 +23660,11 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    car?: CarUpdateOneWithoutInstructorsNestedInput
     paymentCycles?: PaymentCycleUpdateManyWithoutInstructorNestedInput
+    students?: StudentUpdateManyWithoutInstructorNestedInput
   }
 
   export type InstructorUncheckedUpdateInput = {
@@ -14011,7 +23677,11 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    assignedCarId?: NullableStringFieldUpdateOperationsInput | string | null
     paymentCycles?: PaymentCycleUncheckedUpdateManyWithoutInstructorNestedInput
+    students?: StudentUncheckedUpdateManyWithoutInstructorNestedInput
   }
 
   export type InstructorCreateManyInput = {
@@ -14024,6 +23694,9 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    assignedCarId?: string | null
   }
 
   export type InstructorUpdateManyMutationInput = {
@@ -14036,6 +23709,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InstructorUncheckedUpdateManyInput = {
@@ -14048,6 +23723,143 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    assignedCarId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceScheduleCreateInput = {
+    id?: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    car: CarCreateNestedOneWithoutMaintenanceSchedulesInput
+    items?: MaintenanceItemCreateNestedManyWithoutMaintenanceScheduleInput
+  }
+
+  export type MaintenanceScheduleUncheckedCreateInput = {
+    id?: string
+    carId: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceScheduleInput
+  }
+
+  export type MaintenanceScheduleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car?: CarUpdateOneRequiredWithoutMaintenanceSchedulesNestedInput
+    items?: MaintenanceItemUpdateManyWithoutMaintenanceScheduleNestedInput
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    carId?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceScheduleNestedInput
+  }
+
+  export type MaintenanceScheduleCreateManyInput = {
+    id?: string
+    carId: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceScheduleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    carId?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceItemCreateInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    maintenanceSchedule: MaintenanceScheduleCreateNestedOneWithoutItemsInput
+    car?: CarCreateNestedOneWithoutMaintenanceItemInput
+  }
+
+  export type MaintenanceItemUncheckedCreateInput = {
+    id?: string
+    maintenanceScheduleId: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    carId?: string | null
+  }
+
+  export type MaintenanceItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceSchedule?: MaintenanceScheduleUpdateOneRequiredWithoutItemsNestedInput
+    car?: CarUpdateOneWithoutMaintenanceItemNestedInput
+  }
+
+  export type MaintenanceItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceScheduleId?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    carId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceItemCreateManyInput = {
+    id?: string
+    maintenanceScheduleId: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    carId?: string | null
+  }
+
+  export type MaintenanceItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceScheduleId?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    carId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PackageCreateInput = {
@@ -14279,7 +24091,7 @@ export namespace Prisma {
 
   export type SchoolSetUpCreateInput = {
     id?: string
-    systemId?: string | null
+    systemID?: string | null
     school_name: string
     support_Email: string
     address: string
@@ -14290,7 +24102,7 @@ export namespace Prisma {
 
   export type SchoolSetUpUncheckedCreateInput = {
     id?: string
-    systemId?: string | null
+    systemID?: string | null
     school_name: string
     support_Email: string
     address: string
@@ -14301,7 +24113,7 @@ export namespace Prisma {
 
   export type SchoolSetUpUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    systemId?: NullableStringFieldUpdateOperationsInput | string | null
+    systemID?: NullableStringFieldUpdateOperationsInput | string | null
     school_name?: StringFieldUpdateOperationsInput | string
     support_Email?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -14312,7 +24124,7 @@ export namespace Prisma {
 
   export type SchoolSetUpUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    systemId?: NullableStringFieldUpdateOperationsInput | string | null
+    systemID?: NullableStringFieldUpdateOperationsInput | string | null
     school_name?: StringFieldUpdateOperationsInput | string
     support_Email?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -14323,7 +24135,7 @@ export namespace Prisma {
 
   export type SchoolSetUpCreateManyInput = {
     id?: string
-    systemId?: string | null
+    systemID?: string | null
     school_name: string
     support_Email: string
     address: string
@@ -14334,7 +24146,7 @@ export namespace Prisma {
 
   export type SchoolSetUpUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    systemId?: NullableStringFieldUpdateOperationsInput | string | null
+    systemID?: NullableStringFieldUpdateOperationsInput | string | null
     school_name?: StringFieldUpdateOperationsInput | string
     support_Email?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -14345,7 +24157,7 @@ export namespace Prisma {
 
   export type SchoolSetUpUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    systemId?: NullableStringFieldUpdateOperationsInput | string | null
+    systemID?: NullableStringFieldUpdateOperationsInput | string | null
     school_name?: StringFieldUpdateOperationsInput | string
     support_Email?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -14358,34 +24170,28 @@ export namespace Prisma {
     id?: string
     name: string
     mobile: string
-    email: string
     packageId?: string | null
     package_name?: string | null
-    Enrollment_status?: $Enums.Enrollment_status
+    Enrollment_status?: string
     Course_Start_date?: Date | string | null
     Course_End_Date?: Date | string | null
-    Assigned_Instructor?: string | null
     Total_amount: number
     Amount_paid: number
     Remaining_percentage: number
     remaining_amount: number
-    Thank_you_msg: string
-    Welcome_msg: string
-    Remainder_msg: string
-    Balance_remaining_date?: Date | string | null
-    Assigned_car_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    instructor?: InstructorCreateNestedOneWithoutStudentsInput
+    car?: CarCreateNestedOneWithoutStudentsInput
   }
 
   export type StudentUncheckedCreateInput = {
     id?: string
     name: string
     mobile: string
-    email: string
     packageId?: string | null
     package_name?: string | null
-    Enrollment_status?: $Enums.Enrollment_status
+    Enrollment_status?: string
     Course_Start_date?: Date | string | null
     Course_End_Date?: Date | string | null
     Assigned_Instructor?: string | null
@@ -14393,11 +24199,7 @@ export namespace Prisma {
     Amount_paid: number
     Remaining_percentage: number
     remaining_amount: number
-    Thank_you_msg: string
-    Welcome_msg: string
-    Remainder_msg: string
-    Balance_remaining_date?: Date | string | null
-    Assigned_car_id: string
+    Assigned_car_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14406,34 +24208,28 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     package_name?: NullableStringFieldUpdateOperationsInput | string | null
-    Enrollment_status?: EnumEnrollment_statusFieldUpdateOperationsInput | $Enums.Enrollment_status
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
     Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
     Total_amount?: IntFieldUpdateOperationsInput | number
     Amount_paid?: IntFieldUpdateOperationsInput | number
     Remaining_percentage?: IntFieldUpdateOperationsInput | number
     remaining_amount?: IntFieldUpdateOperationsInput | number
-    Thank_you_msg?: StringFieldUpdateOperationsInput | string
-    Welcome_msg?: StringFieldUpdateOperationsInput | string
-    Remainder_msg?: StringFieldUpdateOperationsInput | string
-    Balance_remaining_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_car_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructor?: InstructorUpdateOneWithoutStudentsNestedInput
+    car?: CarUpdateOneWithoutStudentsNestedInput
   }
 
   export type StudentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     package_name?: NullableStringFieldUpdateOperationsInput | string | null
-    Enrollment_status?: EnumEnrollment_statusFieldUpdateOperationsInput | $Enums.Enrollment_status
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
     Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14441,11 +24237,7 @@ export namespace Prisma {
     Amount_paid?: IntFieldUpdateOperationsInput | number
     Remaining_percentage?: IntFieldUpdateOperationsInput | number
     remaining_amount?: IntFieldUpdateOperationsInput | number
-    Thank_you_msg?: StringFieldUpdateOperationsInput | string
-    Welcome_msg?: StringFieldUpdateOperationsInput | string
-    Remainder_msg?: StringFieldUpdateOperationsInput | string
-    Balance_remaining_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_car_id?: StringFieldUpdateOperationsInput | string
+    Assigned_car_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14454,10 +24246,9 @@ export namespace Prisma {
     id?: string
     name: string
     mobile: string
-    email: string
     packageId?: string | null
     package_name?: string | null
-    Enrollment_status?: $Enums.Enrollment_status
+    Enrollment_status?: string
     Course_Start_date?: Date | string | null
     Course_End_Date?: Date | string | null
     Assigned_Instructor?: string | null
@@ -14465,11 +24256,7 @@ export namespace Prisma {
     Amount_paid: number
     Remaining_percentage: number
     remaining_amount: number
-    Thank_you_msg: string
-    Welcome_msg: string
-    Remainder_msg: string
-    Balance_remaining_date?: Date | string | null
-    Assigned_car_id: string
+    Assigned_car_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14478,22 +24265,15 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     package_name?: NullableStringFieldUpdateOperationsInput | string | null
-    Enrollment_status?: EnumEnrollment_statusFieldUpdateOperationsInput | $Enums.Enrollment_status
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
     Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
     Total_amount?: IntFieldUpdateOperationsInput | number
     Amount_paid?: IntFieldUpdateOperationsInput | number
     Remaining_percentage?: IntFieldUpdateOperationsInput | number
     remaining_amount?: IntFieldUpdateOperationsInput | number
-    Thank_you_msg?: StringFieldUpdateOperationsInput | string
-    Welcome_msg?: StringFieldUpdateOperationsInput | string
-    Remainder_msg?: StringFieldUpdateOperationsInput | string
-    Balance_remaining_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_car_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14502,10 +24282,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     mobile?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     package_name?: NullableStringFieldUpdateOperationsInput | string | null
-    Enrollment_status?: EnumEnrollment_statusFieldUpdateOperationsInput | $Enums.Enrollment_status
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
     Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14513,11 +24292,325 @@ export namespace Prisma {
     Amount_paid?: IntFieldUpdateOperationsInput | number
     Remaining_percentage?: IntFieldUpdateOperationsInput | number
     remaining_amount?: IntFieldUpdateOperationsInput | number
-    Thank_you_msg?: StringFieldUpdateOperationsInput | string
-    Welcome_msg?: StringFieldUpdateOperationsInput | string
-    Remainder_msg?: StringFieldUpdateOperationsInput | string
-    Balance_remaining_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Assigned_car_id?: StringFieldUpdateOperationsInput | string
+    Assigned_car_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueCreateInput = {
+    id?: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: WhatsAppTemplateCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageQueueUncheckedCreateInput = {
+    id?: string
+    templateId: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageQueueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: WhatsAppTemplateUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageQueueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueCreateManyInput = {
+    id?: string
+    templateId: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageQueueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTemplateCreateInput = {
+    id?: string
+    name: string
+    clientId?: string | null
+    templateId?: string | null
+    language: string
+    category: string
+    status: string
+    body?: string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageQueueCreateNestedManyWithoutTemplateInput
+  }
+
+  export type WhatsAppTemplateUncheckedCreateInput = {
+    id?: string
+    name: string
+    clientId?: string | null
+    templateId?: string | null
+    language: string
+    category: string
+    status: string
+    body?: string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageQueueUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type WhatsAppTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageQueueUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type WhatsAppTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageQueueUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type WhatsAppTemplateCreateManyInput = {
+    id?: string
+    name: string
+    clientId?: string | null
+    templateId?: string | null
+    language: string
+    category: string
+    status: string
+    body?: string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTokenCreateInput = {
+    id?: string
+    wabaId: string
+    accessToken: string
+    phoneNumberId: string
+    status: string
+    schoolId: string
+    displayPhoneNumber?: string | null
+    verifiedName?: string | null
+    safeMode?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTokenUncheckedCreateInput = {
+    id?: string
+    wabaId: string
+    accessToken: string
+    phoneNumberId: string
+    status: string
+    schoolId: string
+    displayPhoneNumber?: string | null
+    verifiedName?: string | null
+    safeMode?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wabaId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    phoneNumberId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    schoolId?: StringFieldUpdateOperationsInput | string
+    displayPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedName?: NullableStringFieldUpdateOperationsInput | string | null
+    safeMode?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wabaId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    phoneNumberId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    schoolId?: StringFieldUpdateOperationsInput | string
+    displayPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedName?: NullableStringFieldUpdateOperationsInput | string | null
+    safeMode?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTokenCreateManyInput = {
+    id?: string
+    wabaId: string
+    accessToken: string
+    phoneNumberId: string
+    status: string
+    schoolId: string
+    displayPhoneNumber?: string | null
+    verifiedName?: string | null
+    safeMode?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wabaId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    phoneNumberId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    schoolId?: StringFieldUpdateOperationsInput | string
+    displayPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedName?: NullableStringFieldUpdateOperationsInput | string | null
+    safeMode?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wabaId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    phoneNumberId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    schoolId?: StringFieldUpdateOperationsInput | string
+    displayPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedName?: NullableStringFieldUpdateOperationsInput | string | null
+    safeMode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14694,15 +24787,124 @@ export namespace Prisma {
     _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type CalendarEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CalendarEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CalendarEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    type?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type StudentListRelationFilter = {
+    every?: StudentWhereInput
+    some?: StudentWhereInput
+    none?: StudentWhereInput
+  }
+
+  export type InstructorListRelationFilter = {
+    every?: InstructorWhereInput
+    some?: InstructorWhereInput
+    none?: InstructorWhereInput
+  }
+
+  export type MaintenanceItemListRelationFilter = {
+    every?: MaintenanceItemWhereInput
+    some?: MaintenanceItemWhereInput
+    none?: MaintenanceItemWhereInput
+  }
+
+  export type MaintenanceScheduleListRelationFilter = {
+    every?: MaintenanceScheduleWhereInput
+    some?: MaintenanceScheduleWhereInput
+    none?: MaintenanceScheduleWhereInput
+  }
+
+  export type StudentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InstructorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceScheduleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CarCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     transmission?: SortOrder
     assigned_instructor?: SortOrder
-    car_year?: SortOrder
     car_Number?: SortOrder
-    createdAt?: SortOrder
+    car_year?: SortOrder
     updatedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type CarMaxOrderByAggregateInput = {
@@ -14710,10 +24912,10 @@ export namespace Prisma {
     name?: SortOrder
     transmission?: SortOrder
     assigned_instructor?: SortOrder
-    car_year?: SortOrder
     car_Number?: SortOrder
-    createdAt?: SortOrder
+    car_year?: SortOrder
     updatedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type CarMinOrderByAggregateInput = {
@@ -14721,15 +24923,41 @@ export namespace Prisma {
     name?: SortOrder
     transmission?: SortOrder
     assigned_instructor?: SortOrder
-    car_year?: SortOrder
     car_Number?: SortOrder
-    createdAt?: SortOrder
+    car_year?: SortOrder
     updatedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DemoStatusCountOrderByAggregateInput = {
+    id?: SortOrder
+    isDemo?: SortOrder
+    startDate?: SortOrder
+  }
+
+  export type DemoStatusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    isDemo?: SortOrder
+    startDate?: SortOrder
+  }
+
+  export type DemoStatusMinOrderByAggregateInput = {
+    id?: SortOrder
+    isDemo?: SortOrder
+    startDate?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SetupChecklistCountOrderByAggregateInput = {
@@ -14762,28 +24990,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumJobTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.JobType | EnumJobTypeFieldRefInput<$PrismaModel>
     in?: $Enums.JobType[]
@@ -14802,15 +25008,37 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type CarNullableScalarRelationFilter = {
+    is?: CarWhereInput | null
+    isNot?: CarWhereInput | null
+  }
+
   export type PaymentCycleListRelationFilter = {
     every?: PaymentCycleWhereInput
     some?: PaymentCycleWhereInput
     none?: PaymentCycleWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type PaymentCycleOrderByRelationAggregateInput = {
@@ -14827,6 +25055,14 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    payment?: SortOrder
+    paymentDate?: SortOrder
+    assignedCarId?: SortOrder
+  }
+
+  export type InstructorAvgOrderByAggregateInput = {
+    payment?: SortOrder
+    paymentDate?: SortOrder
   }
 
   export type InstructorMaxOrderByAggregateInput = {
@@ -14839,6 +25075,9 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    payment?: SortOrder
+    paymentDate?: SortOrder
+    assignedCarId?: SortOrder
   }
 
   export type InstructorMinOrderByAggregateInput = {
@@ -14851,23 +25090,14 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    payment?: SortOrder
+    paymentDate?: SortOrder
+    assignedCarId?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type InstructorSumOrderByAggregateInput = {
+    payment?: SortOrder
+    paymentDate?: SortOrder
   }
 
   export type EnumJobTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14892,6 +25122,130 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type CarScalarRelationFilter = {
+    is?: CarWhereInput
+    isNot?: CarWhereInput
+  }
+
+  export type MaintenanceScheduleCountOrderByAggregateInput = {
+    id?: SortOrder
+    carId?: SortOrder
+    serviceDate?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaintenanceScheduleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    carId?: SortOrder
+    serviceDate?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MaintenanceScheduleMinOrderByAggregateInput = {
+    id?: SortOrder
+    carId?: SortOrder
+    serviceDate?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumMaintenanceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[]
+    notIn?: $Enums.MaintenanceType[]
+    not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
+  }
+
+  export type MaintenanceScheduleScalarRelationFilter = {
+    is?: MaintenanceScheduleWhereInput
+    isNot?: MaintenanceScheduleWhereInput
+  }
+
+  export type MaintenanceItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    maintenanceScheduleId?: SortOrder
+    type?: SortOrder
+    intervalDays?: SortOrder
+    nextServiceDate?: SortOrder
+    notes?: SortOrder
+    carId?: SortOrder
+  }
+
+  export type MaintenanceItemAvgOrderByAggregateInput = {
+    intervalDays?: SortOrder
+  }
+
+  export type MaintenanceItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    maintenanceScheduleId?: SortOrder
+    type?: SortOrder
+    intervalDays?: SortOrder
+    nextServiceDate?: SortOrder
+    notes?: SortOrder
+    carId?: SortOrder
+  }
+
+  export type MaintenanceItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    maintenanceScheduleId?: SortOrder
+    type?: SortOrder
+    intervalDays?: SortOrder
+    nextServiceDate?: SortOrder
+    notes?: SortOrder
+    carId?: SortOrder
+  }
+
+  export type MaintenanceItemSumOrderByAggregateInput = {
+    intervalDays?: SortOrder
+  }
+
+  export type EnumMaintenanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[]
+    notIn?: $Enums.MaintenanceType[]
+    not?: NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.MaintenanceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+    _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -15082,7 +25436,7 @@ export namespace Prisma {
 
   export type SchoolSetUpCountOrderByAggregateInput = {
     id?: SortOrder
-    systemId?: SortOrder
+    systemID?: SortOrder
     school_name?: SortOrder
     support_Email?: SortOrder
     address?: SortOrder
@@ -15093,7 +25447,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMaxOrderByAggregateInput = {
     id?: SortOrder
-    systemId?: SortOrder
+    systemID?: SortOrder
     school_name?: SortOrder
     support_Email?: SortOrder
     address?: SortOrder
@@ -15104,7 +25458,7 @@ export namespace Prisma {
 
   export type SchoolSetUpMinOrderByAggregateInput = {
     id?: SortOrder
-    systemId?: SortOrder
+    systemID?: SortOrder
     school_name?: SortOrder
     support_Email?: SortOrder
     address?: SortOrder
@@ -15113,18 +25467,15 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type EnumEnrollment_statusFilter<$PrismaModel = never> = {
-    equals?: $Enums.Enrollment_status | EnumEnrollment_statusFieldRefInput<$PrismaModel>
-    in?: $Enums.Enrollment_status[]
-    notIn?: $Enums.Enrollment_status[]
-    not?: NestedEnumEnrollment_statusFilter<$PrismaModel> | $Enums.Enrollment_status
+  export type InstructorNullableScalarRelationFilter = {
+    is?: InstructorWhereInput | null
+    isNot?: InstructorWhereInput | null
   }
 
   export type StudentCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     mobile?: SortOrder
-    email?: SortOrder
     packageId?: SortOrder
     package_name?: SortOrder
     Enrollment_status?: SortOrder
@@ -15135,10 +25486,6 @@ export namespace Prisma {
     Amount_paid?: SortOrder
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
-    Thank_you_msg?: SortOrder
-    Welcome_msg?: SortOrder
-    Remainder_msg?: SortOrder
-    Balance_remaining_date?: SortOrder
     Assigned_car_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15155,7 +25502,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     mobile?: SortOrder
-    email?: SortOrder
     packageId?: SortOrder
     package_name?: SortOrder
     Enrollment_status?: SortOrder
@@ -15166,10 +25512,6 @@ export namespace Prisma {
     Amount_paid?: SortOrder
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
-    Thank_you_msg?: SortOrder
-    Welcome_msg?: SortOrder
-    Remainder_msg?: SortOrder
-    Balance_remaining_date?: SortOrder
     Assigned_car_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15179,7 +25521,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     mobile?: SortOrder
-    email?: SortOrder
     packageId?: SortOrder
     package_name?: SortOrder
     Enrollment_status?: SortOrder
@@ -15190,10 +25531,6 @@ export namespace Prisma {
     Amount_paid?: SortOrder
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
-    Thank_you_msg?: SortOrder
-    Welcome_msg?: SortOrder
-    Remainder_msg?: SortOrder
-    Balance_remaining_date?: SortOrder
     Assigned_car_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15205,15 +25542,256 @@ export namespace Prisma {
     Remaining_percentage?: SortOrder
     remaining_amount?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type EnumEnrollment_statusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Enrollment_status | EnumEnrollment_statusFieldRefInput<$PrismaModel>
-    in?: $Enums.Enrollment_status[]
-    notIn?: $Enums.Enrollment_status[]
-    not?: NestedEnumEnrollment_statusWithAggregatesFilter<$PrismaModel> | $Enums.Enrollment_status
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumMessageQueueStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageQueueStatus | EnumMessageQueueStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageQueueStatus[]
+    notIn?: $Enums.MessageQueueStatus[]
+    not?: NestedEnumMessageQueueStatusFilter<$PrismaModel> | $Enums.MessageQueueStatus
+  }
+
+  export type WhatsAppTemplateScalarRelationFilter = {
+    is?: WhatsAppTemplateWhereInput
+    isNot?: WhatsAppTemplateWhereInput
+  }
+
+  export type MessageQueueCountOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    recipient?: SortOrder
+    variables?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+    scheduledAt?: SortOrder
+    processingAt?: SortOrder
+    sentAt?: SortOrder
+    messageId?: SortOrder
+    lastError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessageQueueAvgOrderByAggregateInput = {
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+  }
+
+  export type MessageQueueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    recipient?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+    scheduledAt?: SortOrder
+    processingAt?: SortOrder
+    sentAt?: SortOrder
+    messageId?: SortOrder
+    lastError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessageQueueMinOrderByAggregateInput = {
+    id?: SortOrder
+    templateId?: SortOrder
+    recipient?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+    scheduledAt?: SortOrder
+    processingAt?: SortOrder
+    sentAt?: SortOrder
+    messageId?: SortOrder
+    lastError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessageQueueSumOrderByAggregateInput = {
+    attempts?: SortOrder
+    maxAttempts?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEnrollment_statusFilter<$PrismaModel>
-    _max?: NestedEnumEnrollment_statusFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumMessageQueueStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageQueueStatus | EnumMessageQueueStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageQueueStatus[]
+    notIn?: $Enums.MessageQueueStatus[]
+    not?: NestedEnumMessageQueueStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageQueueStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageQueueStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageQueueStatusFilter<$PrismaModel>
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type MessageQueueListRelationFilter = {
+    every?: MessageQueueWhereInput
+    some?: MessageQueueWhereInput
+    none?: MessageQueueWhereInput
+  }
+
+  export type MessageQueueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsAppTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    clientId?: SortOrder
+    templateId?: SortOrder
+    language?: SortOrder
+    category?: SortOrder
+    status?: SortOrder
+    body?: SortOrder
+    variables?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    clientId?: SortOrder
+    templateId?: SortOrder
+    language?: SortOrder
+    category?: SortOrder
+    status?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    clientId?: SortOrder
+    templateId?: SortOrder
+    language?: SortOrder
+    category?: SortOrder
+    status?: SortOrder
+    body?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type WhatsAppTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    wabaId?: SortOrder
+    accessToken?: SortOrder
+    phoneNumberId?: SortOrder
+    status?: SortOrder
+    schoolId?: SortOrder
+    displayPhoneNumber?: SortOrder
+    verifiedName?: SortOrder
+    safeMode?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    wabaId?: SortOrder
+    accessToken?: SortOrder
+    phoneNumberId?: SortOrder
+    status?: SortOrder
+    schoolId?: SortOrder
+    displayPhoneNumber?: SortOrder
+    verifiedName?: SortOrder
+    safeMode?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    wabaId?: SortOrder
+    accessToken?: SortOrder
+    phoneNumberId?: SortOrder
+    status?: SortOrder
+    schoolId?: SortOrder
+    displayPhoneNumber?: SortOrder
+    verifiedName?: SortOrder
+    safeMode?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type PaymentCycleCreateNestedOneWithoutPaymentsTakenInput = {
@@ -15250,8 +25828,186 @@ export namespace Prisma {
     set?: $Enums.AttendanceStatus
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type StudentCreateNestedManyWithoutCarInput = {
+    create?: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput> | StudentCreateWithoutCarInput[] | StudentUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutCarInput | StudentCreateOrConnectWithoutCarInput[]
+    createMany?: StudentCreateManyCarInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+  }
+
+  export type InstructorCreateNestedManyWithoutCarInput = {
+    create?: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput> | InstructorCreateWithoutCarInput[] | InstructorUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: InstructorCreateOrConnectWithoutCarInput | InstructorCreateOrConnectWithoutCarInput[]
+    createMany?: InstructorCreateManyCarInputEnvelope
+    connect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+  }
+
+  export type MaintenanceItemCreateNestedManyWithoutCarInput = {
+    create?: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput> | MaintenanceItemCreateWithoutCarInput[] | MaintenanceItemUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutCarInput | MaintenanceItemCreateOrConnectWithoutCarInput[]
+    createMany?: MaintenanceItemCreateManyCarInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MaintenanceScheduleCreateNestedManyWithoutCarInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput> | MaintenanceScheduleCreateWithoutCarInput[] | MaintenanceScheduleUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutCarInput | MaintenanceScheduleCreateOrConnectWithoutCarInput[]
+    createMany?: MaintenanceScheduleCreateManyCarInputEnvelope
+    connect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+  }
+
+  export type StudentUncheckedCreateNestedManyWithoutCarInput = {
+    create?: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput> | StudentCreateWithoutCarInput[] | StudentUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutCarInput | StudentCreateOrConnectWithoutCarInput[]
+    createMany?: StudentCreateManyCarInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+  }
+
+  export type InstructorUncheckedCreateNestedManyWithoutCarInput = {
+    create?: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput> | InstructorCreateWithoutCarInput[] | InstructorUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: InstructorCreateOrConnectWithoutCarInput | InstructorCreateOrConnectWithoutCarInput[]
+    createMany?: InstructorCreateManyCarInputEnvelope
+    connect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+  }
+
+  export type MaintenanceItemUncheckedCreateNestedManyWithoutCarInput = {
+    create?: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput> | MaintenanceItemCreateWithoutCarInput[] | MaintenanceItemUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutCarInput | MaintenanceItemCreateOrConnectWithoutCarInput[]
+    createMany?: MaintenanceItemCreateManyCarInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MaintenanceScheduleUncheckedCreateNestedManyWithoutCarInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput> | MaintenanceScheduleCreateWithoutCarInput[] | MaintenanceScheduleUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutCarInput | MaintenanceScheduleCreateOrConnectWithoutCarInput[]
+    createMany?: MaintenanceScheduleCreateManyCarInputEnvelope
+    connect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+  }
+
+  export type StudentUpdateManyWithoutCarNestedInput = {
+    create?: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput> | StudentCreateWithoutCarInput[] | StudentUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutCarInput | StudentCreateOrConnectWithoutCarInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutCarInput | StudentUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: StudentCreateManyCarInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutCarInput | StudentUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutCarInput | StudentUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
+  export type InstructorUpdateManyWithoutCarNestedInput = {
+    create?: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput> | InstructorCreateWithoutCarInput[] | InstructorUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: InstructorCreateOrConnectWithoutCarInput | InstructorCreateOrConnectWithoutCarInput[]
+    upsert?: InstructorUpsertWithWhereUniqueWithoutCarInput | InstructorUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: InstructorCreateManyCarInputEnvelope
+    set?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    disconnect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    delete?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    connect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    update?: InstructorUpdateWithWhereUniqueWithoutCarInput | InstructorUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: InstructorUpdateManyWithWhereWithoutCarInput | InstructorUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: InstructorScalarWhereInput | InstructorScalarWhereInput[]
+  }
+
+  export type MaintenanceItemUpdateManyWithoutCarNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput> | MaintenanceItemCreateWithoutCarInput[] | MaintenanceItemUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutCarInput | MaintenanceItemCreateOrConnectWithoutCarInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutCarInput | MaintenanceItemUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: MaintenanceItemCreateManyCarInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutCarInput | MaintenanceItemUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutCarInput | MaintenanceItemUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MaintenanceScheduleUpdateManyWithoutCarNestedInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput> | MaintenanceScheduleCreateWithoutCarInput[] | MaintenanceScheduleUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutCarInput | MaintenanceScheduleCreateOrConnectWithoutCarInput[]
+    upsert?: MaintenanceScheduleUpsertWithWhereUniqueWithoutCarInput | MaintenanceScheduleUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: MaintenanceScheduleCreateManyCarInputEnvelope
+    set?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    disconnect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    delete?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    connect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    update?: MaintenanceScheduleUpdateWithWhereUniqueWithoutCarInput | MaintenanceScheduleUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: MaintenanceScheduleUpdateManyWithWhereWithoutCarInput | MaintenanceScheduleUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: MaintenanceScheduleScalarWhereInput | MaintenanceScheduleScalarWhereInput[]
+  }
+
+  export type StudentUncheckedUpdateManyWithoutCarNestedInput = {
+    create?: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput> | StudentCreateWithoutCarInput[] | StudentUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutCarInput | StudentCreateOrConnectWithoutCarInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutCarInput | StudentUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: StudentCreateManyCarInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutCarInput | StudentUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutCarInput | StudentUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
+  export type InstructorUncheckedUpdateManyWithoutCarNestedInput = {
+    create?: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput> | InstructorCreateWithoutCarInput[] | InstructorUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: InstructorCreateOrConnectWithoutCarInput | InstructorCreateOrConnectWithoutCarInput[]
+    upsert?: InstructorUpsertWithWhereUniqueWithoutCarInput | InstructorUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: InstructorCreateManyCarInputEnvelope
+    set?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    disconnect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    delete?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    connect?: InstructorWhereUniqueInput | InstructorWhereUniqueInput[]
+    update?: InstructorUpdateWithWhereUniqueWithoutCarInput | InstructorUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: InstructorUpdateManyWithWhereWithoutCarInput | InstructorUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: InstructorScalarWhereInput | InstructorScalarWhereInput[]
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutCarNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput> | MaintenanceItemCreateWithoutCarInput[] | MaintenanceItemUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutCarInput | MaintenanceItemCreateOrConnectWithoutCarInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutCarInput | MaintenanceItemUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: MaintenanceItemCreateManyCarInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutCarInput | MaintenanceItemUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutCarInput | MaintenanceItemUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateManyWithoutCarNestedInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput> | MaintenanceScheduleCreateWithoutCarInput[] | MaintenanceScheduleUncheckedCreateWithoutCarInput[]
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutCarInput | MaintenanceScheduleCreateOrConnectWithoutCarInput[]
+    upsert?: MaintenanceScheduleUpsertWithWhereUniqueWithoutCarInput | MaintenanceScheduleUpsertWithWhereUniqueWithoutCarInput[]
+    createMany?: MaintenanceScheduleCreateManyCarInputEnvelope
+    set?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    disconnect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    delete?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    connect?: MaintenanceScheduleWhereUniqueInput | MaintenanceScheduleWhereUniqueInput[]
+    update?: MaintenanceScheduleUpdateWithWhereUniqueWithoutCarInput | MaintenanceScheduleUpdateWithWhereUniqueWithoutCarInput[]
+    updateMany?: MaintenanceScheduleUpdateManyWithWhereWithoutCarInput | MaintenanceScheduleUpdateManyWithWhereWithoutCarInput[]
+    deleteMany?: MaintenanceScheduleScalarWhereInput | MaintenanceScheduleScalarWhereInput[]
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type CarCreateNestedOneWithoutInstructorsInput = {
+    create?: XOR<CarCreateWithoutInstructorsInput, CarUncheckedCreateWithoutInstructorsInput>
+    connectOrCreate?: CarCreateOrConnectWithoutInstructorsInput
+    connect?: CarWhereUniqueInput
   }
 
   export type PaymentCycleCreateNestedManyWithoutInstructorInput = {
@@ -15261,6 +26017,13 @@ export namespace Prisma {
     connect?: PaymentCycleWhereUniqueInput | PaymentCycleWhereUniqueInput[]
   }
 
+  export type StudentCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput> | StudentCreateWithoutInstructorInput[] | StudentUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutInstructorInput | StudentCreateOrConnectWithoutInstructorInput[]
+    createMany?: StudentCreateManyInstructorInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+  }
+
   export type PaymentCycleUncheckedCreateNestedManyWithoutInstructorInput = {
     create?: XOR<PaymentCycleCreateWithoutInstructorInput, PaymentCycleUncheckedCreateWithoutInstructorInput> | PaymentCycleCreateWithoutInstructorInput[] | PaymentCycleUncheckedCreateWithoutInstructorInput[]
     connectOrCreate?: PaymentCycleCreateOrConnectWithoutInstructorInput | PaymentCycleCreateOrConnectWithoutInstructorInput[]
@@ -15268,8 +26031,11 @@ export namespace Prisma {
     connect?: PaymentCycleWhereUniqueInput | PaymentCycleWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type StudentUncheckedCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput> | StudentCreateWithoutInstructorInput[] | StudentUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutInstructorInput | StudentCreateOrConnectWithoutInstructorInput[]
+    createMany?: StudentCreateManyInstructorInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
   export type EnumJobTypeFieldUpdateOperationsInput = {
@@ -15278,6 +26044,32 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type CarUpdateOneWithoutInstructorsNestedInput = {
+    create?: XOR<CarCreateWithoutInstructorsInput, CarUncheckedCreateWithoutInstructorsInput>
+    connectOrCreate?: CarCreateOrConnectWithoutInstructorsInput
+    upsert?: CarUpsertWithoutInstructorsInput
+    disconnect?: CarWhereInput | boolean
+    delete?: CarWhereInput | boolean
+    connect?: CarWhereUniqueInput
+    update?: XOR<XOR<CarUpdateToOneWithWhereWithoutInstructorsInput, CarUpdateWithoutInstructorsInput>, CarUncheckedUpdateWithoutInstructorsInput>
   }
 
   export type PaymentCycleUpdateManyWithoutInstructorNestedInput = {
@@ -15294,6 +26086,20 @@ export namespace Prisma {
     deleteMany?: PaymentCycleScalarWhereInput | PaymentCycleScalarWhereInput[]
   }
 
+  export type StudentUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput> | StudentCreateWithoutInstructorInput[] | StudentUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutInstructorInput | StudentCreateOrConnectWithoutInstructorInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutInstructorInput | StudentUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: StudentCreateManyInstructorInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutInstructorInput | StudentUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutInstructorInput | StudentUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
   export type PaymentCycleUncheckedUpdateManyWithoutInstructorNestedInput = {
     create?: XOR<PaymentCycleCreateWithoutInstructorInput, PaymentCycleUncheckedCreateWithoutInstructorInput> | PaymentCycleCreateWithoutInstructorInput[] | PaymentCycleUncheckedCreateWithoutInstructorInput[]
     connectOrCreate?: PaymentCycleCreateOrConnectWithoutInstructorInput | PaymentCycleCreateOrConnectWithoutInstructorInput[]
@@ -15306,6 +26112,110 @@ export namespace Prisma {
     update?: PaymentCycleUpdateWithWhereUniqueWithoutInstructorInput | PaymentCycleUpdateWithWhereUniqueWithoutInstructorInput[]
     updateMany?: PaymentCycleUpdateManyWithWhereWithoutInstructorInput | PaymentCycleUpdateManyWithWhereWithoutInstructorInput[]
     deleteMany?: PaymentCycleScalarWhereInput | PaymentCycleScalarWhereInput[]
+  }
+
+  export type StudentUncheckedUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput> | StudentCreateWithoutInstructorInput[] | StudentUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutInstructorInput | StudentCreateOrConnectWithoutInstructorInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutInstructorInput | StudentUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: StudentCreateManyInstructorInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutInstructorInput | StudentUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutInstructorInput | StudentUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
+  export type CarCreateNestedOneWithoutMaintenanceSchedulesInput = {
+    create?: XOR<CarCreateWithoutMaintenanceSchedulesInput, CarUncheckedCreateWithoutMaintenanceSchedulesInput>
+    connectOrCreate?: CarCreateOrConnectWithoutMaintenanceSchedulesInput
+    connect?: CarWhereUniqueInput
+  }
+
+  export type MaintenanceItemCreateNestedManyWithoutMaintenanceScheduleInput = {
+    create?: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput> | MaintenanceItemCreateWithoutMaintenanceScheduleInput[] | MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput | MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput[]
+    createMany?: MaintenanceItemCreateManyMaintenanceScheduleInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceScheduleInput = {
+    create?: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput> | MaintenanceItemCreateWithoutMaintenanceScheduleInput[] | MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput | MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput[]
+    createMany?: MaintenanceItemCreateManyMaintenanceScheduleInputEnvelope
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+  }
+
+  export type CarUpdateOneRequiredWithoutMaintenanceSchedulesNestedInput = {
+    create?: XOR<CarCreateWithoutMaintenanceSchedulesInput, CarUncheckedCreateWithoutMaintenanceSchedulesInput>
+    connectOrCreate?: CarCreateOrConnectWithoutMaintenanceSchedulesInput
+    upsert?: CarUpsertWithoutMaintenanceSchedulesInput
+    connect?: CarWhereUniqueInput
+    update?: XOR<XOR<CarUpdateToOneWithWhereWithoutMaintenanceSchedulesInput, CarUpdateWithoutMaintenanceSchedulesInput>, CarUncheckedUpdateWithoutMaintenanceSchedulesInput>
+  }
+
+  export type MaintenanceItemUpdateManyWithoutMaintenanceScheduleNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput> | MaintenanceItemCreateWithoutMaintenanceScheduleInput[] | MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput | MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutMaintenanceScheduleInput | MaintenanceItemUpsertWithWhereUniqueWithoutMaintenanceScheduleInput[]
+    createMany?: MaintenanceItemCreateManyMaintenanceScheduleInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceScheduleInput | MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceScheduleInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutMaintenanceScheduleInput | MaintenanceItemUpdateManyWithWhereWithoutMaintenanceScheduleInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutMaintenanceScheduleNestedInput = {
+    create?: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput> | MaintenanceItemCreateWithoutMaintenanceScheduleInput[] | MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput[]
+    connectOrCreate?: MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput | MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput[]
+    upsert?: MaintenanceItemUpsertWithWhereUniqueWithoutMaintenanceScheduleInput | MaintenanceItemUpsertWithWhereUniqueWithoutMaintenanceScheduleInput[]
+    createMany?: MaintenanceItemCreateManyMaintenanceScheduleInputEnvelope
+    set?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    disconnect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    delete?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    connect?: MaintenanceItemWhereUniqueInput | MaintenanceItemWhereUniqueInput[]
+    update?: MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceScheduleInput | MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceScheduleInput[]
+    updateMany?: MaintenanceItemUpdateManyWithWhereWithoutMaintenanceScheduleInput | MaintenanceItemUpdateManyWithWhereWithoutMaintenanceScheduleInput[]
+    deleteMany?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+  }
+
+  export type MaintenanceScheduleCreateNestedOneWithoutItemsInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutItemsInput, MaintenanceScheduleUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutItemsInput
+    connect?: MaintenanceScheduleWhereUniqueInput
+  }
+
+  export type CarCreateNestedOneWithoutMaintenanceItemInput = {
+    create?: XOR<CarCreateWithoutMaintenanceItemInput, CarUncheckedCreateWithoutMaintenanceItemInput>
+    connectOrCreate?: CarCreateOrConnectWithoutMaintenanceItemInput
+    connect?: CarWhereUniqueInput
+  }
+
+  export type EnumMaintenanceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MaintenanceType
+  }
+
+  export type MaintenanceScheduleUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<MaintenanceScheduleCreateWithoutItemsInput, MaintenanceScheduleUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: MaintenanceScheduleCreateOrConnectWithoutItemsInput
+    upsert?: MaintenanceScheduleUpsertWithoutItemsInput
+    connect?: MaintenanceScheduleWhereUniqueInput
+    update?: XOR<XOR<MaintenanceScheduleUpdateToOneWithWhereWithoutItemsInput, MaintenanceScheduleUpdateWithoutItemsInput>, MaintenanceScheduleUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type CarUpdateOneWithoutMaintenanceItemNestedInput = {
+    create?: XOR<CarCreateWithoutMaintenanceItemInput, CarUncheckedCreateWithoutMaintenanceItemInput>
+    connectOrCreate?: CarCreateOrConnectWithoutMaintenanceItemInput
+    upsert?: CarUpsertWithoutMaintenanceItemInput
+    disconnect?: CarWhereInput | boolean
+    delete?: CarWhereInput | boolean
+    connect?: CarWhereUniqueInput
+    update?: XOR<XOR<CarUpdateToOneWithWhereWithoutMaintenanceItemInput, CarUpdateWithoutMaintenanceItemInput>, CarUncheckedUpdateWithoutMaintenanceItemInput>
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -15376,8 +26286,96 @@ export namespace Prisma {
     deleteMany?: PaymentTakenScalarWhereInput | PaymentTakenScalarWhereInput[]
   }
 
-  export type EnumEnrollment_statusFieldUpdateOperationsInput = {
-    set?: $Enums.Enrollment_status
+  export type InstructorCreateNestedOneWithoutStudentsInput = {
+    create?: XOR<InstructorCreateWithoutStudentsInput, InstructorUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: InstructorCreateOrConnectWithoutStudentsInput
+    connect?: InstructorWhereUniqueInput
+  }
+
+  export type CarCreateNestedOneWithoutStudentsInput = {
+    create?: XOR<CarCreateWithoutStudentsInput, CarUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: CarCreateOrConnectWithoutStudentsInput
+    connect?: CarWhereUniqueInput
+  }
+
+  export type InstructorUpdateOneWithoutStudentsNestedInput = {
+    create?: XOR<InstructorCreateWithoutStudentsInput, InstructorUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: InstructorCreateOrConnectWithoutStudentsInput
+    upsert?: InstructorUpsertWithoutStudentsInput
+    disconnect?: InstructorWhereInput | boolean
+    delete?: InstructorWhereInput | boolean
+    connect?: InstructorWhereUniqueInput
+    update?: XOR<XOR<InstructorUpdateToOneWithWhereWithoutStudentsInput, InstructorUpdateWithoutStudentsInput>, InstructorUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type CarUpdateOneWithoutStudentsNestedInput = {
+    create?: XOR<CarCreateWithoutStudentsInput, CarUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: CarCreateOrConnectWithoutStudentsInput
+    upsert?: CarUpsertWithoutStudentsInput
+    disconnect?: CarWhereInput | boolean
+    delete?: CarWhereInput | boolean
+    connect?: CarWhereUniqueInput
+    update?: XOR<XOR<CarUpdateToOneWithWhereWithoutStudentsInput, CarUpdateWithoutStudentsInput>, CarUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type WhatsAppTemplateCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<WhatsAppTemplateCreateWithoutMessagesInput, WhatsAppTemplateUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: WhatsAppTemplateCreateOrConnectWithoutMessagesInput
+    connect?: WhatsAppTemplateWhereUniqueInput
+  }
+
+  export type EnumMessageQueueStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MessageQueueStatus
+  }
+
+  export type WhatsAppTemplateUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<WhatsAppTemplateCreateWithoutMessagesInput, WhatsAppTemplateUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: WhatsAppTemplateCreateOrConnectWithoutMessagesInput
+    upsert?: WhatsAppTemplateUpsertWithoutMessagesInput
+    connect?: WhatsAppTemplateWhereUniqueInput
+    update?: XOR<XOR<WhatsAppTemplateUpdateToOneWithWhereWithoutMessagesInput, WhatsAppTemplateUpdateWithoutMessagesInput>, WhatsAppTemplateUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type MessageQueueCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput> | MessageQueueCreateWithoutTemplateInput[] | MessageQueueUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MessageQueueCreateOrConnectWithoutTemplateInput | MessageQueueCreateOrConnectWithoutTemplateInput[]
+    createMany?: MessageQueueCreateManyTemplateInputEnvelope
+    connect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+  }
+
+  export type MessageQueueUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput> | MessageQueueCreateWithoutTemplateInput[] | MessageQueueUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MessageQueueCreateOrConnectWithoutTemplateInput | MessageQueueCreateOrConnectWithoutTemplateInput[]
+    createMany?: MessageQueueCreateManyTemplateInputEnvelope
+    connect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+  }
+
+  export type MessageQueueUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput> | MessageQueueCreateWithoutTemplateInput[] | MessageQueueUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MessageQueueCreateOrConnectWithoutTemplateInput | MessageQueueCreateOrConnectWithoutTemplateInput[]
+    upsert?: MessageQueueUpsertWithWhereUniqueWithoutTemplateInput | MessageQueueUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: MessageQueueCreateManyTemplateInputEnvelope
+    set?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    disconnect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    delete?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    connect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    update?: MessageQueueUpdateWithWhereUniqueWithoutTemplateInput | MessageQueueUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: MessageQueueUpdateManyWithWhereWithoutTemplateInput | MessageQueueUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: MessageQueueScalarWhereInput | MessageQueueScalarWhereInput[]
+  }
+
+  export type MessageQueueUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput> | MessageQueueCreateWithoutTemplateInput[] | MessageQueueUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: MessageQueueCreateOrConnectWithoutTemplateInput | MessageQueueCreateOrConnectWithoutTemplateInput[]
+    upsert?: MessageQueueUpsertWithWhereUniqueWithoutTemplateInput | MessageQueueUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: MessageQueueCreateManyTemplateInputEnvelope
+    set?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    disconnect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    delete?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    connect?: MessageQueueWhereUniqueInput | MessageQueueWhereUniqueInput[]
+    update?: MessageQueueUpdateWithWhereUniqueWithoutTemplateInput | MessageQueueUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: MessageQueueUpdateManyWithWhereWithoutTemplateInput | MessageQueueUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: MessageQueueScalarWhereInput | MessageQueueScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -15491,19 +26489,6 @@ export namespace Prisma {
     _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -15516,24 +26501,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumJobTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.JobType | EnumJobTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.JobType[]
-    notIn?: $Enums.JobType[]
-    not?: NestedEnumJobTypeFilter<$PrismaModel> | $Enums.JobType
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15564,6 +26531,48 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJobTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobType | EnumJobTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.JobType[]
+    notIn?: $Enums.JobType[]
+    not?: NestedEnumJobTypeFilter<$PrismaModel> | $Enums.JobType
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumJobTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.JobType | EnumJobTypeFieldRefInput<$PrismaModel>
     in?: $Enums.JobType[]
@@ -15586,6 +26595,55 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMaintenanceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[]
+    notIn?: $Enums.MaintenanceType[]
+    not?: NestedEnumMaintenanceTypeFilter<$PrismaModel> | $Enums.MaintenanceType
+  }
+
+  export type NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MaintenanceType | EnumMaintenanceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MaintenanceType[]
+    notIn?: $Enums.MaintenanceType[]
+    not?: NestedEnumMaintenanceTypeWithAggregatesFilter<$PrismaModel> | $Enums.MaintenanceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
+    _max?: NestedEnumMaintenanceTypeFilter<$PrismaModel>
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -15632,21 +26690,57 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumEnrollment_statusFilter<$PrismaModel = never> = {
-    equals?: $Enums.Enrollment_status | EnumEnrollment_statusFieldRefInput<$PrismaModel>
-    in?: $Enums.Enrollment_status[]
-    notIn?: $Enums.Enrollment_status[]
-    not?: NestedEnumEnrollment_statusFilter<$PrismaModel> | $Enums.Enrollment_status
+  export type NestedEnumMessageQueueStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageQueueStatus | EnumMessageQueueStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageQueueStatus[]
+    notIn?: $Enums.MessageQueueStatus[]
+    not?: NestedEnumMessageQueueStatusFilter<$PrismaModel> | $Enums.MessageQueueStatus
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedEnumEnrollment_statusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Enrollment_status | EnumEnrollment_statusFieldRefInput<$PrismaModel>
-    in?: $Enums.Enrollment_status[]
-    notIn?: $Enums.Enrollment_status[]
-    not?: NestedEnumEnrollment_statusWithAggregatesFilter<$PrismaModel> | $Enums.Enrollment_status
+  export type NestedEnumMessageQueueStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageQueueStatus | EnumMessageQueueStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageQueueStatus[]
+    notIn?: $Enums.MessageQueueStatus[]
+    not?: NestedEnumMessageQueueStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageQueueStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEnrollment_statusFilter<$PrismaModel>
-    _max?: NestedEnumEnrollment_statusFilter<$PrismaModel>
+    _min?: NestedEnumMessageQueueStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageQueueStatusFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type PaymentCycleCreateWithoutPaymentsTakenInput = {
@@ -15729,6 +26823,308 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StudentCreateWithoutCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructor?: InstructorCreateNestedOneWithoutStudentsInput
+  }
+
+  export type StudentUncheckedCreateWithoutCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Assigned_Instructor?: string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentCreateOrConnectWithoutCarInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput>
+  }
+
+  export type StudentCreateManyCarInputEnvelope = {
+    data: StudentCreateManyCarInput | StudentCreateManyCarInput[]
+  }
+
+  export type InstructorCreateWithoutCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    licenseNumber?: string | null
+    jobType?: $Enums.JobType
+    joiningDate?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    paymentCycles?: PaymentCycleCreateNestedManyWithoutInstructorInput
+    students?: StudentCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorUncheckedCreateWithoutCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    licenseNumber?: string | null
+    jobType?: $Enums.JobType
+    joiningDate?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    paymentCycles?: PaymentCycleUncheckedCreateNestedManyWithoutInstructorInput
+    students?: StudentUncheckedCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorCreateOrConnectWithoutCarInput = {
+    where: InstructorWhereUniqueInput
+    create: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput>
+  }
+
+  export type InstructorCreateManyCarInputEnvelope = {
+    data: InstructorCreateManyCarInput | InstructorCreateManyCarInput[]
+  }
+
+  export type MaintenanceItemCreateWithoutCarInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    maintenanceSchedule: MaintenanceScheduleCreateNestedOneWithoutItemsInput
+  }
+
+  export type MaintenanceItemUncheckedCreateWithoutCarInput = {
+    id?: string
+    maintenanceScheduleId: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+  }
+
+  export type MaintenanceItemCreateOrConnectWithoutCarInput = {
+    where: MaintenanceItemWhereUniqueInput
+    create: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput>
+  }
+
+  export type MaintenanceItemCreateManyCarInputEnvelope = {
+    data: MaintenanceItemCreateManyCarInput | MaintenanceItemCreateManyCarInput[]
+  }
+
+  export type MaintenanceScheduleCreateWithoutCarInput = {
+    id?: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: MaintenanceItemCreateNestedManyWithoutMaintenanceScheduleInput
+  }
+
+  export type MaintenanceScheduleUncheckedCreateWithoutCarInput = {
+    id?: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: MaintenanceItemUncheckedCreateNestedManyWithoutMaintenanceScheduleInput
+  }
+
+  export type MaintenanceScheduleCreateOrConnectWithoutCarInput = {
+    where: MaintenanceScheduleWhereUniqueInput
+    create: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput>
+  }
+
+  export type MaintenanceScheduleCreateManyCarInputEnvelope = {
+    data: MaintenanceScheduleCreateManyCarInput | MaintenanceScheduleCreateManyCarInput[]
+  }
+
+  export type StudentUpsertWithWhereUniqueWithoutCarInput = {
+    where: StudentWhereUniqueInput
+    update: XOR<StudentUpdateWithoutCarInput, StudentUncheckedUpdateWithoutCarInput>
+    create: XOR<StudentCreateWithoutCarInput, StudentUncheckedCreateWithoutCarInput>
+  }
+
+  export type StudentUpdateWithWhereUniqueWithoutCarInput = {
+    where: StudentWhereUniqueInput
+    data: XOR<StudentUpdateWithoutCarInput, StudentUncheckedUpdateWithoutCarInput>
+  }
+
+  export type StudentUpdateManyWithWhereWithoutCarInput = {
+    where: StudentScalarWhereInput
+    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutCarInput>
+  }
+
+  export type StudentScalarWhereInput = {
+    AND?: StudentScalarWhereInput | StudentScalarWhereInput[]
+    OR?: StudentScalarWhereInput[]
+    NOT?: StudentScalarWhereInput | StudentScalarWhereInput[]
+    id?: StringFilter<"Student"> | string
+    name?: StringFilter<"Student"> | string
+    mobile?: StringFilter<"Student"> | string
+    packageId?: StringNullableFilter<"Student"> | string | null
+    package_name?: StringNullableFilter<"Student"> | string | null
+    Enrollment_status?: StringFilter<"Student"> | string
+    Course_Start_date?: DateTimeNullableFilter<"Student"> | Date | string | null
+    Course_End_Date?: DateTimeNullableFilter<"Student"> | Date | string | null
+    Assigned_Instructor?: StringNullableFilter<"Student"> | string | null
+    Total_amount?: IntFilter<"Student"> | number
+    Amount_paid?: IntFilter<"Student"> | number
+    Remaining_percentage?: IntFilter<"Student"> | number
+    remaining_amount?: IntFilter<"Student"> | number
+    Assigned_car_id?: StringNullableFilter<"Student"> | string | null
+    createdAt?: DateTimeFilter<"Student"> | Date | string
+    updatedAt?: DateTimeFilter<"Student"> | Date | string
+  }
+
+  export type InstructorUpsertWithWhereUniqueWithoutCarInput = {
+    where: InstructorWhereUniqueInput
+    update: XOR<InstructorUpdateWithoutCarInput, InstructorUncheckedUpdateWithoutCarInput>
+    create: XOR<InstructorCreateWithoutCarInput, InstructorUncheckedCreateWithoutCarInput>
+  }
+
+  export type InstructorUpdateWithWhereUniqueWithoutCarInput = {
+    where: InstructorWhereUniqueInput
+    data: XOR<InstructorUpdateWithoutCarInput, InstructorUncheckedUpdateWithoutCarInput>
+  }
+
+  export type InstructorUpdateManyWithWhereWithoutCarInput = {
+    where: InstructorScalarWhereInput
+    data: XOR<InstructorUpdateManyMutationInput, InstructorUncheckedUpdateManyWithoutCarInput>
+  }
+
+  export type InstructorScalarWhereInput = {
+    AND?: InstructorScalarWhereInput | InstructorScalarWhereInput[]
+    OR?: InstructorScalarWhereInput[]
+    NOT?: InstructorScalarWhereInput | InstructorScalarWhereInput[]
+    id?: StringFilter<"Instructor"> | string
+    name?: StringFilter<"Instructor"> | string
+    mobile?: StringFilter<"Instructor"> | string
+    licenseNumber?: StringNullableFilter<"Instructor"> | string | null
+    jobType?: EnumJobTypeFilter<"Instructor"> | $Enums.JobType
+    joiningDate?: DateTimeNullableFilter<"Instructor"> | Date | string | null
+    isActive?: BoolFilter<"Instructor"> | boolean
+    createdAt?: DateTimeFilter<"Instructor"> | Date | string
+    updatedAt?: DateTimeFilter<"Instructor"> | Date | string
+    payment?: FloatNullableFilter<"Instructor"> | number | null
+    paymentDate?: IntNullableFilter<"Instructor"> | number | null
+    assignedCarId?: StringNullableFilter<"Instructor"> | string | null
+  }
+
+  export type MaintenanceItemUpsertWithWhereUniqueWithoutCarInput = {
+    where: MaintenanceItemWhereUniqueInput
+    update: XOR<MaintenanceItemUpdateWithoutCarInput, MaintenanceItemUncheckedUpdateWithoutCarInput>
+    create: XOR<MaintenanceItemCreateWithoutCarInput, MaintenanceItemUncheckedCreateWithoutCarInput>
+  }
+
+  export type MaintenanceItemUpdateWithWhereUniqueWithoutCarInput = {
+    where: MaintenanceItemWhereUniqueInput
+    data: XOR<MaintenanceItemUpdateWithoutCarInput, MaintenanceItemUncheckedUpdateWithoutCarInput>
+  }
+
+  export type MaintenanceItemUpdateManyWithWhereWithoutCarInput = {
+    where: MaintenanceItemScalarWhereInput
+    data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyWithoutCarInput>
+  }
+
+  export type MaintenanceItemScalarWhereInput = {
+    AND?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+    OR?: MaintenanceItemScalarWhereInput[]
+    NOT?: MaintenanceItemScalarWhereInput | MaintenanceItemScalarWhereInput[]
+    id?: StringFilter<"MaintenanceItem"> | string
+    maintenanceScheduleId?: StringFilter<"MaintenanceItem"> | string
+    type?: EnumMaintenanceTypeFilter<"MaintenanceItem"> | $Enums.MaintenanceType
+    intervalDays?: IntNullableFilter<"MaintenanceItem"> | number | null
+    nextServiceDate?: DateTimeNullableFilter<"MaintenanceItem"> | Date | string | null
+    notes?: StringNullableFilter<"MaintenanceItem"> | string | null
+    carId?: StringNullableFilter<"MaintenanceItem"> | string | null
+  }
+
+  export type MaintenanceScheduleUpsertWithWhereUniqueWithoutCarInput = {
+    where: MaintenanceScheduleWhereUniqueInput
+    update: XOR<MaintenanceScheduleUpdateWithoutCarInput, MaintenanceScheduleUncheckedUpdateWithoutCarInput>
+    create: XOR<MaintenanceScheduleCreateWithoutCarInput, MaintenanceScheduleUncheckedCreateWithoutCarInput>
+  }
+
+  export type MaintenanceScheduleUpdateWithWhereUniqueWithoutCarInput = {
+    where: MaintenanceScheduleWhereUniqueInput
+    data: XOR<MaintenanceScheduleUpdateWithoutCarInput, MaintenanceScheduleUncheckedUpdateWithoutCarInput>
+  }
+
+  export type MaintenanceScheduleUpdateManyWithWhereWithoutCarInput = {
+    where: MaintenanceScheduleScalarWhereInput
+    data: XOR<MaintenanceScheduleUpdateManyMutationInput, MaintenanceScheduleUncheckedUpdateManyWithoutCarInput>
+  }
+
+  export type MaintenanceScheduleScalarWhereInput = {
+    AND?: MaintenanceScheduleScalarWhereInput | MaintenanceScheduleScalarWhereInput[]
+    OR?: MaintenanceScheduleScalarWhereInput[]
+    NOT?: MaintenanceScheduleScalarWhereInput | MaintenanceScheduleScalarWhereInput[]
+    id?: StringFilter<"MaintenanceSchedule"> | string
+    carId?: StringFilter<"MaintenanceSchedule"> | string
+    serviceDate?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    notes?: StringNullableFilter<"MaintenanceSchedule"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"MaintenanceSchedule"> | Date | string
+  }
+
+  export type CarCreateWithoutInstructorsInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleCreateNestedManyWithoutCarInput
+  }
+
+  export type CarUncheckedCreateWithoutInstructorsInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemUncheckedCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedCreateNestedManyWithoutCarInput
+  }
+
+  export type CarCreateOrConnectWithoutInstructorsInput = {
+    where: CarWhereUniqueInput
+    create: XOR<CarCreateWithoutInstructorsInput, CarUncheckedCreateWithoutInstructorsInput>
+  }
+
   export type PaymentCycleCreateWithoutInstructorInput = {
     id?: string
     month: Date | string
@@ -15770,6 +27166,90 @@ export namespace Prisma {
     data: PaymentCycleCreateManyInstructorInput | PaymentCycleCreateManyInstructorInput[]
   }
 
+  export type StudentCreateWithoutInstructorInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    car?: CarCreateNestedOneWithoutStudentsInput
+  }
+
+  export type StudentUncheckedCreateWithoutInstructorInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    Assigned_car_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentCreateOrConnectWithoutInstructorInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type StudentCreateManyInstructorInputEnvelope = {
+    data: StudentCreateManyInstructorInput | StudentCreateManyInstructorInput[]
+  }
+
+  export type CarUpsertWithoutInstructorsInput = {
+    update: XOR<CarUpdateWithoutInstructorsInput, CarUncheckedUpdateWithoutInstructorsInput>
+    create: XOR<CarCreateWithoutInstructorsInput, CarUncheckedCreateWithoutInstructorsInput>
+    where?: CarWhereInput
+  }
+
+  export type CarUpdateToOneWithWhereWithoutInstructorsInput = {
+    where?: CarWhereInput
+    data: XOR<CarUpdateWithoutInstructorsInput, CarUncheckedUpdateWithoutInstructorsInput>
+  }
+
+  export type CarUpdateWithoutInstructorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUpdateManyWithoutCarNestedInput
+  }
+
+  export type CarUncheckedUpdateWithoutInstructorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedUpdateManyWithoutCarNestedInput
+  }
+
   export type PaymentCycleUpsertWithWhereUniqueWithoutInstructorInput = {
     where: PaymentCycleWhereUniqueInput
     update: XOR<PaymentCycleUpdateWithoutInstructorInput, PaymentCycleUncheckedUpdateWithoutInstructorInput>
@@ -15805,6 +27285,261 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"PaymentCycle"> | Date | string
   }
 
+  export type StudentUpsertWithWhereUniqueWithoutInstructorInput = {
+    where: StudentWhereUniqueInput
+    update: XOR<StudentUpdateWithoutInstructorInput, StudentUncheckedUpdateWithoutInstructorInput>
+    create: XOR<StudentCreateWithoutInstructorInput, StudentUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type StudentUpdateWithWhereUniqueWithoutInstructorInput = {
+    where: StudentWhereUniqueInput
+    data: XOR<StudentUpdateWithoutInstructorInput, StudentUncheckedUpdateWithoutInstructorInput>
+  }
+
+  export type StudentUpdateManyWithWhereWithoutInstructorInput = {
+    where: StudentScalarWhereInput
+    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutInstructorInput>
+  }
+
+  export type CarCreateWithoutMaintenanceSchedulesInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentCreateNestedManyWithoutCarInput
+    instructors?: InstructorCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemCreateNestedManyWithoutCarInput
+  }
+
+  export type CarUncheckedCreateWithoutMaintenanceSchedulesInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutCarInput
+    instructors?: InstructorUncheckedCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemUncheckedCreateNestedManyWithoutCarInput
+  }
+
+  export type CarCreateOrConnectWithoutMaintenanceSchedulesInput = {
+    where: CarWhereUniqueInput
+    create: XOR<CarCreateWithoutMaintenanceSchedulesInput, CarUncheckedCreateWithoutMaintenanceSchedulesInput>
+  }
+
+  export type MaintenanceItemCreateWithoutMaintenanceScheduleInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    car?: CarCreateNestedOneWithoutMaintenanceItemInput
+  }
+
+  export type MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    carId?: string | null
+  }
+
+  export type MaintenanceItemCreateOrConnectWithoutMaintenanceScheduleInput = {
+    where: MaintenanceItemWhereUniqueInput
+    create: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput>
+  }
+
+  export type MaintenanceItemCreateManyMaintenanceScheduleInputEnvelope = {
+    data: MaintenanceItemCreateManyMaintenanceScheduleInput | MaintenanceItemCreateManyMaintenanceScheduleInput[]
+  }
+
+  export type CarUpsertWithoutMaintenanceSchedulesInput = {
+    update: XOR<CarUpdateWithoutMaintenanceSchedulesInput, CarUncheckedUpdateWithoutMaintenanceSchedulesInput>
+    create: XOR<CarCreateWithoutMaintenanceSchedulesInput, CarUncheckedCreateWithoutMaintenanceSchedulesInput>
+    where?: CarWhereInput
+  }
+
+  export type CarUpdateToOneWithWhereWithoutMaintenanceSchedulesInput = {
+    where?: CarWhereInput
+    data: XOR<CarUpdateWithoutMaintenanceSchedulesInput, CarUncheckedUpdateWithoutMaintenanceSchedulesInput>
+  }
+
+  export type CarUpdateWithoutMaintenanceSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUpdateManyWithoutCarNestedInput
+  }
+
+  export type CarUncheckedUpdateWithoutMaintenanceSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUncheckedUpdateManyWithoutCarNestedInput
+  }
+
+  export type MaintenanceItemUpsertWithWhereUniqueWithoutMaintenanceScheduleInput = {
+    where: MaintenanceItemWhereUniqueInput
+    update: XOR<MaintenanceItemUpdateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedUpdateWithoutMaintenanceScheduleInput>
+    create: XOR<MaintenanceItemCreateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedCreateWithoutMaintenanceScheduleInput>
+  }
+
+  export type MaintenanceItemUpdateWithWhereUniqueWithoutMaintenanceScheduleInput = {
+    where: MaintenanceItemWhereUniqueInput
+    data: XOR<MaintenanceItemUpdateWithoutMaintenanceScheduleInput, MaintenanceItemUncheckedUpdateWithoutMaintenanceScheduleInput>
+  }
+
+  export type MaintenanceItemUpdateManyWithWhereWithoutMaintenanceScheduleInput = {
+    where: MaintenanceItemScalarWhereInput
+    data: XOR<MaintenanceItemUpdateManyMutationInput, MaintenanceItemUncheckedUpdateManyWithoutMaintenanceScheduleInput>
+  }
+
+  export type MaintenanceScheduleCreateWithoutItemsInput = {
+    id?: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    car: CarCreateNestedOneWithoutMaintenanceSchedulesInput
+  }
+
+  export type MaintenanceScheduleUncheckedCreateWithoutItemsInput = {
+    id?: string
+    carId: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceScheduleCreateOrConnectWithoutItemsInput = {
+    where: MaintenanceScheduleWhereUniqueInput
+    create: XOR<MaintenanceScheduleCreateWithoutItemsInput, MaintenanceScheduleUncheckedCreateWithoutItemsInput>
+  }
+
+  export type CarCreateWithoutMaintenanceItemInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentCreateNestedManyWithoutCarInput
+    instructors?: InstructorCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleCreateNestedManyWithoutCarInput
+  }
+
+  export type CarUncheckedCreateWithoutMaintenanceItemInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    students?: StudentUncheckedCreateNestedManyWithoutCarInput
+    instructors?: InstructorUncheckedCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedCreateNestedManyWithoutCarInput
+  }
+
+  export type CarCreateOrConnectWithoutMaintenanceItemInput = {
+    where: CarWhereUniqueInput
+    create: XOR<CarCreateWithoutMaintenanceItemInput, CarUncheckedCreateWithoutMaintenanceItemInput>
+  }
+
+  export type MaintenanceScheduleUpsertWithoutItemsInput = {
+    update: XOR<MaintenanceScheduleUpdateWithoutItemsInput, MaintenanceScheduleUncheckedUpdateWithoutItemsInput>
+    create: XOR<MaintenanceScheduleCreateWithoutItemsInput, MaintenanceScheduleUncheckedCreateWithoutItemsInput>
+    where?: MaintenanceScheduleWhereInput
+  }
+
+  export type MaintenanceScheduleUpdateToOneWithWhereWithoutItemsInput = {
+    where?: MaintenanceScheduleWhereInput
+    data: XOR<MaintenanceScheduleUpdateWithoutItemsInput, MaintenanceScheduleUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type MaintenanceScheduleUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car?: CarUpdateOneRequiredWithoutMaintenanceSchedulesNestedInput
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    carId?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CarUpsertWithoutMaintenanceItemInput = {
+    update: XOR<CarUpdateWithoutMaintenanceItemInput, CarUncheckedUpdateWithoutMaintenanceItemInput>
+    create: XOR<CarCreateWithoutMaintenanceItemInput, CarUncheckedCreateWithoutMaintenanceItemInput>
+    where?: CarWhereInput
+  }
+
+  export type CarUpdateToOneWithWhereWithoutMaintenanceItemInput = {
+    where?: CarWhereInput
+    data: XOR<CarUpdateWithoutMaintenanceItemInput, CarUncheckedUpdateWithoutMaintenanceItemInput>
+  }
+
+  export type CarUpdateWithoutMaintenanceItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUpdateManyWithoutCarNestedInput
+  }
+
+  export type CarUncheckedUpdateWithoutMaintenanceItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    students?: StudentUncheckedUpdateManyWithoutCarNestedInput
+    instructors?: InstructorUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedUpdateManyWithoutCarNestedInput
+  }
+
   export type InstructorCreateWithoutPaymentCyclesInput = {
     id?: string
     name: string
@@ -15815,6 +27550,10 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    car?: CarCreateNestedOneWithoutInstructorsInput
+    students?: StudentCreateNestedManyWithoutInstructorInput
   }
 
   export type InstructorUncheckedCreateWithoutPaymentCyclesInput = {
@@ -15827,6 +27566,10 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    assignedCarId?: string | null
+    students?: StudentUncheckedCreateNestedManyWithoutInstructorInput
   }
 
   export type InstructorCreateOrConnectWithoutPaymentCyclesInput = {
@@ -15878,6 +27621,10 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    car?: CarUpdateOneWithoutInstructorsNestedInput
+    students?: StudentUpdateManyWithoutInstructorNestedInput
   }
 
   export type InstructorUncheckedUpdateWithoutPaymentCyclesInput = {
@@ -15890,6 +27637,10 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    assignedCarId?: NullableStringFieldUpdateOperationsInput | string | null
+    students?: StudentUncheckedUpdateManyWithoutInstructorNestedInput
   }
 
   export type PaymentTakenUpsertWithWhereUniqueWithoutPaymentCycleInput = {
@@ -15919,6 +27670,509 @@ export namespace Prisma {
     note?: StringFilter<"PaymentTaken"> | string
   }
 
+  export type InstructorCreateWithoutStudentsInput = {
+    id?: string
+    name: string
+    mobile: string
+    licenseNumber?: string | null
+    jobType?: $Enums.JobType
+    joiningDate?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    car?: CarCreateNestedOneWithoutInstructorsInput
+    paymentCycles?: PaymentCycleCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorUncheckedCreateWithoutStudentsInput = {
+    id?: string
+    name: string
+    mobile: string
+    licenseNumber?: string | null
+    jobType?: $Enums.JobType
+    joiningDate?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+    assignedCarId?: string | null
+    paymentCycles?: PaymentCycleUncheckedCreateNestedManyWithoutInstructorInput
+  }
+
+  export type InstructorCreateOrConnectWithoutStudentsInput = {
+    where: InstructorWhereUniqueInput
+    create: XOR<InstructorCreateWithoutStudentsInput, InstructorUncheckedCreateWithoutStudentsInput>
+  }
+
+  export type CarCreateWithoutStudentsInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    instructors?: InstructorCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleCreateNestedManyWithoutCarInput
+  }
+
+  export type CarUncheckedCreateWithoutStudentsInput = {
+    id?: string
+    name: string
+    transmission: string
+    assigned_instructor?: string | null
+    car_Number: string
+    car_year: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    instructors?: InstructorUncheckedCreateNestedManyWithoutCarInput
+    maintenanceItem?: MaintenanceItemUncheckedCreateNestedManyWithoutCarInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedCreateNestedManyWithoutCarInput
+  }
+
+  export type CarCreateOrConnectWithoutStudentsInput = {
+    where: CarWhereUniqueInput
+    create: XOR<CarCreateWithoutStudentsInput, CarUncheckedCreateWithoutStudentsInput>
+  }
+
+  export type InstructorUpsertWithoutStudentsInput = {
+    update: XOR<InstructorUpdateWithoutStudentsInput, InstructorUncheckedUpdateWithoutStudentsInput>
+    create: XOR<InstructorCreateWithoutStudentsInput, InstructorUncheckedCreateWithoutStudentsInput>
+    where?: InstructorWhereInput
+  }
+
+  export type InstructorUpdateToOneWithWhereWithoutStudentsInput = {
+    where?: InstructorWhereInput
+    data: XOR<InstructorUpdateWithoutStudentsInput, InstructorUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type InstructorUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    jobType?: EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+    joiningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    car?: CarUpdateOneWithoutInstructorsNestedInput
+    paymentCycles?: PaymentCycleUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type InstructorUncheckedUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    jobType?: EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+    joiningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    assignedCarId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentCycles?: PaymentCycleUncheckedUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type CarUpsertWithoutStudentsInput = {
+    update: XOR<CarUpdateWithoutStudentsInput, CarUncheckedUpdateWithoutStudentsInput>
+    create: XOR<CarCreateWithoutStudentsInput, CarUncheckedCreateWithoutStudentsInput>
+    where?: CarWhereInput
+  }
+
+  export type CarUpdateToOneWithWhereWithoutStudentsInput = {
+    where?: CarWhereInput
+    data: XOR<CarUpdateWithoutStudentsInput, CarUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type CarUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructors?: InstructorUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUpdateManyWithoutCarNestedInput
+  }
+
+  export type CarUncheckedUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    assigned_instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    car_Number?: StringFieldUpdateOperationsInput | string
+    car_year?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructors?: InstructorUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceItem?: MaintenanceItemUncheckedUpdateManyWithoutCarNestedInput
+    maintenanceSchedules?: MaintenanceScheduleUncheckedUpdateManyWithoutCarNestedInput
+  }
+
+  export type WhatsAppTemplateCreateWithoutMessagesInput = {
+    id?: string
+    name: string
+    clientId?: string | null
+    templateId?: string | null
+    language: string
+    category: string
+    status: string
+    body?: string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTemplateUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    name: string
+    clientId?: string | null
+    templateId?: string | null
+    language: string
+    category: string
+    status: string
+    body?: string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsAppTemplateCreateOrConnectWithoutMessagesInput = {
+    where: WhatsAppTemplateWhereUniqueInput
+    create: XOR<WhatsAppTemplateCreateWithoutMessagesInput, WhatsAppTemplateUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type WhatsAppTemplateUpsertWithoutMessagesInput = {
+    update: XOR<WhatsAppTemplateUpdateWithoutMessagesInput, WhatsAppTemplateUncheckedUpdateWithoutMessagesInput>
+    create: XOR<WhatsAppTemplateCreateWithoutMessagesInput, WhatsAppTemplateUncheckedCreateWithoutMessagesInput>
+    where?: WhatsAppTemplateWhereInput
+  }
+
+  export type WhatsAppTemplateUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: WhatsAppTemplateWhereInput
+    data: XOR<WhatsAppTemplateUpdateWithoutMessagesInput, WhatsAppTemplateUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type WhatsAppTemplateUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsAppTemplateUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    variables?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueCreateWithoutTemplateInput = {
+    id?: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageQueueUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageQueueCreateOrConnectWithoutTemplateInput = {
+    where: MessageQueueWhereUniqueInput
+    create: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type MessageQueueCreateManyTemplateInputEnvelope = {
+    data: MessageQueueCreateManyTemplateInput | MessageQueueCreateManyTemplateInput[]
+  }
+
+  export type MessageQueueUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: MessageQueueWhereUniqueInput
+    update: XOR<MessageQueueUpdateWithoutTemplateInput, MessageQueueUncheckedUpdateWithoutTemplateInput>
+    create: XOR<MessageQueueCreateWithoutTemplateInput, MessageQueueUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type MessageQueueUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: MessageQueueWhereUniqueInput
+    data: XOR<MessageQueueUpdateWithoutTemplateInput, MessageQueueUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type MessageQueueUpdateManyWithWhereWithoutTemplateInput = {
+    where: MessageQueueScalarWhereInput
+    data: XOR<MessageQueueUpdateManyMutationInput, MessageQueueUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type MessageQueueScalarWhereInput = {
+    AND?: MessageQueueScalarWhereInput | MessageQueueScalarWhereInput[]
+    OR?: MessageQueueScalarWhereInput[]
+    NOT?: MessageQueueScalarWhereInput | MessageQueueScalarWhereInput[]
+    id?: StringFilter<"MessageQueue"> | string
+    templateId?: StringFilter<"MessageQueue"> | string
+    recipient?: StringFilter<"MessageQueue"> | string
+    variables?: JsonFilter<"MessageQueue">
+    status?: EnumMessageQueueStatusFilter<"MessageQueue"> | $Enums.MessageQueueStatus
+    attempts?: IntFilter<"MessageQueue"> | number
+    maxAttempts?: IntFilter<"MessageQueue"> | number
+    scheduledAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    processingAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"MessageQueue"> | Date | string | null
+    messageId?: StringNullableFilter<"MessageQueue"> | string | null
+    lastError?: StringNullableFilter<"MessageQueue"> | string | null
+    createdAt?: DateTimeFilter<"MessageQueue"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageQueue"> | Date | string
+  }
+
+  export type StudentCreateManyCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Assigned_Instructor?: string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstructorCreateManyCarInput = {
+    id?: string
+    name: string
+    mobile: string
+    licenseNumber?: string | null
+    jobType?: $Enums.JobType
+    joiningDate?: Date | string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: number | null
+    paymentDate?: number | null
+  }
+
+  export type MaintenanceItemCreateManyCarInput = {
+    id?: string
+    maintenanceScheduleId: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+  }
+
+  export type MaintenanceScheduleCreateManyCarInput = {
+    id?: string
+    serviceDate: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructor?: InstructorUpdateOneWithoutStudentsNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentUncheckedUpdateManyWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Assigned_Instructor?: NullableStringFieldUpdateOperationsInput | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstructorUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    jobType?: EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+    joiningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentCycles?: PaymentCycleUpdateManyWithoutInstructorNestedInput
+    students?: StudentUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type InstructorUncheckedUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    jobType?: EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+    joiningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentCycles?: PaymentCycleUncheckedUpdateManyWithoutInstructorNestedInput
+    students?: StudentUncheckedUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type InstructorUncheckedUpdateManyWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    jobType?: EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+    joiningDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: NullableFloatFieldUpdateOperationsInput | number | null
+    paymentDate?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type MaintenanceItemUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceSchedule?: MaintenanceScheduleUpdateOneRequiredWithoutItemsNestedInput
+  }
+
+  export type MaintenanceItemUncheckedUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceScheduleId?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    maintenanceScheduleId?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceScheduleUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: MaintenanceItemUpdateManyWithoutMaintenanceScheduleNestedInput
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: MaintenanceItemUncheckedUpdateManyWithoutMaintenanceScheduleNestedInput
+  }
+
+  export type MaintenanceScheduleUncheckedUpdateManyWithoutCarInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serviceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PaymentCycleCreateManyInstructorInput = {
     id?: string
     month: Date | string
@@ -15930,6 +28184,24 @@ export namespace Prisma {
     paidAt: Date | string
     note: string
     status?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentCreateManyInstructorInput = {
+    id?: string
+    name: string
+    mobile: string
+    packageId?: string | null
+    package_name?: string | null
+    Enrollment_status?: string
+    Course_Start_date?: Date | string | null
+    Course_End_Date?: Date | string | null
+    Total_amount: number
+    Amount_paid: number
+    Remaining_percentage: number
+    remaining_amount: number
+    Assigned_car_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15981,6 +28253,96 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StudentUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    car?: CarUpdateOneWithoutStudentsNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    Assigned_car_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentUncheckedUpdateManyWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mobile?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    package_name?: NullableStringFieldUpdateOperationsInput | string | null
+    Enrollment_status?: StringFieldUpdateOperationsInput | string
+    Course_Start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Course_End_Date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Total_amount?: IntFieldUpdateOperationsInput | number
+    Amount_paid?: IntFieldUpdateOperationsInput | number
+    Remaining_percentage?: IntFieldUpdateOperationsInput | number
+    remaining_amount?: IntFieldUpdateOperationsInput | number
+    Assigned_car_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceItemCreateManyMaintenanceScheduleInput = {
+    id?: string
+    type: $Enums.MaintenanceType
+    intervalDays?: number | null
+    nextServiceDate?: Date | string | null
+    notes?: string | null
+    carId?: string | null
+  }
+
+  export type MaintenanceItemUpdateWithoutMaintenanceScheduleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    car?: CarUpdateOneWithoutMaintenanceItemNestedInput
+  }
+
+  export type MaintenanceItemUncheckedUpdateWithoutMaintenanceScheduleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    carId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceItemUncheckedUpdateManyWithoutMaintenanceScheduleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumMaintenanceTypeFieldUpdateOperationsInput | $Enums.MaintenanceType
+    intervalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    nextServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    carId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PaymentTakenCreateManyPaymentCycleInput = {
     id?: string
     amount: number
@@ -16007,6 +28369,70 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     takenAt?: DateTimeFieldUpdateOperationsInput | Date | string
     note?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageQueueCreateManyTemplateInput = {
+    id?: string
+    recipient: string
+    variables: JsonNullValueInput | InputJsonValue
+    status?: $Enums.MessageQueueStatus
+    attempts?: number
+    maxAttempts?: number
+    scheduledAt?: Date | string
+    processingAt?: Date | string | null
+    sentAt?: Date | string | null
+    messageId?: string | null
+    lastError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageQueueUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageQueueUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recipient?: StringFieldUpdateOperationsInput | string
+    variables?: JsonNullValueInput | InputJsonValue
+    status?: EnumMessageQueueStatusFieldUpdateOperationsInput | $Enums.MessageQueueStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    maxAttempts?: IntFieldUpdateOperationsInput | number
+    scheduledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processingAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

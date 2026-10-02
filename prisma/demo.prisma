@@ -1,0 +1,5 @@
+model DemoStatus {
+  id        String   @id @default(uuid())
+  isDemo    Boolean  @default(true)
+  startDate DateTime @default(now())
+}

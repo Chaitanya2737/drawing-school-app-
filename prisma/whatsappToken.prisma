@@ -1,0 +1,13 @@
+model WhatsAppToken {
+  id                 String   @id @default(uuid())
+  wabaId             String
+  accessToken        String
+  phoneNumberId      String
+  status             String
+  schoolId           String
+  displayPhoneNumber String?
+  verifiedName       String?
+  safeMode           Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}

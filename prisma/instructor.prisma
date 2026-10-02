@@ -1,17 +1,19 @@
 model Instructor {
-  id     String @id @default(uuid())
-  name   String
-  mobile String
-
+  id            String         @id @default(uuid())
+  name          String
+  mobile        String
   licenseNumber String?
-  jobType       JobType   @default(INSTRUCTOR)
+  jobType       JobType        @default(INSTRUCTOR)
   joiningDate   DateTime?
-  isActive      Boolean   @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  payment       Float?         @default(0)
+  paymentDate   Int?
+  assignedCarId String?
+  car           Car?           @relation(fields: [assignedCarId], references: [id])
   paymentCycles PaymentCycle[]
+  students      Student[]
 }
 
 enum JobType {

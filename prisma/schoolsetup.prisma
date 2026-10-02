@@ -1,6 +1,6 @@
 model SchoolSetUp {
   id             String   @id @default(uuid())
-  systemId       String?
+  systemID       String?
   school_name    String
   support_Email  String
   address        String

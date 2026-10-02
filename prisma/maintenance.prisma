@@ -1,0 +1,52 @@
+model MaintenanceSchedule {
+  id String @id @default(uuid())
+
+  carId String
+  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  serviceDate DateTime
+  notes       String?
+
+  items MaintenanceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MaintenanceItem {
+  id String @id @default(uuid())
+
+  maintenanceScheduleId String
+  maintenanceSchedule   MaintenanceSchedule @relation(fields: [maintenanceScheduleId], references: [id], onDelete: Cascade)
+
+  type            MaintenanceType
+  intervalDays    Int?
+  nextServiceDate DateTime?
+
+  notes String?
+  car   Car?    @relation(fields: [carId], references: [id])
+  carId String?
+}
+
+enum MaintenanceType {
+  OIL_CHANGE
+  OIL_FILTER
+  AIR_FILTER
+  TYRE_CHECK
+  TYRE_REPLACEMENT
+  BRAKE_CHECK
+  BRAKE_PAD_REPLACEMENT
+  BATTERY_CHECK
+  BATTERY_REPLACEMENT
+  ENGINE_CHECK
+  COOLANT
+  BRAKE_FLUID
+  TRANSMISSION_FLUID
+  AC_SERVICE
+  WHEEL_ALIGNMENT
+  WHEEL_BALANCING
+  GENERAL_CHECKUP
+  REPAIR
+  CAR_WASH
+  POLISHING
+}

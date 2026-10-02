@@ -1,11 +1,16 @@
 import { PrismaClient } from '../../generated/prisma/index.js';
-
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 
-// In Prisma v7, you pass a config object instead of the Database instance directly
-const adapter = new PrismaBetterSqlite3({
-  url: 'file:./dev.db'
-});
-const prisma = new PrismaClient({ adapter });
+const prismaClientSingleton = () => {
+  const adapter = new PrismaBetterSqlite3({
+    url: 'file:./dev.db'
+  });
+  return new PrismaClient({ adapter });
+}
+
+const globalForPrisma = globalThis;
+const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export default prisma;

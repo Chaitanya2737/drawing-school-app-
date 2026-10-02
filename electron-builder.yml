@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2026 Yoshihide Shiono
+appId: com.vedayana.drawingpro
+productName: Drawing Pro
+copyright: Copyright © 2026 Vedayana Technology
 directories:
   output: dist
   buildResources: resources

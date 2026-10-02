@@ -1,4 +1,5 @@
 import React from 'react';
+import { MiniCalendar } from '../ui/MiniCalendar';
 
 export function OverviewTab() {
   const chartData = [
@@ -156,8 +157,14 @@ export function OverviewTab() {
           </div>
         </div>
 
+        {/* Mini Calendar (Middle Column) */}
+        <div className="bg-white dark:bg-[#1e222d] p-6 rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm flex flex-col transition-colors duration-300">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-[#f2e9de] mb-4">Upcoming Schedule</h3>
+          <MiniCalendar />
+        </div>
+
         {/* Action Items / Alerts */}
-        <div className="lg:col-span-2 bg-white dark:bg-[#1e222d] p-6 rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm flex flex-col transition-colors duration-300">
+        <div className="bg-white dark:bg-[#1e222d] p-6 rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm flex flex-col transition-colors duration-300">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold text-gray-900 dark:text-[#f2e9de]">Needs Attention</h3>
             <span className="bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2.5 py-0.5 rounded-full text-xs font-bold">3 Tasks</span>

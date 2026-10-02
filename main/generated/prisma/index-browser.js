@@ -135,15 +135,32 @@ exports.Prisma.AttendanceScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CalendarEventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  date: 'date',
+  type: 'type',
+  description: 'description',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CarScalarFieldEnum = {
   id: 'id',
   name: 'name',
   transmission: 'transmission',
   assigned_instructor: 'assigned_instructor',
-  car_year: 'car_year',
   car_Number: 'car_Number',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  car_year: 'car_year',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DemoStatusScalarFieldEnum = {
+  id: 'id',
+  isDemo: 'isDemo',
+  startDate: 'startDate'
 };
 
 exports.Prisma.SetupChecklistScalarFieldEnum = {
@@ -165,7 +182,29 @@ exports.Prisma.InstructorScalarFieldEnum = {
   joiningDate: 'joiningDate',
   isActive: 'isActive',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  payment: 'payment',
+  paymentDate: 'paymentDate',
+  assignedCarId: 'assignedCarId'
+};
+
+exports.Prisma.MaintenanceScheduleScalarFieldEnum = {
+  id: 'id',
+  carId: 'carId',
+  serviceDate: 'serviceDate',
+  notes: 'notes',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MaintenanceItemScalarFieldEnum = {
+  id: 'id',
+  maintenanceScheduleId: 'maintenanceScheduleId',
+  type: 'type',
+  intervalDays: 'intervalDays',
+  nextServiceDate: 'nextServiceDate',
+  notes: 'notes',
+  carId: 'carId'
 };
 
 exports.Prisma.PackageScalarFieldEnum = {
@@ -202,7 +241,7 @@ exports.Prisma.ScheduleScalarFieldEnum = {
 
 exports.Prisma.SchoolSetUpScalarFieldEnum = {
   id: 'id',
-  systemId: 'systemId',
+  systemID: 'systemID',
   school_name: 'school_name',
   support_Email: 'support_Email',
   address: 'address',
@@ -215,7 +254,6 @@ exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
   name: 'name',
   mobile: 'mobile',
-  email: 'email',
   packageId: 'packageId',
   package_name: 'package_name',
   Enrollment_status: 'Enrollment_status',
@@ -226,11 +264,52 @@ exports.Prisma.StudentScalarFieldEnum = {
   Amount_paid: 'Amount_paid',
   Remaining_percentage: 'Remaining_percentage',
   remaining_amount: 'remaining_amount',
-  Thank_you_msg: 'Thank_you_msg',
-  Welcome_msg: 'Welcome_msg',
-  Remainder_msg: 'Remainder_msg',
-  Balance_remaining_date: 'Balance_remaining_date',
   Assigned_car_id: 'Assigned_car_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageQueueScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  recipient: 'recipient',
+  variables: 'variables',
+  status: 'status',
+  attempts: 'attempts',
+  maxAttempts: 'maxAttempts',
+  scheduledAt: 'scheduledAt',
+  processingAt: 'processingAt',
+  sentAt: 'sentAt',
+  messageId: 'messageId',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WhatsAppTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  clientId: 'clientId',
+  templateId: 'templateId',
+  language: 'language',
+  category: 'category',
+  status: 'status',
+  body: 'body',
+  variables: 'variables',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WhatsAppTokenScalarFieldEnum = {
+  id: 'id',
+  wabaId: 'wabaId',
+  accessToken: 'accessToken',
+  phoneNumberId: 'phoneNumberId',
+  status: 'status',
+  schoolId: 'schoolId',
+  displayPhoneNumber: 'displayPhoneNumber',
+  verifiedName: 'verifiedName',
+  safeMode: 'safeMode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -240,9 +319,29 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 exports.AttendanceStatus = exports.$Enums.AttendanceStatus = {
   NOT_TAKEN: 'NOT_TAKEN',
@@ -257,6 +356,29 @@ exports.JobType = exports.$Enums.JobType = {
   RECEPTION: 'RECEPTION'
 };
 
+exports.MaintenanceType = exports.$Enums.MaintenanceType = {
+  OIL_CHANGE: 'OIL_CHANGE',
+  OIL_FILTER: 'OIL_FILTER',
+  AIR_FILTER: 'AIR_FILTER',
+  TYRE_CHECK: 'TYRE_CHECK',
+  TYRE_REPLACEMENT: 'TYRE_REPLACEMENT',
+  BRAKE_CHECK: 'BRAKE_CHECK',
+  BRAKE_PAD_REPLACEMENT: 'BRAKE_PAD_REPLACEMENT',
+  BATTERY_CHECK: 'BATTERY_CHECK',
+  BATTERY_REPLACEMENT: 'BATTERY_REPLACEMENT',
+  ENGINE_CHECK: 'ENGINE_CHECK',
+  COOLANT: 'COOLANT',
+  BRAKE_FLUID: 'BRAKE_FLUID',
+  TRANSMISSION_FLUID: 'TRANSMISSION_FLUID',
+  AC_SERVICE: 'AC_SERVICE',
+  WHEEL_ALIGNMENT: 'WHEEL_ALIGNMENT',
+  WHEEL_BALANCING: 'WHEEL_BALANCING',
+  GENERAL_CHECKUP: 'GENERAL_CHECKUP',
+  REPAIR: 'REPAIR',
+  CAR_WASH: 'CAR_WASH',
+  POLISHING: 'POLISHING'
+};
+
 exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   PENDING: 'PENDING',
   PARTIALLY_PAID: 'PARTIALLY_PAID',
@@ -264,22 +386,31 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   CANCELLED: 'CANCELLED'
 };
 
-exports.Enrollment_status = exports.$Enums.Enrollment_status = {
-  ENQUIRY: 'ENQUIRY',
-  CHOSEN: 'CHOSEN'
+exports.MessageQueueStatus = exports.$Enums.MessageQueueStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SENT: 'SENT',
+  FAILED: 'FAILED'
 };
 
 exports.Prisma.ModelName = {
   PaymentTaken: 'PaymentTaken',
   Attendance: 'Attendance',
+  CalendarEvent: 'CalendarEvent',
   Car: 'Car',
+  DemoStatus: 'DemoStatus',
   SetupChecklist: 'SetupChecklist',
   Instructor: 'Instructor',
+  MaintenanceSchedule: 'MaintenanceSchedule',
+  MaintenanceItem: 'MaintenanceItem',
   Package: 'Package',
   PaymentCycle: 'PaymentCycle',
   Schedule: 'Schedule',
   SchoolSetUp: 'SchoolSetUp',
-  Student: 'Student'
+  Student: 'Student',
+  MessageQueue: 'MessageQueue',
+  WhatsAppTemplate: 'WhatsAppTemplate',
+  WhatsAppToken: 'WhatsAppToken'
 };
 
 /**

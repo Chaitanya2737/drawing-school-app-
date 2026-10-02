@@ -1,26 +1,20 @@
 model PaymentTaken {
-  id String @id @default(uuid())
-
+  id             String       @id @default(uuid())
   paymentCycleId String
+  amount         Int
+  takenAt        DateTime     @default(now())
+  note           String
   paymentCycle   PaymentCycle @relation(fields: [paymentCycleId], references: [id])
-
-  amount  Int
-  takenAt DateTime @default(now())
-  note    String
 }
 
 model Attendance {
-  id String @id @default(uuid())
-
+  id           String           @id @default(uuid())
   instructorId String
-
-  date   DateTime
-  status AttendanceStatus @default(NOT_TAKEN)
-
-  note String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  date         DateTime
+  status       AttendanceStatus @default(NOT_TAKEN)
+  note         String
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
 
   @@unique([instructorId, date])
   @@index([date])
@@ -34,15 +28,37 @@ enum AttendanceStatus {
   LEAVE
 }
 
+model CalendarEvent {
+  id          String   @id @default(uuid())
+  title       String
+  date        String // Format: YYYY-MM-DD
+  type        String   @default("TASK") // e.g. "HOLIDAY", "TASK", "SCHEDULE"
+  description String?
+  color       String? // Optional color for the UI
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Car {
-  id                  String   @id @default(uuid())
+  id                  String  @id @default(uuid())
   name                String
   transmission        String
-  assigned_instructor String
-  car_year            String
+  assigned_instructor String?
   car_Number          String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  car_year            String
+
+  updatedAt            DateTime              @updatedAt
+  createdAt            DateTime              @default(now())
+  students             Student[]
+  instructors          Instructor[]
+  maintenanceItem      MaintenanceItem[]
+  maintenanceSchedules MaintenanceSchedule[]
+}
+
+model DemoStatus {
+  id        String   @id @default(uuid())
+  isDemo    Boolean  @default(true)
+  startDate DateTime @default(now())
 }
 
 model SetupChecklist {
@@ -56,24 +72,79 @@ model SetupChecklist {
 }
 
 model Instructor {
-  id     String @id @default(uuid())
-  name   String
-  mobile String
-
+  id            String         @id @default(uuid())
+  name          String
+  mobile        String
   licenseNumber String?
-  jobType       JobType   @default(INSTRUCTOR)
+  jobType       JobType        @default(INSTRUCTOR)
   joiningDate   DateTime?
-  isActive      Boolean   @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  payment       Float?         @default(0)
+  paymentDate   Int?
+  assignedCarId String?
+  car           Car?           @relation(fields: [assignedCarId], references: [id])
   paymentCycles PaymentCycle[]
+  students      Student[]
 }
 
 enum JobType {
   INSTRUCTOR
   RECEPTION
+}
+
+model MaintenanceSchedule {
+  id String @id @default(uuid())
+
+  carId String
+  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  serviceDate DateTime
+  notes       String?
+
+  items MaintenanceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MaintenanceItem {
+  id String @id @default(uuid())
+
+  maintenanceScheduleId String
+  maintenanceSchedule   MaintenanceSchedule @relation(fields: [maintenanceScheduleId], references: [id], onDelete: Cascade)
+
+  type            MaintenanceType
+  intervalDays    Int?
+  nextServiceDate DateTime?
+
+  notes String?
+  car   Car?    @relation(fields: [carId], references: [id])
+  carId String?
+}
+
+enum MaintenanceType {
+  OIL_CHANGE
+  OIL_FILTER
+  AIR_FILTER
+  TYRE_CHECK
+  TYRE_REPLACEMENT
+  BRAKE_CHECK
+  BRAKE_PAD_REPLACEMENT
+  BATTERY_CHECK
+  BATTERY_REPLACEMENT
+  ENGINE_CHECK
+  COOLANT
+  BRAKE_FLUID
+  TRANSMISSION_FLUID
+  AC_SERVICE
+  WHEEL_ALIGNMENT
+  WHEEL_BALANCING
+  GENERAL_CHECKUP
+  REPAIR
+  CAR_WASH
+  POLISHING
 }
 
 model Package {
@@ -85,14 +156,10 @@ model Package {
 }
 
 model PaymentCycle {
-  id String @id @default(uuid())
-
-  instructorId String
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
-
+  id            String         @id @default(uuid())
+  instructorId  String
   month         DateTime
   amountTaken   Int            @default(0)
-  // Payment
   baseAmount    Int
   deductions    Int
   bonus         Int
@@ -100,10 +167,10 @@ model PaymentCycle {
   paidAt        DateTime
   note          String
   status        PaymentStatus  @default(PENDING)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  instructor    Instructor     @relation(fields: [instructorId], references: [id])
   paymentsTaken PaymentTaken[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([instructorId, month])
 }
@@ -123,11 +190,6 @@ model Schedule {
   Car_id        String
 }
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output   = "../main/generated/prisma"
@@ -139,7 +201,7 @@ datasource db {
 
 model SchoolSetUp {
   id             String   @id @default(uuid())
-  systemId       String?
+  systemID       String?
   school_name    String
   support_Email  String
   address        String
@@ -149,39 +211,94 @@ model SchoolSetUp {
 }
 
 model Student {
-  id     String @id @default(uuid())
-  name   String
-  mobile String
-  email  String
-
-  packageId         String?
-  package_name      String?
-  Enrollment_status Enrollment_status @default(CHOSEN)
-  Course_Start_date DateTime?
-  Course_End_Date   DateTime?
-
+  id                  String    @id @default(uuid())
+  name                String
+  mobile              String
+  packageId           String?
+  package_name        String?
+  Enrollment_status   String    @default("CHOSEN")
+  Course_Start_date   DateTime?
+  Course_End_Date     DateTime?
   Assigned_Instructor String?
+
+  instructor Instructor? @relation(fields: [Assigned_Instructor], references: [id])
+  car        Car?        @relation(fields: [Assigned_car_id], references: [id])
 
   Total_amount         Int
   Amount_paid          Int
   Remaining_percentage Int
   remaining_amount     Int
 
-  //Whatsapp automation 
+  Assigned_car_id String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
 
-  Thank_you_msg          String
-  Welcome_msg            String
-  Remainder_msg          String
-  Balance_remaining_date DateTime?
+model MessageQueue {
+  id String @id @default(uuid())
 
-  Assigned_car_id String
+  templateId String
+  template   WhatsAppTemplate @relation(fields: [templateId], references: [id])
 
-  // Timestamp
+  recipient String
+  variables Json
+
+  status MessageQueueStatus @default(PENDING)
+
+  attempts    Int @default(0)
+  maxAttempts Int @default(3)
+
+  scheduledAt  DateTime  @default(now())
+  processingAt DateTime?
+  sentAt       DateTime?
+
+  messageId String?
+  lastError String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([scheduledAt])
+}
+
+enum MessageQueueStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
+model WhatsAppTemplate {
+  id String @id @default(uuid())
+
+  name     String  @unique
+  clientId String?
+
+  templateId String?
+  language   String
+  category   String
+  status     String
+
+  body      String?
+  variables Json?
+
+  messages MessageQueue[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum Enrollment_status {
-  ENQUIRY
-  CHOSEN
+model WhatsAppToken {
+  id                 String   @id @default(uuid())
+  wabaId             String
+  accessToken        String
+  phoneNumberId      String
+  status             String
+  schoolId           String
+  displayPhoneNumber String?
+  verifiedName       String?
+  safeMode           Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }

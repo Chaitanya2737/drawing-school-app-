@@ -1,0 +1,19 @@
+model WhatsAppTemplate {
+  id String @id @default(uuid())
+
+  name     String @unique
+  clientId String?
+
+  templateId String?
+  language   String
+  category   String
+  status     String
+
+  body      String?
+  variables Json?
+
+  messages MessageQueue[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

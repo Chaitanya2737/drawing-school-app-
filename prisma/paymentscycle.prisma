@@ -1,12 +1,8 @@
 model PaymentCycle {
-  id String @id @default(uuid())
-
-  instructorId String
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
-
+  id            String         @id @default(uuid())
+  instructorId  String
   month         DateTime
   amountTaken   Int            @default(0)
-  // Payment
   baseAmount    Int
   deductions    Int
   bonus         Int
@@ -14,10 +10,10 @@ model PaymentCycle {
   paidAt        DateTime
   note          String
   status        PaymentStatus  @default(PENDING)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  instructor    Instructor     @relation(fields: [instructorId], references: [id])
   paymentsTaken PaymentTaken[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@unique([instructorId, month])
 }

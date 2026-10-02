@@ -1,7 +1,19 @@
 import express from 'express'
 import cors from 'cors'
-import setUpStatus from "../server/routes/setup.route/setup.js"
 
+import setUpStatus from "../server/routes/setup.route/setup.js"
+import schoolSetUp from '../server/routes/setup.route/setupdata.route/setupdata.route.js'
+import student from "../server/routes/student.route/create.student.route.js"
+import instructor from "../server/routes/instructor.route/instructor.route.js"
+import car from "../server/routes/car.route/car.route.js"
+import schedule from "../server/routes/schedule.route/schedule.route.js"
+import demo from "../server/routes/demo.route/demo.route.js"
+import messageRoute from "../server/routes/message.route/message.route.js"
+import whatsappRoute from "../server/routes/whatsapp.route/whatsapp.route.js"
+import calendarRoute from "../server/routes/calendar.route/calendar.route.js"
+import { initMessageWorker } from '../worker/messageWorker.js'
+import { initPayrollWorker } from '../worker/payrollWorker.js'
+// ✅ CORRECT
 export function startExpressServer() {
   try {
     const expressApp = express()
@@ -9,20 +21,46 @@ export function startExpressServer() {
 
     // Middleware
     expressApp.use(cors())
+
+    // Parse JSON request body
     expressApp.use(express.json())
 
-    // Routes
+    // Parse form data
+    expressApp.use(express.urlencoded({ extended: true }))
+
+
+    // Test API
     expressApp.get('/api', (req, res) => {
-      res.json({ message: 'Express API working perfectly from Electron!' })
+      res.json({
+        message: 'Express API working perfectly from Electron!'
+      })
     })
 
 
-    expressApp.use("/api" , setUpStatus)
+    // Routes
+    expressApp.use("/api", setUpStatus)
+    expressApp.use("/api", schoolSetUp)
+    expressApp.use("/api", student)
+    expressApp.use("/api", instructor)
+    expressApp.use("/api", car)
+    expressApp.use("/api", schedule)
+    expressApp.use("/api", demo)
+    expressApp.use("/api", messageRoute)
+    expressApp.use("/api", whatsappRoute)
+    expressApp.use("/api", calendarRoute)
 
-    // Start Server with Error Handling
+
+
+    // Start Server
     const server = expressApp.listen(port, '0.0.0.0', () => {
       console.log(`✅ Background Express Server running on port ${port}`)
     })
+    
+    // Start Background Workers
+    initMessageWorker();
+    initPayrollWorker();
+
+
 
     server.on('error', (err) => {
       if (err.code === 'EADDRINUSE') {

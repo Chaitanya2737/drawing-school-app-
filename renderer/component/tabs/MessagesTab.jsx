@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -14,29 +14,111 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../component/ui/select";
+import { fetchApi } from "@/lib/api";
 
 export function MessagesTab() {
-  const messages = [
-    { id: "MSG-001", student: "Alice Johnson", phone: "+1 (555) 123-4567", type: "Welcome & Onboarding", status: "Sent", time: "Today, 10:45 AM" },
-    { id: "MSG-002", student: "Mike Smith", phone: "+1 (555) 987-6543", type: "Balance Payment Reminder", status: "Pending", time: "Scheduled: Tomorrow, 9:00 AM" },
-    { id: "MSG-003", student: "Emma Davis", phone: "+1 (555) 456-7890", type: "Visitor Follow-up", status: "Sent", time: "Yesterday, 04:30 PM" },
-    { id: "MSG-004", student: "James Wilson", phone: "+1 (555) 234-5678", type: "Course Completion", status: "Failed", time: "Today, 11:15 AM" },
-    { id: "MSG-005", student: "Sarah Connor", phone: "+1 (555) 345-6789", type: "Balance Payment Reminder", status: "Sent", time: "Today, 09:00 AM" },
-    { id: "MSG-006", student: "John Doe", phone: "+1 (555) 876-5432", type: "Welcome & Onboarding", status: "Pending", time: "Processing..." },
-  ];
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [queueStatus, setQueueStatus] = useState({ isRunning: false, isProcessing: false });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All Status");
+
+  useEffect(() => {
+    fetchMessages();
+    fetchQueueStatus();
+    
+    // Poll for queue status and refresh messages every 3 seconds
+    const interval = setInterval(() => {
+      fetchQueueStatus();
+      fetchMessages(true); // pass true to avoid resetting loading spinner to true
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchQueueStatus = async () => {
+    try {
+      const res = await fetchApi("/messages/status");
+      const data = await res.json();
+      if (data.status) {
+        setQueueStatus(data.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch queue status:", error);
+    }
+  };
+
+  const fetchMessages = async (quiet = false) => {
+    try {
+      const res = await fetchApi("/messages");
+      const data = await res.json();
+      if (data.status) {
+        setMessages(data.data);
+        console.log("🖥️ Frontend Messages State Updated:", data.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch messages:", error);
+    } finally {
+      if (!quiet) setLoading(false);
+    }
+  };
+
+  const formatTime = (dateStr) => {
+    if (!dateStr) return "N/A";
+    const date = new Date(dateStr);
+    return date.toLocaleString();
+  };
+
+  const getStatusFormat = (statusStr) => {
+    if (!statusStr) return "Pending";
+    return statusStr.charAt(0).toUpperCase() + statusStr.slice(1).toLowerCase();
+  };
+
+  // Filter messages based on search query and status filter
+  const filteredMessages = messages.filter((msg) => {
+    const searchLower = searchQuery.toLowerCase();
+    const studentName = msg.variables?.name?.toLowerCase() || '';
+    const phone = msg.recipient?.toLowerCase() || '';
+    
+    const matchesSearch = !searchQuery || studentName.includes(searchLower) || phone.includes(searchLower);
+    
+    const formattedStatus = getStatusFormat(msg.status);
+    const matchesStatus = statusFilter === "All Status" || formattedStatus === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="space-y-6">
+      {/* Processing Warning Banner */}
+      {queueStatus.isProcessing && (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 rounded-r-lg shadow-sm">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-yellow-500 dark:text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700 dark:text-yellow-500 font-medium">
+                Message Queue is actively processing ({queueStatus.pendingCount} pending). Please do not close the application!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-[#1e222d] p-4 rounded-xl border border-gray-200 dark:border-[#2c3242] shadow-sm transition-colors duration-300">
         <div className="flex items-center space-x-4 w-full sm:w-auto">
           <input 
             type="text" 
             placeholder="Search by student or phone..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full sm:w-64 bg-gray-50 dark:bg-[#171a22] border border-gray-300 dark:border-[#3a3d45] rounded-lg px-4 py-2 text-gray-900 dark:text-[#f2e9de] placeholder-gray-400 dark:placeholder-[#5a5f6e] focus:outline-none focus:border-[#c1552c] focus:ring-1 focus:ring-[#c1552c] transition-colors"
           />
           <div className="w-40 hidden sm:block">
-            <Select defaultValue="All Status">
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="bg-gray-50 dark:bg-[#171a22]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -44,6 +126,7 @@ export function MessagesTab() {
                 <SelectItem value="All Status">All Status</SelectItem>
                 <SelectItem value="Sent">Sent</SelectItem>
                 <SelectItem value="Pending">Pending</SelectItem>
+                <SelectItem value="Processing">Processing</SelectItem>
                 <SelectItem value="Failed">Failed</SelectItem>
               </SelectContent>
             </Select>
@@ -76,44 +159,57 @@ export function MessagesTab() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {messages.map((msg, i) => (
-              <TableRow key={i} className="group cursor-pointer">
-                <TableCell>
-                  <span className="text-xs font-mono text-gray-500 dark:text-[#8a8d96]">{msg.id}</span>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <div className="font-semibold text-gray-900 dark:text-[#f2e9de]">{msg.student}</div>
-                    <div className="text-xs text-gray-500 dark:text-[#8a8d96]">{msg.phone}</div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
-                    {msg.type}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border flex items-center w-fit ${
-                    msg.status === 'Sent' ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/50' : 
-                    msg.status === 'Pending' ? 'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-500 dark:border-yellow-800/50' : 
-                    'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50'
-                  }`}>
-                    {msg.status === 'Sent' && <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>}
-                    {msg.status === 'Pending' && <svg className="w-3 h-3 mr-1 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>}
-                    {msg.status === 'Failed' && <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12"></path></svg>}
-                    {msg.status}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <div className="text-sm text-gray-500 dark:text-[#8a8d96]">{msg.time}</div>
-                </TableCell>
-                <TableCell className="text-right">
-                  <button className="text-sm font-medium text-[#c1552c] hover:underline">
-                    View
-                  </button>
-                </TableCell>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-4">Loading messages...</TableCell>
               </TableRow>
-            ))}
+            ) : filteredMessages.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-4">No messages found.</TableCell>
+              </TableRow>
+            ) : (
+              filteredMessages.map((msg, i) => {
+                const formattedStatus = getStatusFormat(msg.status);
+                return (
+                  <TableRow key={i} className="group cursor-pointer">
+                    <TableCell>
+                      <span className="text-xs font-mono text-gray-500 dark:text-[#8a8d96]">{msg.id.substring(0,8)}</span>
+                    </TableCell>
+                    <TableCell>
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-[#f2e9de]">{msg.variables?.name || 'Unknown'}</div>
+                        <div className="text-xs text-gray-500 dark:text-[#8a8d96]">{msg.recipient}</div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-sm font-medium text-gray-700 dark:text-[#cfd3da]">
+                        {msg.template?.name || "Manual Message"}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border flex items-center w-fit ${
+                        formattedStatus === 'Sent' ? 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800/50' : 
+                        (formattedStatus === 'Pending' || formattedStatus === 'Processing') ? 'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-500 dark:border-yellow-800/50' : 
+                        'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50'
+                      }`}>
+                        {formattedStatus === 'Sent' && <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>}
+                        {(formattedStatus === 'Pending' || formattedStatus === 'Processing') && <svg className="w-3 h-3 mr-1 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>}
+                        {formattedStatus === 'Failed' && <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12"></path></svg>}
+                        {formattedStatus}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <div className="text-sm text-gray-500 dark:text-[#8a8d96]">{formatTime(msg.createdAt)}</div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <button className="text-sm font-medium text-[#c1552c] hover:underline">
+                        View
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
           </TableBody>
         </Table>
       </div>

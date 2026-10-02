@@ -41,3 +41,4 @@ $ npm run build (or `yarn build` or `pnpm run build`)
 ```
 # drawing-school-app-
 # drawing-school-app-
+# drawing-school-frontend

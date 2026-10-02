@@ -17,16 +17,11 @@ import { startExpressServer } from './server/server.js'
 // --- Database Initialization ---
 function initializeDatabase() {
   try {
-    console.log("Checking and syncing database tables...");
-    // Safely pushes the Prisma schema to the SQLite DB, creating missing tables
-    execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-    console.log("Database tables are ready to go!");
+    console.log("Database initialized on startup.");
+    // NOTE: You cannot run `npx prisma db push` in a production Electron app.
+    // The database tables must already be created, and the dev.db file should be bundled.
   } catch (error) {
     console.error("Failed to initialize database tables:", error);
-    new Notification({
-      title: 'Database Error',
-      body: 'Failed to initialize the database tables on startup.'
-    }).show();
   }
 }
 // -------------------------------

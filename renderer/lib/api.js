@@ -1,5 +1,5 @@
-export const LOGIN_URL = "http://localhost:3000";
-export const AUTH_LOGIN_API = "http://localhost:3000/api/auth/login";
+export const LOGIN_URL = "https://backend-for-drawing-school.vercel.app";
+export const AUTH_LOGIN_API = "https://backend-for-drawing-school.vercel.app/api/auth/login";
 
 export const setServerIpAddress = (ip) => {
   if (typeof window !== "undefined") {

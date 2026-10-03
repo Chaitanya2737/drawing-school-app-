@@ -63,10 +63,8 @@ export function AuthPage({ mode = "login" }) {
           payload.businessName = businessOrMobile;
         }
 
-        const apiUrl =
-          process.env.NODE_ENV === "production"
-            ? "http://localhost:3000/api/auth/login"
-            : "/api/auth/login";
+        const apiUrl = "https://backend-for-drawing-school.vercel.app/api/auth/login";
+           
 
         const response = await fetch(apiUrl, {
           method: "POST",
@@ -116,7 +114,7 @@ export function AuthPage({ mode = "login" }) {
 
         const apiUrl =
           process.env.NODE_ENV === "production"
-            ? "http://localhost:3000/api/auth/register"
+            ? "https://backend-for-drawing-school.vercel.app/api/auth/register"
             : "/api/auth/register";
 
         const response = await fetch(apiUrl, {
